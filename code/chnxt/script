@@ -1,0 +1,6 @@
+#!/bin/ch
+
+nmake uninstal
+nmake createpkg
+cd chnxt-1.0.7/
+nmake install

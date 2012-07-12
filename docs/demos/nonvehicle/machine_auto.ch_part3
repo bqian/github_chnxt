@@ -1,0 +1,8 @@
+/* Stop interfacing. This also stops the motors and sensors.*/
+nxt.disconnect();
+printf("\n");
+
+//plot data in CH
+plot.data2DCurve(angle, distance, numpoints);
+plot.grid(PLOT_ON);
+plot.plotting();

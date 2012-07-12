@@ -1,0 +1,38 @@
+/*File name: vehicle_rtc.ch
+
+  The purpose of this demo is to demonstrate the CH Mindstorms
+  Control Package's ability to control the machine robot model,
+  As well as demonstrate how to get and use sensor data. */
+#include <conio.h>
+#include <stdio.h>
+#include <nxt.h>
+
+ChNXT nxt;
+double speedRatio = 0.25;	//speedRatio of the motors. (default to 25)
+int quit = 0,	//used by quit case to exit the loop
+    status1,	//used to check for errors
+    status2;	//used to check for errors
+char key = 'x',	//stores the input from the user
+     movemode = 'x';//stores the last movement command
+
+/* Connect to NXT */
+printf("Initializing vehicle and assuming control...");
+if (nxt.connect()) {
+    printf("\nPress any key to exit.\n");
+    while (!_kbhit()); //wait for keypress
+    exit(0);
+}
+
+/* GUI display */
+printf("Vehicle Direction:  Other Commands:");
+printf("\n    [w]               [x] Stop Motors");
+printf("\n [q] ^ [e]            [r] Exit Program");
+printf("\n    \\|/               [1] Set SpeedRatio to 0.25");
+printf("\n[a]<-|->[d]           [2] Set SpeedRatio to 0.50");
+printf("\n     v                [3] Set SpeedRatio to 0.75");
+printf("\n    [s]               [4] Set SpeedRatio to 1\n");
+printf("Please Enter command:");
+
+/* Control loop. Interprets user command and does action*/
+while (quit != 1 ) {
+    key = _getch();

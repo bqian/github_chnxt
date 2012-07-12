@@ -1,0 +1,48 @@
+/* File name: humanoid_rtc.ch
+   
+   The purpose of this demo is to demonstrate the CH Mindstorms
+   Control Package's ability to control the Humanoid Robot Model,
+   as well as demonstrate how to get sensor data. */
+#include <conio.h>
+#include <stdio.h>
+#include <nxt.h>
+
+ChNXT nxt;
+double speedRatio = 0.25;//speedRatio of the motors. (default to 25)
+int quit = 0,	//used by quit case to exit the loop
+    status1,	//used to check for errors
+    status2,	//used to check for errors
+    status3,	//used to check for errors
+    status4;	//used to check for errors
+char key = 'x',	//stores the input from the user
+     movemode = 'x';//stores the last movement command
+
+/* Connect to NXT */
+printf("Initializing vehicle and assuming control...");
+if (nxt.connect()) {
+    printf("\nPress and key to exit.\n");
+    while (!_kbhit()); //wait for keypress
+    exit(0);
+}
+
+/* Set sensor types */
+status1 = nxt.setSensor(NXT_SENSORPORT1, 
+        NXT_SENSORTYPE_TOUCH, NXT_SENSORMODE_BOOLEANMODE);
+status2 = nxt.setSensor(NXT_SENSORPORT2, 
+        NXT_SENSORTYPE_SOUND_DB, NXT_SENSORMODE_RAWMODE);
+status3 = nxt.setSensor(NXT_SENSORPORT3, 
+        NXT_SENSORTYPE_LIGHT_INACTIVE, NXT_SENSORMODE_RAWMODE);
+status4 = nxt.setSensor(NXT_SENSORPORT4, 
+        NXT_SENSORTYPE_ULTRASONIC, NXT_SENSORMODE_RAWMODE);
+if ((status1) || (status2) || (status3)
+        || (status4)) {
+    printf("\nError initializing sensors.\nPress any key to exit.\n");
+    while (!_kbhit()); //wait for key press
+    exit(0);
+}
+
+/* GUI display */
+printf("Vehicle Direction:  Other Commands:");
+printf("\n     [w]           [x] Stop all Motors");
+printf("\n      ^            [r] Exit Program");
+printf("\n      |            [1] Set Speed Ratio to 0.25");

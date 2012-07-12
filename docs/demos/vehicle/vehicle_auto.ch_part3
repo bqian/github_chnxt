@@ -1,0 +1,7 @@
+    /* Turn motors on (drive forward) */
+    nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
+    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+}
+/* stop interfacing. This also stops the motors. */
+nxt.disconnect();   

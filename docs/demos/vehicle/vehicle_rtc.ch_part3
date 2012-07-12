@@ -1,0 +1,5 @@
+    }
+}
+
+/* disconnect from NXT */
+nxt.disconnect(); 

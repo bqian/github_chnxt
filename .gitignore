@@ -1,0 +1,32 @@
+# a list of files ignored
+*.pdf
+*.old
+test*
+mobot*
+# in code/chnxt/
+*.chf
+!chnxt.chf
+*.obj
+*.lib
+*.zip
+# in code/demos/Windows
+code/demos/iMobotController_Windows/
+!code/demos/iMobotController_Windows/iMobotController_Windows/*.cpp
+!code/demos/iMobotController_Windows/iMobotController_Windows/*.h
+# in docs/
+*.aux
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.tex
+*.toc
+*.ppt
+*.sty
+*.doc
+*.txt
+code/demos/iMobotController_Windows.old/
+code/demos/WinGUI/
+docs/figure/

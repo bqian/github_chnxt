@@ -1,0 +1,21 @@
+    }else if (ultraValue < 50){
+        speedRatio = 0.50;
+    }else if (ultraValue< 100){
+        speedRatio = 0.75;
+    }else if (ultraValue< 200){
+        speedRatio = 1;
+    }else{
+        speedRatio = 0.75;
+    }
+
+    /* Move forward (constantly)*/
+    nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
+    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+}
+
+/* Stop the motors*/
+nxt.stopTwoJoints(NXT_JOINT2, NXT_JOINT3);
+
+/*Disconnect NXT*/
+nxt.disconnect();

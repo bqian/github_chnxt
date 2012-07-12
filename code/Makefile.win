@@ -1,0 +1,11 @@
+target: test.exe
+
+test.exe: test.cpp nxt.obj
+	cl test.cpp nxt.obj -I./
+
+nxt.obj: nxt.cpp
+	cl /c nxt.cpp -I./
+
+clean:
+	del *.obj
+	del *.exe

@@ -1,0 +1,3 @@
+#!/bin/ch
+
+c2chf chnxt.h -h g_chnxt_dlhandle
