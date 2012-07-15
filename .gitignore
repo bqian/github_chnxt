@@ -8,6 +8,8 @@ mobot*
 !chnxt.chf
 *.obj
 *.lib
+*.manifest
+*.exp
 *.zip
 # in code/demos/Windows
 code/demos/iMobotController_Windows/
