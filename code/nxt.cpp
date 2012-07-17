@@ -1,6 +1,6 @@
-/*****************************************************************
- * nxt.cpp
- * Functions for NXT control.
+/***************************************************************
+ * File Name: nxt.cpp
+ * Description: Functions for NXT control.
  * By Binsen Qian
  *
  * Modified from ch_nxt.c
@@ -8,8 +8,7 @@
  *
  * This is the source code for the CH Lego mindstorms NXT Control
  * package. Function prototypes are located in the file nxt.h.
- ****************************************************************/
-
+ ***************************************************************/
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -38,8 +37,20 @@
 #include <mach/mach.h>
 #endif
 
-//#define MAX_PATH 512
+#ifndef _WIN32
+#include <netdb.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 
+#include <arpa/inet.h>
+#else
+#include <ws2tcpip.h>
+#endif
+
+#define MAX_PATH 512
+
+#if 0
 int bt_connect(SOCKET *sock, SOCKADDR_BTH *sa, char btAddress[18], int channel)
 {
     int saLen = sizeof(*sa);
@@ -76,199 +87,263 @@ int bt_connect(SOCKET *sock, SOCKADDR_BTH *sa, char btAddress[18], int channel)
     */
     return 0;
 } // bt_connect()
+#endif
 
 int NXT_init(br_comms_t* comms)
 {
-  int i;
+    int i;
 #ifndef __MACH__
-  memset(&comms->addr, 0, sizeof(sockaddr_t));
+    memset(&comms->addr, 0, sizeof(sockaddr_t));
 #endif
-  comms->connected = 0;
+    comms->connected = 0;
 #ifdef _WIN32
-  WSADATA wsd;
-  if(WSAStartup (MAKEWORD(2,2), &wsd) != 0) {
-    printf("WSAStartup failed with error %d\n", WSAGetLastError());
-  }
-#endif
-  /*
-  for(i = 0; i < 4; i++) {
-    comms->jointSpeeds[i] = DEF_MOTOR_SPEED;
-    comms->recordingInProgress[i] = 0;
-    //Set the default maximum speed to something reasonable
-    comms->maxSpeed[i] = DEF_MOTOR_MAXSPEED;
-  }
-  THREAD_CREATE(&comms->thread, nullThread, NULL);
-  comms->commsLock = (MUTEX_T*)malloc(sizeof(MUTEX_T));
-  MUTEX_INIT(comms->commsLock);
-  comms->motionInProgress = 0;
-  MUTEX_NEW(comms->recvBuf_lock);
-  MUTEX_INIT(comms->recvBuf_lock);
-  COND_NEW(comms->recvBuf_cond);
-  COND_INIT(comms->recvBuf_cond);
-  comms->recvBuf_ready = 0;
-  MUTEX_NEW(comms->commsBusy_lock);
-  MUTEX_INIT(comms->commsBusy_lock);
-  COND_NEW(comms->commsBusy_cond);
-  COND_INIT(comms->commsBusy_cond);
-  comms->commsBusy = 0;
-  MUTEX_NEW(comms->callback_lock);
-  MUTEX_INIT(comms->callback_lock);
-  comms->callbackEnabled = 0;
-  */
-  return 0;
-}
-
-int NXT_connectWithAddress(br_comms_t* comms, const char* address, int channel)
-{
-  int err = -1;
-#ifndef __MACH__
-  int status;
-  int flags;
-  char buf[256];
-#ifndef _WIN32
-  comms->socket = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
-#else
-  comms->socket = socket(AF_BTH, SOCK_STREAM, BTHPROTO_RFCOMM);
-#endif
-
-#ifdef _WIN32
-  if(comms->socket == INVALID_SOCKET) {
-    err = WSAGetLastError();
-    printf("Could not bind to socket. Error %d\n", err);
-    if(err == 10047) {
-      fprintf(stderr, "A bluetooth device could not be found on this computer. You may need to attach\nan external Bluetooth dongle to continue.\n");
-      return -5;
-    } else {
-      return -1;
+    WSADATA wsd;
+    if(WSAStartup (MAKEWORD(2,2), &wsd) != 0) {
+        printf("WSAStartup failed with error %d\n", WSAGetLastError());
     }
-  }
 #endif
-
-  // set the connection parameters (who to connect to)
-#ifndef _WIN32
-  comms->addr.rc_family = AF_BLUETOOTH;
-  comms->addr.rc_channel = (uint8_t) channel;
-  strToba( address, &comms->addr.rc_bdaddr );
-#else
-  comms->addr.addressFamily = AF_BTH;
-  strToba( address, (bdaddr_t*)&comms->addr.btAddr);
-  comms->addr.port = channel;
-#endif
-
-  // connect to server
-  status = -1;
-  int tries = 0;
-  while(status < 0) {
-    if(tries > 2) {
-      break;
+    /*
+    for(i = 0; i < 4; i++) {
+        comms->jointSpeeds[i] = DEF_MOTOR_SPEED;
+        comms->recordingInProgress[i] = 0;
+        //Set the default maximum speed to something reasonable
+        comms->maxSpeed[i] = DEF_MOTOR_MAXSPEED;
     }
-    status = connect(comms->socket, (const struct sockaddr *)&comms->addr, sizeof(comms->addr));
-    if(status == 0) {
-      comms->connected = 1;
-    } 
-    tries++;
-  }
-  if(status < 0) {
-#ifndef _WIN32
-    perror("Error connecting.");
-#else
-	  LPVOID lpMsgBuf;
-	  FormatMessage( 
-		  FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-		  FORMAT_MESSAGE_FROM_SYSTEM | 
-		  FORMAT_MESSAGE_IGNORE_INSERTS,
-		  NULL,
-		  GetLastError(),
-		  MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-		  (LPTSTR) &lpMsgBuf,
-		  0,
-		  NULL 
-		  );
-	  // Process any inserts in lpMsgBuf.
-	  // ...
-	  // Display the string.
-	  //MessageBox( NULL, (LPCTSTR)lpMsgBuf, "Error", MB_OK | MB_ICONINFORMATION );
-	  fprintf(stderr, "Error Connecting: %s", lpMsgBuf);
-    int wsaerror = WSAGetLastError();
-	  if(wsaerror == 10048) {
-		  fprintf(stderr, "Make sure there are no other programs currently connected to the Mobot.\n");
-	  } else if (wsaerror == 10047 || wsaerror == 10050) {
-      fprintf(stderr, "A bluetooth device could not be found on this computer. You may need to attach\nan external Bluetooth dongle to continue.\n");
-      err = -5;
-    }
-	  // Free the buffer.
-	  LocalFree( lpMsgBuf );
-#endif
-    return err;
-  }
-  /* Make the socket non-blocking */
-  //flags = fcntl(comms->socket, F_GETFL, 0);
-  //fcntl(comms->socket, F_SETFL, flags | O_NONBLOCK);
-  /* Wait for the MoBot to get ready */
-  //sleep(1);
-//  status = finishConnect(comms);
-  return status;
-#else
-  fprintf(stderr, "ERROR: connectWithAddress() is currently unavailable on the Mac platform.\n");
-  return -1;
-#endif
-}
-
-void baSwap(bdaddr_t *dst, const bdaddr_t *src)
-{
-	register unsigned char *d = (unsigned char *) dst;
-	register const unsigned char *s = (const unsigned char *) src;
-	register int i;
-
-	for (i = 0; i < 6; i++)
-		d[i] = s[5-i];
-}
-
-int strToba(const char *str, bdaddr_t *ba)
-{
-	UINT8 b[6];
-	const char *ptr = str;
-	int i;
-
-	for (i = 0; i < 6; i++) {
-		b[i] = (UINT8) strtol(ptr, NULL, 16);
-		if (i != 5 && !(ptr = strchr(ptr, ':')))
-			ptr = ":00:00:00:00:00";
-		ptr++;
-	}
-
-	baSwap(ba, (bdaddr_t *) b);
-
-	return 0;
-}
-
-int SendToNXT(br_comms_t* comms, const char str[], int datasize){
-  int err = 0;
-  if(comms->connected == 1) {
-#ifdef _WIN32
-    err = send(comms->socket, (const char*)str, datasize, 0);
-#else
-    err = write(comms->socket, str, datasize);
-#endif
-  } else if (comms->connected == 2) {
-#ifdef _WIN32
-    DWORD bytes;
-    if(!WriteFile(comms->hSerial, str, datasize, &bytes, NULL)) {
-      err = -1;
-    }
-#else
-    err = -1;
-#endif
-  } else {
-    err = -1;
-  }
-  if(err < 0) {
-    return err;
-  } else {
+    THREAD_CREATE(&comms->thread, nullThread, NULL);
+    comms->commsLock = (MUTEX_T*)malloc(sizeof(MUTEX_T));
+    MUTEX_INIT(comms->commsLock);
+    comms->motionInProgress = 0;
+    MUTEX_NEW(comms->recvBuf_lock);
+    MUTEX_INIT(comms->recvBuf_lock);
+    COND_NEW(comms->recvBuf_cond);
+    COND_INIT(comms->recvBuf_cond);
+    comms->recvBuf_ready = 0;
+    MUTEX_NEW(comms->commsBusy_lock);
+    MUTEX_INIT(comms->commsBusy_lock);
+    COND_NEW(comms->commsBusy_cond);
+    COND_INIT(comms->commsBusy_cond);
+    comms->commsBusy = 0;
+    MUTEX_NEW(comms->callback_lock);
+    MUTEX_INIT(comms->callback_lock);
+    comms->callbackEnabled = 0;
+    */
     return 0;
-  }
 }
 
+int NXT_connectWithAddress(
+        br_comms_t* comms, 
+        const char* address, 
+        int channel)
+{
+    int err = -1;
+#ifndef __MACH__
+    int status;
+    int flags;
+    char buf[256];
+#ifndef _WIN32
+    comms->socket = socket(AF_BLUETOOTH, 
+                           SOCK_STREAM, 
+                           BTPROTO_RFCOMM);
+#else
+    comms->socket = socket(AF_BTH, SOCK_STREAM, BTHPROTO_RFCOMM);
+#endif
+
+#ifdef _WIN32
+    if(comms->socket == INVALID_SOCKET) {
+        err = WSAGetLastError();
+        printf("Could not bind to socket. Error %d\n", err);
+        if(err == 10047) {
+            fprintf(stderr, "A bluetooth device could not be \
+                    found on this computer. You may need to  \
+                    attach\nan external Bluetooth dongle to  \
+                    continue.\n");
+            return -5;
+        } else {
+            return -1;
+        }
+    }
+#endif
+
+    /* set the connection parameters (who to connect to) */
+#ifndef _WIN32
+    comms->addr.rc_family = AF_BLUETOOTH;
+    comms->addr.rc_channel = (uint8_t) channel;
+    strToba( address, &comms->addr.rc_bdaddr );
+#else
+    comms->addr.addressFamily = AF_BTH;
+    strToba( address, (bdaddr_t*)&comms->addr.btAddr);
+    comms->addr.port = channel;
+#endif
+
+    /* connect to server */
+    status = -1;
+    int tries = 0;
+    while(status < 0) {
+        if(tries > 2) {
+            break;
+        }
+        status = connect(comms->socket, 
+                         (const struct sockaddr *)&comms->addr, 
+                         sizeof(comms->addr));
+        if(status == 0) {
+            comms->connected = 1;
+        } 
+        tries++;
+    }
+    if(status < 0) {
+#ifndef _WIN32
+        perror("Error connecting.");
+#else
+        LPVOID lpMsgBuf;
+        FormatMessage( 
+                FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+                FORMAT_MESSAGE_FROM_SYSTEM | 
+                FORMAT_MESSAGE_IGNORE_INSERTS,
+                NULL,
+                GetLastError(),
+                MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+                (LPTSTR) &lpMsgBuf,
+                0,
+                NULL 
+                );
+        // Process any inserts in lpMsgBuf.
+        // ...
+        // Display the string.
+        //MessageBox( NULL, (LPCTSTR)lpMsgBuf, "Error", MB_OK | MB_ICONINFORMATION );
+        fprintf(stderr, "Error Connecting: %s", lpMsgBuf);
+        int wsaerror = WSAGetLastError();
+        if(wsaerror == 10048) {
+            fprintf(stderr, "Make sure there are no other \
+                    programs currently connected to the   \
+                    Mobot.\n");
+        } else if (wsaerror == 10047 || wsaerror == 10050) {
+            fprintf(stderr, "A bluetooth device could not be \
+                    found on this computer. You may need to  \
+                    attach\nan external Bluetooth dongle to  \
+                    continue.\n");
+            err = -5;
+        }
+        // Free the buffer.
+        LocalFree( lpMsgBuf );
+#endif
+        return err;
+    }
+    /* Make the socket non-blocking */
+    //flags = fcntl(comms->socket, F_GETFL, 0);
+    //fcntl(comms->socket, F_SETFL, flags | O_NONBLOCK);
+    /* Wait for the MoBot to get ready */
+    //sleep(1);
+    //  status = finishConnect(comms);
+    return status;
+#else
+    fprintf(stderr, "ERROR: connectWithAddress() is currently \
+            unavailable on the Mac platform.\n");
+    return -1;
+#endif
+}
+
+void baSwap(bdaddr_t *dst, const bdaddr_t *src){
+    register unsigned char *d = (unsigned char *) dst;
+    register const unsigned char *s = (const unsigned char *) src;
+    register int i;
+
+    for (i = 0; i < 6; i++)
+        d[i] = s[5-i];
+}
+
+int strToba(const char *str, bdaddr_t *ba){
+    /* function name:   strToba
+     * Description:     This function is to convert human
+     *                  readable string to machine readable
+     *                  bluetooth address.
+     * Programed by :   David Ko */
+    UINT8 b[6];
+    const char *ptr = str;
+    int i;
+
+    for (i = 0; i < 6; i++) {
+        b[i] = (UINT8) strtol(ptr, NULL, 16);
+        if (i != 5 && !(ptr = strchr(ptr, ':')))
+            ptr = ":00:00:00:00:00";
+        ptr++;
+    }
+
+    baSwap(ba, (bdaddr_t *) b);
+
+    return 0;
+}
+
+int SendToNXT(br_comms_t* comms, 
+              const char str[], 
+              int datasize)
+{
+    /* Function Name:   SendToNXT
+     * Description:     This function is to send message
+     *                  from the computer to the NXT via
+     *                  bluetooth dongle.
+     * Programmed by:   David Ko */      
+
+    int err = 0;
+    if(comms->connected == 1) {
+#ifdef _WIN32
+        err = send(comms->socket, (const char*)str, datasize, 0);
+#else
+        err = write(comms->socket, str, datasize);
+#endif
+    } else if (comms->connected == 2) {
+#ifdef _WIN32
+        DWORD bytes;
+        if(!WriteFile(comms->hSerial, str, datasize, &bytes, NULL)) {
+            err = -1;
+        }
+#else
+        err = -1;
+#endif
+    } else {
+        err = -1;
+    }
+
+    if(err < 0) {
+        return err;
+    } else {
+        return 0;
+    }
+}
+
+#if 0
+int RecvFromNXT(br_comms_t* comms, 
+                   uint8_t* buf, 
+                   int size)
+{
+    /* Function Name:   RecvFromNXT
+     * Description:     Receive message from NXT to the
+     *                  computer via bluetooth dongle
+     * Programed by:    David Ko */
+
+    /* Wait until transaction is ready */
+
+    /* comment by Binsen Qian at July 15 2012
+    MUTEX_LOCK(comms->recvBuf_lock); */
+
+    while(!comms->recvBuf_ready) {
+        COND_WAIT(comms->recvBuf_cond, comms->recvBuf_lock);
+    }
+    memcpy(buf, comms->recvBuf, comms->recvBuf_bytes);
+
+    /* Print out results */
+    /*
+       int i;
+       for(i = 0; i < buf[1]; i++) {
+       printf("0x%2x ", buf[i]);
+       }
+       printf("\n");
+       */
+
+    MUTEX_UNLOCK(comms->recvBuf_lock);
+    MUTEX_UNLOCK(comms->commsLock);
+    return 0;
+}
+#endif
 
 ChNXT::ChNXT() {
     NXT_init(&_comms);
@@ -308,54 +383,69 @@ ChNXT::~ChNXT() {
         disconnect();
 } // ChNXT::~ChNXT()
 
-int ChNXT::connect(void) {
-	char path[MAX_PATH];
-	FILE *stream;
-	//    int saLen = sizeof(sa);
+int ChNXT::connect(void) 
+{
+    char path[MAX_PATH];
+    FILE *stream;
+    // int saLen = sizeof(sa);
 
-	// connect only if not connected
-	//if (connected == 0) {
-	if(SHGetFolderPathA(NULL, CSIDL_LOCAL_APPDATA, NULL, 0, path) != S_OK) 
-	{
-	    //Could not get the user's app data directory
-	} else {
-		//MessageBox((LPCTSTR)path, (LPCTSTR)"Test");
-		//fprintf(fp, "%s", path); 
-	}
-	strcat(path, "\\nxt.config");
-	// open the configuration file to get bth address
-	/*
-	if ((stream = fopen(path, "r")) == NULL) {
-		printf("Cannot open configuration file.\n");
-	}
-	*/
-  	stream = fopen(path, "r");
-	if(stream == NULL) {
-	    /* The file doesn't exist. Gotta make the file */
-	    fprintf(stderr, 
-		"ERROR: Your Barobo configuration file does not exist.\n"
-		"Please create one by opening the MoBot remote control, clicking on\n"
-		"the 'Robot' menu entry, and selecting 'Configure Robot Bluetooth'.\n");
-		return -1;
-	}
-	/*
-	   fgets(btAddress, 18, stream);
-	   */
-	if(fgets(btAddress, 18, stream) == NULL) {
-		return -4;
-	}
-	fclose(stream);
-
-	//        if (bt_connect(&sock, &sa, btAddress, 1) == 0) {
-	if (NXT_connectWithAddress(&_comms, btAddress, 1) == 0) {
-		connected = 1;
-		return 0;
-	} else {
-		// return 1 if fail to connect
-		return 1;
-	}
-	//}
-	return 0;
+    // connect only if not connected
+    //if (connected == 0) {
+#ifdef _WIN32 
+    // Modified by Binsen Qian, July 16, 2012
+    if(SHGetFolderPathA(NULL, CSIDL_LOCAL_APPDATA, NULL, 0, path) != S_OK) 
+        //
+//    if(SHGetFolderPath(NULL, CSIDL_LOCAL_APPDATA, NULL, 0, path) != S_OK) 
+    {
+        //Could not get the user's app data directory
+    } else {
+        //MessageBox((LPCTSTR)path, (LPCTSTR)"Test");
+        //fprintf(fp, "%s", path); 
+    }
+    strcat(path, "\\nxt.config");
+    // open the configuration file to get bth address
+    /*
+    if ((stream = fopen(path, "r")) == NULL) {
+        printf("Cannot open configuration file.\n");
+    }
+    */
+    stream = fopen(path, "r");
+    if(stream == NULL) {
+        /* The file doesn't exist. Gotta make the file */
+        fprintf(stderr,
+        "ERROR: Your NXT configuration file does not exist.\n"
+        "Please create one by opening the NXT remote control, clicking on\n"
+        "the 'Robot' menu entry, and selecting 'Configure Robot Bluetooth'.\n");
+        return -1;
+    }
+    /*
+       fgets(btAddress, 18, stream);
+       */
+    if(fgets(btAddress, 18, stream) == NULL) {
+        return -4;
+    }
+    fclose(stream);
+    /* Get rid of trailing newline and/or carriage return */
+    while(
+            (path[strlen(btAddress)-1] == '\r' ) ||
+            (path[strlen(btAddress)-1] == '\n' ) 
+         )
+    {
+        path[strlen(btAddress)-1] = '\0';
+    }
+    /* Pass it on to connectWithAddress() */
+    // if (bt_connect(&sock, &sa, btAddress, 1) == 0) {
+    if (NXT_connectWithAddress(&_comms, btAddress, 1) == 0) {
+        connected = 1;
+        return 0;
+    } else {
+        // return 1 if fail to connect
+        return 1;
+    }
+    //}
+#else /* if not Windows */
+    return 0;
+#endif
 } // ChNXT::connect()
 
 int ChNXT::connectWithAddress(char usr_address[18], int channel) {
@@ -1038,6 +1128,82 @@ int ChNXT::recvMessage(int length) {
     }
     return error;
 } // ChNXT::recvMessage()
+
+int ChNXT::RecvFromNXT(br_comms_t* comms, char* buf, int size)
+{
+    int err = 0;
+    int i = 0;
+    int j = 0;
+    int done = 0;
+    int tries = 100;
+    char tmp[256];
+    buf[0] = '\0';
+#ifdef _WIN32
+    DWORD bytes;
+#endif
+    while(done == 0) {
+        if(comms->connected == 1) {
+#ifdef _WIN32
+            fd_set fds;
+            int n;
+            struct timeval tv;
+            /* Set up file descriptor set */
+            FD_ZERO(&fds);
+            FD_SET(comms->socket, &fds);
+            /* Set up timeval for the timeout */
+            tv.tv_sec = 1;
+            tv.tv_usec = 0;
+            /* Wait until timeout or data received */
+            n = select(comms->socket, &fds, NULL, NULL, &tv);
+            if(n == 0) {
+                /* Timeout */
+//                MUTEX_UNLOCK(comms->commsLock);
+                return -1;
+            }
+            if(n == -1) {
+                /* Error */
+                MUTEX_UNLOCK(comms->commsLock);
+                return -1;
+            }
+            err = recvfrom(comms->socket, tmp, 256, 0, (struct sockaddr*)0, 0);
+#else
+            while(tries >= 0) {
+                err = read(comms->socket, tmp, 255);
+                if(err < 0) {
+                    tries--;
+                    //printf("*");
+                    usleep(1000);
+                } else {
+                    break;
+                }
+            }
+#endif
+        } else if (comms->connected == 2) {
+            err = -1;
+        } else {
+            err = -1;
+            return -1;
+        }
+        if(err < 0) break;
+        for(i = 0; i < err; i++, j++) {
+            buf[j] = tmp[i];
+            if(tmp[i] == '\0') 
+            {
+                done = 1;
+                break;
+            }
+        }
+        tries = 100;
+    }
+    //printf("RECV %d: <<%s>>\n", comms->socket, buf);
+//    MUTEX_UNLOCK(comms->commsLock);
+    if(err < 0) {
+        return err;
+    } else {
+        return 0;
+    }
+}
+
 /*
 int ChNXT::setOutputState(nxtJointId_t id, unsigned char mode,
         unsigned char regulationMode, char turnRatio,

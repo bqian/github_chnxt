@@ -1,5 +1,15 @@
-#ifndef _NXT_H
-#define _NXT_H
+#ifndef _NXTCOMMS_H_
+#define _NXTCOMMS_H_
+
+#ifdef SWIG
+#define DLLIMPORT
+%module mobot
+%{
+#include "nxt.h"
+%}
+#endif
+
+#include <math.h>
 
 #ifdef _CH_
 #pragma package <chnxt>
@@ -181,6 +191,9 @@ class ChNXT {
         /* functions for communication */
         int sendMessage(int length);
         int recvMessage(int length);
+        int RecvFromNXT(br_comms_t* comms,
+                        char* buf,
+                        int size); 
         /* functions for actuators */
 //        int setOutputState(nxtJointId_t id,  unsigned char mode,
 //                unsigned char regulationMode, char turnRatio,

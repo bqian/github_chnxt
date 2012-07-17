@@ -157,7 +157,8 @@ DLLIMPORT int NXT_connectWithAddress(
     br_comms_t* comms, const char* address, int channel);
 DLLIMPORT int NXT_init(br_comms_t* comms);
 int SendToNXT(br_comms_t* comms, const char str[], int datasize);
-	/*
+int RecvFromNXT(br_comms_t* comms, uint8_t* buf, int size);
+/*
 DLLIMPORT int Mobot_blinkLED(br_comms_t* comms, double delay, int numBlinks);
 DLLIMPORT int Mobot_connect(br_comms_t* comms);
 #ifndef _WIN32
