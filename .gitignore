@@ -12,9 +12,9 @@ mobot*
 *.exp
 *.zip
 # in code/demos/Windows
-code/demos/iMobotController_Windows/
-!code/demos/iMobotController_Windows/iMobotController_Windows/*.cpp
-!code/demos/iMobotController_Windows/iMobotController_Windows/*.h
+#code/demos/iMobotController_Windows/
+#!code/demos/iMobotController_Windows/iMobotController_Windows/*.cpp
+#!code/demos/iMobotController_Windows/iMobotController_Windows/*.h
 # in docs/
 *.aux
 *.dvi

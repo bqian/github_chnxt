@@ -1,0 +1,377 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#include ""res\\iMobotController_Windows.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""     // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\iMobotController_Windows.ico"
+IDI_ICON_up             ICON                    "res\\icon1.ico"
+IDI_ICON_down           ICON                    "res\\ico00001.ico"
+IDI_ICON_stop           ICON                    "res\\icon2.ico"
+IDI_ICON_right          ICON                    "res\\ico00002.ico"
+IDI_ICON_left           ICON                    "res\\ico00003.ico"
+IDI_ICON1               ICON                    "res\\ico00004.ico"
+IDI_ICON_GREENDOT       ICON                    "res\\ico00005.ico"
+IDI_ICON_BAROBO         ICON                    "res\\barobo.ico"
+IDI_ICON_REDDOT         ICON                    "res\\icon4.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 191, 63
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About RobotController"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    LTEXT           "ChNXT Controller, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012, Barobo, Inc.",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "OK",IDOK,134,42,50,14,WS_GROUP
+    CONTROL         145,IDC_STATIC,"Static",SS_BITMAP,14,15,21,20
+END
+
+IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG DIALOGEX 0, 0, 550, 385
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "RobotController"
+MENU IDR_MENU1
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_SLIDER_speed1,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,15,187,16,45
+    EDITTEXT        IDC_EDIT_speed1,12,170,24,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_SLIDER_speed2,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,45,187,16,45
+    EDITTEXT        IDC_EDIT_speed2,42,170,24,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_speed3,72,170,24,14,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "",IDC_SLIDER_speed3,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,75,187,16,45
+    EDITTEXT        IDC_EDIT_position1,113,170,23,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_position2,143,170,24,14,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_position3,173,170,24,14,ES_AUTOHSCROLL | ES_READONLY
+    GROUPBOX        "Joint Speed Ratio Control",IDC_STATIC,6,136,95,130
+    LTEXT           "Joint Angle ( [0, 360] degrees)",IDC_STATIC,108,147,101,8
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor2Forward,39,298,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor3Forward,63,298,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor1Stop,15,322,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor2Stop,39,322,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor3Stop,63,322,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor1Backward,15,346,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor2Backward,39,346,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor3Backward,63,346,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_Motor1Forward,15,298,24,24,BS_ICON
+    GROUPBOX        "Joint Position Control",IDC_STATIC,103,136,107,130
+    CONTROL         "",IDC_SLIDER_position1,"msctls_trackbar32",TBS_AUTOTICKS | TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,116,187,20,45
+    CONTROL         "",IDC_SLIDER_position2,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,147,187,20,45
+    CONTROL         "",IDC_SLIDER_position3,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,176,187,20,45
+    GROUPBOX        "Machine Control",IDC_STATIC,213,134,333,115
+    GROUPBOX        "General Control",IDC_STATIC,7,269,204,110
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollLeft,221,36,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollForward,245,12,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollRight,269,36,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollStop,245,36,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollBack,245,60,24,24,BS_ICON
+    GROUPBOX        "Vehicle Control",IDC_STATIC,213,1,333,115
+    EDITTEXT        IDC_EDIT_setpos1,114,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_EDIT_setpos2,144,235,24,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_setpos3,174,235,24,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "MoveTo",IDC_BUTTON_GOPOS,113,251,40,12
+    PUSHBUTTON      "Move To Zero",IDC_BUTTON_MOVETOZERO,110,119,100,12
+    CTEXT           "1",IDC_STATIC,12,159,24,8
+    CTEXT           "2",IDC_STATIC,42,159,24,8
+    CTEXT           "3",IDC_STATIC,72,159,24,8
+    EDITTEXT        IDC_EDIT_setspd1,12,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_EDIT_setspd2,42,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    EDITTEXT        IDC_EDIT_setspd3,72,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
+    PUSHBUTTON      "Set",IDC_BUTTON_SETSPD,12,251,84,12
+    CTEXT           "1",IDC_STATIC,21,286,8,8
+    CTEXT           "2",IDC_STATIC,45,286,8,8
+    CTEXT           "3",IDC_STATIC,69,286,8,8
+    CTEXT           "1",IDC_STATIC,113,158,24,8
+    CTEXT           "2",IDC_STATIC,143,158,24,8
+    CTEXT           "3",IDC_STATIC,173,158,24,8
+    LTEXT           "Joint speed ratio [0, 1]",IDC_STATIC,12,147,74,8
+    PUSHBUTTON      "Move",IDC_BUTTON_MOVE,158,251,40,12
+    GROUPBOX        "Humanoid Control",IDC_STATIC,213,264,333,115
+    PUSHBUTTON      "Reset To Zero",IDC_BUTTON_RESETTOZERO,6,119,100,12
+    GROUPBOX        "Joint Control",IDC_STATIC,13,279,76,96
+    GROUPBOX        "Sensor Control",IDC_STATIC,95,279,112,96
+    EDITTEXT        IDC_EDIT_SensorValue1,171,289,30,12,ES_AUTOHSCROLL | ES_READONLY
+    LTEXT           "1",IDC_STATIC,101,291,8,8
+    LTEXT           "2",IDC_STATIC,101,313,8,8
+    LTEXT           "3",IDC_STATIC,101,338,8,8
+    LTEXT           "4",IDC_STATIC,101,360,8,8
+    EDITTEXT        IDC_EDIT_SensorValue2,171,310,30,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_SensorValue3,172,335,30,12,ES_AUTOHSCROLL | ES_READONLY
+    EDITTEXT        IDC_EDIT_SensorValue4,172,357,30,12,ES_AUTOHSCROLL | ES_READONLY
+    COMBOBOX        IDC_COMBO_Sensor1Type,111,289,55,33,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_Sensor2Type,111,310,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_Sensor3Type,112,335,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_Sensor4Type,112,357,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         163,IDB_STATIC_MACHINE,"Static",SS_BITMAP | SS_NOTIFY | SS_REALSIZEIMAGE,349,142,200,103
+    CONTROL         158,IDC_STATIC_GENERAL,"Static",SS_BITMAP,10,6,200,109
+    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,337,10,200,103
+    CONTROL         168,IDC_STATIC_HUMANOID,"Static",SS_BITMAP,339,272,200,103
+    PUSHBUTTON      "Button5",IDC_BUTTON_rotateLeft,221,87,24,24
+    PUSHBUTTON      "Button6",IDC_BUTTON_portaStop,245,87,24,24
+    PUSHBUTTON      "Button7",IDC_BUTTON_rotateRight,269,87,24,24
+END
+
+IDD_DIALOG_CONFIG DIALOGEX 0, 0, 214, 174
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Configure Robot Bluetooth"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,102,156,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,156,156,50,14
+    EDITTEXT        IDC_EDIT1,12,12,144,12,ES_AUTOHSCROLL
+    PUSHBUTTON      "Add",IDC_BUTTON_ADD,162,12,42,12
+    LISTBOX         IDC_LIST2,12,48,144,102,LBS_SORT | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "Move Up",IDC_BUTTON_MOVEUP,162,48,42,12
+    PUSHBUTTON      "Move Down",IDC_BUTTON_MOVEDOWN,162,66,42,12
+    PUSHBUTTON      "Remove",IDC_BUTTON_REMOVE,162,84,42,12
+    LTEXT           "Configured Robot Addresses:",IDC_STATIC,12,36,96,8
+    LTEXT           "Add a Robot Address:",IDC_STATIC,12,0,72,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904e4"
+        BEGIN
+            VALUE "CompanyName", "TODO: <Company name>"
+            VALUE "FileDescription", "TODO: <File description>"
+            VALUE "FileVersion", "1.0.0.1"
+            VALUE "InternalName", "iMobotController_Windows.exe"
+            VALUE "LegalCopyright", "TODO: (c) <Company name>.  All rights reserved."
+            VALUE "OriginalFilename", "iMobotController_Windows.exe"
+            VALUE "ProductName", "TODO: <Product name>"
+            VALUE "ProductVersion", "1.0.0.1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1252
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 184
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 56
+    END
+
+    IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 546
+        BOTTOMMARGIN, 378
+    END
+
+    IDD_DIALOG_CONFIG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 207
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 167
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
+IDB_BITMAP2             BITMAP                  "res\\bitmap2.bmp"
+IDB_BITMAP3             BITMAP                  "res\\iMobot_diagram.bmp"
+IDB_BITMAP4             BITMAP                  "res\\joint_diagram3.bmp"
+IDB_BITMAP5             BITMAP                  "res\\bitmap5.bmp"
+IDB_BITMAP_GENERAL      BITMAP                  "E:\\Users\\Benson\\Dropbox\\2012 Summer\\chnxt\\chnxtwin07102012\\code\\demos\\iMobotController_Windows\\iMobotController_Windows\\res\\lego_diagram_small.bmp"
+IDB_BITMAP_MACHINE      BITMAP                  "E:\\Users\\Benson\\Dropbox\\2012 Summer\\chnxt\\chnxtwin07102012\\code\\demos\\iMobotController_Windows\\iMobotController_Windows\\res\\machine_brief.bmp"
+IDB_BITMAP_HUMANOID     BITMAP                  "res\\humanoid_brief.bmp"
+IDB_BITMAP8             BITMAP                  "res\\vehicle_brief.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// PNG
+//
+
+IDB_PNG1                PNG                     "res\\imobot_diagram.png"
+IDB_PNG2                PNG                     "res\\Barobo_square_32.png"
+IDB_PNG3                PNG                     "res\\joint_diagram_verbose.png"
+IDB_PNG_MACHINE         PNG                     "E:\\Users\\Benson\\Dropbox\\2012 Summer\\chnxt\\chnxtwin07102012\\code\\demos\\iMobotController_Windows\\iMobotController_Windows\\res\\machine_brief.png"
+IDB_PNG_HUMANOID        PNG                     "res\\humanoid_brief.png"
+IDB_PNG4                PNG                     "res\\machine_brief_small.png"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "Exit",                        ID_FILE_EXIT
+    END
+    POPUP "Configure"
+    BEGIN
+        MENUITEM "Configure Robot Bluetooth",   ID_ROBOT_CONFIGUREROBOTBLUETOOTH
+    END
+    POPUP "Connect"
+    BEGIN
+        MENUITEM "Connect to Robot",            ID_ROBOT_CONNECTTOAROBOT
+        MENUITEM "Disconnect from Robot",       ID_CONNECT_DISCONNECTFROMROBOT
+    END
+    POPUP "Help"
+    BEGIN
+        MENUITEM "Help",                        ID_HELP_HELP
+        MENUITEM "Demos",                       ID_HELP_DEMOS
+        MENUITEM "About ChNXT Controller",      ID_HELP_ABOUTROBOTCONTROLLER
+    END
+END
+
+IDR_MENU_RECORDEDMOTIONPOPUP MENU 
+BEGIN
+    POPUP "RECORDED_MOTION_CONTEXT_POPUP"
+    BEGIN
+        MENUITEM "Go To Pose",                  ID_RECORDED_GOTOPOSE
+        MENUITEM "Rename",                      ID_RENAME_REMOVE
+        MENUITEM "Remove",                      ID_RENAME_REMOVE32782
+        MENUITEM "Move Up",                     ID_RECORDED_MOVEUP
+        MENUITEM "Move Down",                   ID_RECORDED_MOVEDOWN
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About iMobotController_Windows..."
+END
+
+#endif    // 英语(美国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#include "res\iMobotController_Windows.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"     // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

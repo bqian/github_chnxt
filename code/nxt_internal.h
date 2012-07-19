@@ -9,6 +9,7 @@
 #ifndef _CH_
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "irprops.lib")
+#pragma comment(lib, "shell32.lib")
 #endif /* Not _CH_ */
 
 #ifndef _WIN32
@@ -42,6 +43,8 @@ typedef struct br_comms_s
   sockaddr_t addr;
 #endif
   double jointSpeeds[4];
+  double jointSpeedRatios[3];
+  double jointSafetyAngle[3];
   double maxSpeed[4];
   THREAD_T thread;
   MUTEX_T* commsLock;
@@ -63,7 +66,8 @@ typedef struct br_comms_s
   MUTEX_T* callback_lock;
   int callbackEnabled;
   void (*buttonCallback)(void* robot, int button, int buttonDown);
-  void* mobot;
+  void* nxt;
+  char* configFilePath;
 } br_comms_t;
 #endif
 
@@ -97,6 +101,7 @@ enum {
     RS_RUNNING  = 0x20,
     RS_RAMPDOWN = 0x40
 };
+
 #ifndef ROBOT_JOINTS_E
 #define ROBOT_JOINTS_E
 typedef enum mobot_joints_e {
@@ -156,8 +161,9 @@ extern "C" {
 DLLIMPORT int NXT_connectWithAddress(
     br_comms_t* comms, const char* address, int channel);
 DLLIMPORT int NXT_init(br_comms_t* comms);
+DLLIMPORT const char* NXT_getConfigFilePath();
 int SendToNXT(br_comms_t* comms, const char str[], int datasize);
-	/*
+/*
 DLLIMPORT int Mobot_blinkLED(br_comms_t* comms, double delay, int numBlinks);
 DLLIMPORT int Mobot_connect(br_comms_t* comms);
 #ifndef _WIN32

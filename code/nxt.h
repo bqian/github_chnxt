@@ -164,6 +164,11 @@ class ChNXT {
         int vehicleRotateLeft(double angle);
         int vehicleRotateRight(double angle);
         int vehicleMotionWait(void);
+        int humanoidWalkForwardNB(double angle);
+        int humanoidWalkBackwardNB(double angle);
+        int humanoidWalkForward(double angle);
+        int humanoidWalkBackward(double angle);
+        int humanoidMotionWait(void);
         int motionMoveForward(void);
         int motionMoveBackward(void);
         int motionRotateLeft(void);
