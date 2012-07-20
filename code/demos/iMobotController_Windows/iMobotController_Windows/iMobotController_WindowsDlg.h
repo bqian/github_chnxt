@@ -17,32 +17,42 @@
 
 typedef enum button_e
 {
-  B_PLAY, // Play Gait
+//  B_PLAY, // Play Gait
   B_M1F, // Motor forward
   B_M2F,
   B_M3F,
-  B_M4F,
+//  B_M4F,
   B_M1S, // Motor stop
   B_M2S,
   B_M3S,
-  B_M4S,
+//  B_M4S,
   B_M1B, // Motor Backward
   B_M2B,
   B_M3B,
-  B_M4B,
+//  B_M4B,
   B_FORWARD, // Roll commands
   B_STOP,
   B_LEFT,
   B_RIGHT,
   B_BACK,
+  B_WALKFOR, // Walk commands
+  B_WALKSTOP,
+  B_WALKBACK,
+  B_ARMUP,   // machine commands
+  B_ARMDOWN,
+  B_ARMLEFT,
+  B_ARMRIGHT,
+  B_ARMSTOP,
+  B_CLAWOPEN,
+  B_CLAWCLOSE,
   S_M1S, // Sliders, motor 1 speed
   S_M2S,
   S_M3S,
-  S_M4S,
+//  S_M4S,
   S_M1P, // Motor position sliders
   S_M2P, 
   S_M3P, 
-  S_M4P, 
+//  S_M4P, 
   B_SETPOS,
   B_MOVE,
   B_SETSPD,
@@ -61,8 +71,8 @@ public:
 // Dialog Data
 	enum { IDD = IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG };
 
-  CMobot iMobotComms;
-  ChNXT nxtComms;
+	CMobot iMobotComms;
+	ChNXT nxtComms;
 	HICON m_hIcon;
 
 	// Generated message map functions
@@ -77,6 +87,7 @@ public:
 public:
   int m_positions[4]; // Store last known slider position
   int m_speeds[4];    // Store last known slider position
+  int m_clawStatus;   // Store last known claw status
   double m_speedRatios[3]; // Store last known slider position
   void InitIcons();
   void InitGaits();
@@ -125,8 +136,8 @@ public:
 	CSliderCtrl m_slider_Position3;
 //	CSliderCtrl m_slider_Position4;
 	CSliderCtrl *m_slider_Positions[4];
-	afx_msg void OnBnClickedButtonplay();
-  void handlerPlay(void);
+//	afx_msg void OnBnClickedButtonplay();
+//  void handlerPlay(void);
 	afx_msg void OnBnClickedButtonconnect();
 	afx_msg void OnLbnSelchangeListgaits();
 	// Picture of the iMobot joints
@@ -239,6 +250,41 @@ public:
   afx_msg void OnCbnEditupdateComboSensor3type();
   afx_msg void OnCbnEditupdateComboSensor4type();
   */
+  afx_msg void OnBnClickedButtonrotateright();
+  afx_msg void OnBnClickedButtonrotateleft();
+  afx_msg void OnBnClickedButtonrotatestop();
+
+  CButton m_button_rotateLeft;
+  CButton m_button_rotateStop;
+  CButton m_button_rotateRight;
+  afx_msg void OnBnClickedButtonwalkforward();
+  afx_msg void OnBnClickedButtonwalkstop();
+  afx_msg void OnBnClickedButtonwalkbackward();
+  void handlerWALKFOR(void);
+  void handlerWALKSTOP(void);
+  void handlerWALKBACK(void);
+  CButton m_button_walkForward;
+  CButton m_button_walkStop;
+  CButton m_button_walkBackward;
+  afx_msg void OnStnClickedStaticMachine();
+  CButton m_botton_moveArmUp;
+  CButton m_botton_moveStop;
+  CButton m_botton_moveArmDown;
+  CButton m_botton_rotateArmLeft;
+  CButton m_botton_rotateArmRight;
+  afx_msg void OnBnClickedButtonmovearmup();
+  afx_msg void OnBnClickedButtonrotatearmleft();
+  afx_msg void OnBnClickedButtonmovestop();
+  afx_msg void OnBnClickedButtonrotatearmright();
+  afx_msg void OnBnClickedButtonmovearmdown();
+  void handlerARMUP();
+  void handlerARMDOWN();
+  void handlerARMLEFT();
+  void handlerARMRIGHT();
+  afx_msg void OnBnClickedRadioclawopen();
+  afx_msg void OnBnClickedRadioclawclose();
+  void handlerCLAWCLOSE();
+  void handlerCLAWOPEN();
 };
 
 DWORD WINAPI HandlerThread(void*);

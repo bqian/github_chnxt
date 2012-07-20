@@ -1,15 +1,38 @@
 #ifndef _NXT_H
 #define _NXT_H
 
+#ifdef _CH_
+#pragma package <chnxt>
+#ifdef _WIN32_
+#define _WIN32
+#include <stdint.h>
+#define UINT8 uint8_t
+#else
+#pragma package <chbluetooth>
+#endif /* _WIN32_ */
+#endif /* _CH_ */
+
+#include <stdio.h>
+
 #ifndef _CH_
+#ifndef _WIN32
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#ifndef __MACH__
+#include <bluetooth/bluetooth.h>
+#include <bluetooth/rfcomm.h>
+#endif /* _MACH_ */
+#else
 #include <winsock2.h>
 #include <ws2bth.h>
 #include "nxt_internal.h"
+#endif /* not if _WIN32 */
 #endif /* not _CH_ */
 
-#ifdef _CH_
-#pragma package <chnxt>
-#endif /* _CH_ */
+#ifndef _CH_
+#include "nxt_internal.h"
+#endif /* not if _CH_ */
 
 #ifndef NXT_JOINTS_E
 #define NXT_JOINTS_E
@@ -78,6 +101,7 @@ class ChNXT {
 	int setJointZero(nxtJointId_t id);
         int setJointRelativeZeros(void);
 	int setJointZeros(void);
+        int resetToZeros(void);
         int moveJointContinuousNB(nxtJointId_t id, 
                                   nxtJointState_t dir); 
 	int moveJointNB(nxtJointId_t id, double angle);
@@ -105,6 +129,7 @@ class ChNXT {
         int isJointMoving(nxtJointId_t id);
         double getJointPosition(nxtJointId_t id);
         int getJointAngle(nxtJointId_t id, double &angle);
+//        int getJointAngle(nxtJointId_t id, int &angle);
         int getJointSpeedRatio(nxtJointId_t id, double &ratio);
         int getJointSpeedRatios(double &ratio1, 
                                 double &ratio2,
@@ -139,6 +164,11 @@ class ChNXT {
         int vehicleRotateLeft(double angle);
         int vehicleRotateRight(double angle);
         int vehicleMotionWait(void);
+        int humanoidWalkForwardNB(double angle);
+        int humanoidWalkBackwardNB(double angle);
+        int humanoidWalkForward(double angle);
+        int humanoidWalkBackward(double angle);
+        int humanoidMotionWait(void);
         int motionMoveForward(void);
         int motionMoveBackward(void);
         int motionRotateLeft(void);
@@ -170,8 +200,9 @@ class ChNXT {
         int getUltrasonic(nxtSensorId_t id);
         int stopUltrasonic(nxtSensorId_t id);
         /* variables for communication*/
-        SOCKET sock;
-        SOCKADDR_BTH sa;
+	br_comms_t _comms;
+//        SOCKET sock;
+//        SOCKADDR_BTH sa;
         char btAddress[18];
         char sendMsg[256];
         char recvMsg[256];

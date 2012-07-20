@@ -599,11 +599,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\iMobot_diagram.png"
+				RelativePath="..\..\..\..\libimobot\Demos\GtkGui\interface\imobot_diagram.png"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\libimobot\Demos\GtkGui\interface\imobot_diagram.png"
+				RelativePath=".\res\iMobot_diagram.png"
 				>
 			</File>
 			<File
@@ -613,6 +613,14 @@
 			<File
 				RelativePath=".\iMobotController_Windows.rc"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						AdditionalIncludeDirectories="&quot;C:\Users\hcheng\Dropbox\2012 Summer\chnxt\chnxt\code\demos\iMobotController_Windows\iMobotController_Windows&quot;;&quot;$(IntDir)&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\res\iMobotController_Windows.rc2"

@@ -1024,12 +1024,12 @@ int ChNXT::vehicleMotionWait(void){
     return 0;
 }
 
-int ChNXT::humanoidWalkForwardNB(double angle)
+int ChNXT::humanoidWalkForward(double angle)
 {
-    /* Function Name: ChNXT::humanoidWalkForwardNB()
+    /* Function Name: ChNXT::humanoidWalkForward()
      *
      * Description: This function is to move the NXT 
-     * forward Non-block as the humanoid configuration. */
+     * forward block as the humanoid configuration. */
 
     /* to make sure angle is positive */
     angle = angle>0?angle:-angle;
@@ -1038,6 +1038,36 @@ int ChNXT::humanoidWalkForwardNB(double angle)
 
     return humanoidMotionWait();
 } 
+
+int ChNXT::humanoidWalkBackward(double angle)
+{
+    /* Function Name: ChNXT::humanoidWalkBackward()
+     *
+     * Description: This function is to move the NXT 
+     * backward block as the humanoid configuration. */
+
+    /* to make sure angle is positive */
+    angle = angle>0?angle:-angle;
+
+    moveNB(-angle, -angle, -angle);
+
+    return humanoidMotionWait();
+}
+
+int ChNXT::humanoidWalkForwardNB(double angle)
+{
+    /* Function Name: ChNXT::humanoidWalkForward()
+     *
+     * Description: This function is to move the NXT 
+     * forward non-block as the humanoid configuration. */
+
+    /* to make sure angle is positive */
+    angle = angle>0?angle:-angle;
+
+    moveNB(angle, angle, angle);
+
+    return 0;
+}
 
 int ChNXT::humanoidWalkBackwardNB(double angle)
 {
@@ -1050,36 +1080,6 @@ int ChNXT::humanoidWalkBackwardNB(double angle)
     angle = angle>0?angle:-angle;
 
     moveNB(-angle, -angle, -angle);
-
-    return humanoidMotionWait();
-}
-
-int ChNXT::humanoidWalkForward(double angle)
-{
-    /* Function Name: ChNXT::humanoidWalkForward()
-     *
-     * Description: This function is to move the NXT 
-     * forward block as the humanoid configuration. */
-
-    /* to make sure angle is positive */
-    angle = angle>0?angle:-angle;
-
-    move(angle, angle, angle);
-
-    return 0;
-}
-
-int ChNXT::humanoidWalkBackward(double angle)
-{
-    /* Function Name: ChNXT::humanoidWalkBackwardNB()
-     *
-     * Description: This function is to move the NXT 
-     * backward block as the humanoid configuration. */
-
-    /* to make sure angle is positive */
-    angle = angle>0?angle:-angle;
-
-    move(-angle, -angle, -angle);
 
     return 0;
 }

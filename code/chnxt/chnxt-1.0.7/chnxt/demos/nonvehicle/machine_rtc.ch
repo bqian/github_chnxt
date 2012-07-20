@@ -82,7 +82,7 @@ while (quit != 1)
     }
 
     if(dir == 'a'){ //Arm rotate left.
-        nxt.moveJoint(NXT_JOINT3, (int)(angle / gearratio));
+        nxt.moveJoint(NXT_JOINT3, (angle / gearratio));
     }else if(dir == 'd'){ //Arm rotate right.
         nxt.moveJoint(NXT_JOINT3, (int)(-angle / gearratio));
     }else if(dir == 'w'){

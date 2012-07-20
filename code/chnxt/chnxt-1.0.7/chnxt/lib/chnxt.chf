@@ -521,6 +521,47 @@ int ChNXT::vehicleMotionWait() {
     return retval;
 }
 
+int ChNXT::humanoidMotionWait() {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "humanoidMotionWait_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, NULL, this, humanoidMotionWait);
+    return retval;
+}
+
+int ChNXT::humanoidWalkBackward(double angle) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkBackward_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, humanoidWalkBackward, this, angle);
+    return retval;
+}
+
+/*
+int ChNXT::humanoidWalkBackwardNB(double angle) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkBackwardNB_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, humanoidWalkBackwardNB, this, angle);
+    return retval;
+}
+*/
+
 int ChNXT::vehicleRollBackward(double angle) {
     void *fptr;
     int retval;
@@ -573,6 +614,44 @@ int ChNXT::vehicleRollForwardNB(double angle) {
     return retval;
 }
 
+int ChNXT::humanoidWalkForward(double angle) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkForward_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, humanoidWalkForward, this, angle);
+    return retval;
+}
+
+int ChNXT::humanoidWalkForwardNB(double angle) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkForwardNB_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, humanoidWalkForwardNB, this, angle);
+    return retval;
+}
+
+int ChNXT::humanoidWalkBackwardNB(double angle) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkBackwardNB_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, humanoidWalkBackwardNB, this, angle);
+    return retval;
+}
 int ChNXT::vehicleRotateLeft(double angle) {
     void *fptr;
     int retval;

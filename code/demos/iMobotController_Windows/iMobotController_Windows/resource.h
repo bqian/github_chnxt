@@ -129,7 +129,20 @@
 #define IDC_BUTTON5                     1085
 #define IDC_BUTTON_rotateLeft           1085
 #define IDC_BUTTON_portaStop            1086
+#define IDC_BUTTON_rotateStop           1086
 #define IDC_BUTTON_rotateRight          1087
+#define IDC_BUTTON_walkForward          1088
+#define IDC_BUTTON_walkStop             1089
+#define IDC_BUTTON8                     1090
+#define IDC_BUTTON_walkBackward         1090
+#define IDC_BUTTON_moveArmUp            1091
+#define IDC_BUTTON_armStop              1092
+#define IDC_BUTTON_moveStop             1092
+#define IDC_BUTTON_moveArmDown          1093
+#define IDC_BUTTON_rotateArmLeft        1094
+#define IDC_BUTTON_rotateArmRight       1095
+#define IDC_RADIO_clawOpen              1097
+#define IDC_RADIO_clawClose             1098
 #define ID_ROBOT_CONFIGUREROBOTBLUETOOTH 32771
 #define ID_ROBOT_CONNECTTOAROBOT        32772
 #define ID_FILE                         32773
@@ -152,7 +165,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        170
 #define _APS_NEXT_COMMAND_VALUE         32786
-#define _APS_NEXT_CONTROL_VALUE         1088
+#define _APS_NEXT_CONTROL_VALUE         1099
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

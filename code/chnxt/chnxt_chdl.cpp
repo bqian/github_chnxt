@@ -653,6 +653,36 @@ EXPORTCH int vehicleRotateRightNB_chdl(void *varg) {
     return retval;
 }
 
+EXPORTCH int humanoidWalkForwardNB_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    double angle;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    angle = Ch_VaArg(interp, ap, double);
+    retval = chnxt->humanoidWalkForwardNB(angle);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int humanoidWalkBackwardNB_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    double angle;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    angle = Ch_VaArg(interp, ap, double);
+    retval = chnxt->humanoidWalkBackwardNB(angle);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
 EXPORTCH int vehicleRollForward_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
@@ -714,6 +744,49 @@ EXPORTCH int vehicleRotateRight_chdl(void *varg) {
 }
 
 EXPORTCH int vehicleMotionWait_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    retval = chnxt->vehicleMotionWait();
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int humanoidWalkForward_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    double angle;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    angle = Ch_VaArg(interp, ap, double);
+    retval = chnxt->humanoidWalkForward(angle);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int humanoidWalkBackward_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    double angle;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    angle = Ch_VaArg(interp, ap, double);
+    retval = chnxt->humanoidWalkBackward(angle);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int humanoidMotionWait_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;

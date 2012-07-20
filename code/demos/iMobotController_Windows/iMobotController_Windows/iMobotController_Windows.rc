@@ -16,7 +16,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 英语(美国) resources
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -97,7 +97,7 @@ BEGIN
     CONTROL         145,IDC_STATIC,"Static",SS_BITMAP,14,15,21,20
 END
 
-IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG DIALOGEX 0, 0, 550, 385
+IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG DIALOGEX 0, 0, 507, 385
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "RobotController"
@@ -128,14 +128,14 @@ BEGIN
     CONTROL         "",IDC_SLIDER_position1,"msctls_trackbar32",TBS_AUTOTICKS | TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,116,187,20,45
     CONTROL         "",IDC_SLIDER_position2,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,147,187,20,45
     CONTROL         "",IDC_SLIDER_position3,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,176,187,20,45
-    GROUPBOX        "Machine Control",IDC_STATIC,213,134,333,115
+    GROUPBOX        "Machine Control",IDC_STATIC,213,134,290,115
     GROUPBOX        "General Control",IDC_STATIC,7,269,204,110
     PUSHBUTTON      "Button1",IDC_BUTTON_rollLeft,221,36,24,24,BS_ICON
     PUSHBUTTON      "Button1",IDC_BUTTON_rollForward,245,12,24,24,BS_ICON
     PUSHBUTTON      "Button1",IDC_BUTTON_rollRight,269,36,24,24,BS_ICON
     PUSHBUTTON      "Button1",IDC_BUTTON_rollStop,245,36,24,24,BS_ICON
     PUSHBUTTON      "Button1",IDC_BUTTON_rollBack,245,60,24,24,BS_ICON
-    GROUPBOX        "Vehicle Control",IDC_STATIC,213,1,333,115
+    GROUPBOX        "Vehicle Control",IDC_STATIC,213,1,290,115
     EDITTEXT        IDC_EDIT_setpos1,114,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
     EDITTEXT        IDC_EDIT_setpos2,144,235,24,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_setpos3,174,235,24,12,ES_AUTOHSCROLL
@@ -156,7 +156,7 @@ BEGIN
     CTEXT           "3",IDC_STATIC,173,158,24,8
     LTEXT           "Joint speed ratio [0, 1]",IDC_STATIC,12,147,74,8
     PUSHBUTTON      "Move",IDC_BUTTON_MOVE,158,251,40,12
-    GROUPBOX        "Humanoid Control",IDC_STATIC,213,264,333,115
+    GROUPBOX        "Humanoid Control",IDC_STATIC,213,264,290,115
     PUSHBUTTON      "Reset To Zero",IDC_BUTTON_RESETTOZERO,6,119,100,12
     GROUPBOX        "Joint Control",IDC_STATIC,13,279,76,96
     GROUPBOX        "Sensor Control",IDC_STATIC,95,279,112,96
@@ -172,13 +172,24 @@ BEGIN
     COMBOBOX        IDC_COMBO_Sensor2Type,111,310,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     COMBOBOX        IDC_COMBO_Sensor3Type,112,335,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     COMBOBOX        IDC_COMBO_Sensor4Type,112,357,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         163,IDB_STATIC_MACHINE,"Static",SS_BITMAP | SS_NOTIFY | SS_REALSIZEIMAGE,349,142,200,103
+    CONTROL         163,IDB_STATIC_MACHINE,"Static",SS_BITMAP | SS_NOTIFY | SS_REALSIZEIMAGE,298,142,200,103
     CONTROL         158,IDC_STATIC_GENERAL,"Static",SS_BITMAP,10,6,200,109
-    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,337,10,200,103
-    CONTROL         168,IDC_STATIC_HUMANOID,"Static",SS_BITMAP,339,272,200,103
-    PUSHBUTTON      "Button5",IDC_BUTTON_rotateLeft,221,87,24,24
-    PUSHBUTTON      "Button6",IDC_BUTTON_portaStop,245,87,24,24
-    PUSHBUTTON      "Button7",IDC_BUTTON_rotateRight,269,87,24,24
+    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,298,10,200,103
+    CONTROL         168,IDC_STATIC_HUMANOID,"Static",SS_BITMAP,296,272,200,103
+    PUSHBUTTON      "Button5",IDC_BUTTON_rotateLeft,221,87,24,24,BS_ICON
+    PUSHBUTTON      "Button6",IDC_BUTTON_rotateStop,245,87,24,24,BS_ICON
+    PUSHBUTTON      "Button7",IDC_BUTTON_rotateRight,269,87,24,24,BS_ICON
+    PUSHBUTTON      "Button6",IDC_BUTTON_walkForward,233,286,48,24,BS_ICON
+    PUSHBUTTON      "Button7",IDC_BUTTON_walkStop,233,313,48,24,BS_ICON
+    PUSHBUTTON      "Button8",IDC_BUTTON_walkBackward,233,340,48,24,BS_ICON
+    PUSHBUTTON      "Button6",IDC_BUTTON_moveArmUp,245,145,24,24,BS_ICON
+    PUSHBUTTON      "Button7",IDC_BUTTON_moveStop,245,169,24,24,BS_ICON
+    PUSHBUTTON      "Button9",IDC_BUTTON_moveArmDown,245,193,24,24,BS_ICON
+    PUSHBUTTON      "Button10",IDC_BUTTON_rotateArmLeft,221,169,24,24,BS_ICON
+    PUSHBUTTON      "Button11",IDC_BUTTON_rotateArmRight,269,169,24,24,BS_ICON
+    CONTROL         "Open",IDC_RADIO_clawOpen,"Button",BS_AUTORADIOBUTTON | WS_GROUP,226,230,31,10
+    CONTROL         "Close",IDC_RADIO_clawClose,"Button",BS_AUTORADIOBUTTON,258,230,30,10
+    GROUPBOX        "Claw",IDC_STATIC,221,220,71,25
 END
 
 IDD_DIALOG_CONFIG DIALOGEX 0, 0, 214, 174
@@ -257,7 +268,7 @@ BEGIN
     IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 546
+        RIGHTMARGIN, 503
         BOTTOMMARGIN, 378
     END
 
@@ -282,8 +293,8 @@ IDB_BITMAP2             BITMAP                  "res\\bitmap2.bmp"
 IDB_BITMAP3             BITMAP                  "res\\iMobot_diagram.bmp"
 IDB_BITMAP4             BITMAP                  "res\\joint_diagram3.bmp"
 IDB_BITMAP5             BITMAP                  "res\\bitmap5.bmp"
-IDB_BITMAP_GENERAL      BITMAP                  "E:\\Users\\Benson\\Dropbox\\2012 Summer\\chnxt\\chnxtwin07102012\\code\\demos\\iMobotController_Windows\\iMobotController_Windows\\res\\lego_diagram_small.bmp"
-IDB_BITMAP_MACHINE      BITMAP                  "E:\\Users\\Benson\\Dropbox\\2012 Summer\\chnxt\\chnxtwin07102012\\code\\demos\\iMobotController_Windows\\iMobotController_Windows\\res\\machine_brief.bmp"
+IDB_BITMAP_GENERAL      BITMAP                  "res\\lego_diagram_small.bmp"
+IDB_BITMAP_MACHINE      BITMAP                  "res\\machine_brief.bmp"
 IDB_BITMAP_HUMANOID     BITMAP                  "res\\humanoid_brief.bmp"
 IDB_BITMAP8             BITMAP                  "res\\vehicle_brief.bmp"
 
@@ -295,7 +306,7 @@ IDB_BITMAP8             BITMAP                  "res\\vehicle_brief.bmp"
 IDB_PNG1                PNG                     "res\\imobot_diagram.png"
 IDB_PNG2                PNG                     "res\\Barobo_square_32.png"
 IDB_PNG3                PNG                     "res\\joint_diagram_verbose.png"
-IDB_PNG_MACHINE         PNG                     "E:\\Users\\Benson\\Dropbox\\2012 Summer\\chnxt\\chnxtwin07102012\\code\\demos\\iMobotController_Windows\\iMobotController_Windows\\res\\machine_brief.png"
+IDB_PNG_MACHINE         PNG                     "res\\machine_brief.png"
 IDB_PNG_HUMANOID        PNG                     "res\\humanoid_brief.png"
 IDB_PNG4                PNG                     "res\\machine_brief_small.png"
 
@@ -350,7 +361,7 @@ BEGIN
     IDS_ABOUTBOX            "&About iMobotController_Windows..."
 END
 
-#endif    // 英语(美国) resources
+#endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
