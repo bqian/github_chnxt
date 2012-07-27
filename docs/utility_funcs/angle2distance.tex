@@ -1,0 +1,60 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{angle2distance()}\index{angle2distance()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{angle2distance()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+double angle2distance(double radius, double angle);
+array double angle2distance(double radius, array double angle[:])[:];
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Calculate the distance a wheel has traveled from the radius of the wheel and
+the angle the wheel has turned.\\
+
+\noindent
+{\bf Return Value}\\
+The value returned is the distance traveled by the wheel. If the angle argument is an
+array of angles, then the value returned is an array of distances. Each element
+of the distance array returned is the distance calculated from the respective
+element in the angle array.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{radius} & The radius of the wheel. \\
+\texttt{angle} & This value is the angle the wheel has turned. This parameter may be of \texttt{double} type, or a Ch computational array. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function calculates the angle a wheel has turned given the wheel 
+radius and distance traveled. The equation used is
+\begin{equation*}
+d = r \theta
+\end{equation*}
+where $d$ is the distance traveled, $r$ is the radius of the wheel, and $\theta$ is
+the angle the wheel has turned in radians.
+\\
+
+\noindent
+{\bf Example}\\
+\noindent
+
+\noindent
+{\bf See Also}\\
+\texttt{distance2angle()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

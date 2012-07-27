@@ -1,0 +1,54 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{rad2deg()}\index{rad2deg()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{rad2deg()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+double rad2deg(double radians);
+array double rad2deg(double radians[:])[:];
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Convert radians to degrees.\\
+
+\noindent
+{\bf Return Value}\\
+The angle parameter converted to degrees.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{radians} & The angle to convert, in radians. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function converts an angle expressed in radians into degrees. Degrees and
+radians are two popular ways to express an angle, though they are not interchangable.
+The following equation is used to convert radians to degrees:
+\begin{equation*}
+\delta = \theta * \frac{180}{\pi}
+\end{equation*}
+where $\theta$ is the angle in radians and $\delta$ is the angle in degrees.
+
+\noindent
+{\bf Example}\\
+\noindent
+
+\noindent
+{\bf See Also}\\
+\texttt{deg2rad()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

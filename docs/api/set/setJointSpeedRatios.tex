@@ -1,0 +1,66 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::setJointSpeedRatios()} \index{ChNXT::setJointSpeedRatios()}}\\
+
+\addcontentsline{toc}{subsection}{setJointSpeedRatios()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::setJointSpeedRatios(double ratio1, double ratio2, double ratio3);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Set the speed ratio setting of all joints on the Lego Mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item
+\begin{tabular}{ p{20mm}p{135mm} }
+\texttt{ratio1}&The speed ratio setting for the first joint.\\
+\texttt{ratio2}&The speed ratio setting for the second joint.\\
+\texttt{ratio3}&The speed ratio setting for the third joint.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to simultaneously set the speed ratio settings 
+of all joints on the Lego Mindstorms NXT. The speed ratio setting of
+a joint is the percentage of the maximum joint speed, and the value 
+ranges from 0 to 1.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+    
+/* set the speed ratio settings for all joints*/
+nxt.setJointSpeedRatios(0.5, 0.4, 0.4);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{setJointSpeedRatio()}\\
+%%%%% END OF ChNXT::connect %%%%%

@@ -1,0 +1,81 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::vehicleRollForward()}\index{ChNXT::vehicleRollForward()}}\\
+{\LARGE \texttt{ChNXT::vehicleRollForwardNB()}\index{ChNXT::vehicleRollForwardNB()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{vehicleRollForward()}
+\addcontentsline{toc}{subsection}{vehicleRollForwardNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+int ChNXT::vehicleRollForward(double angle);
+int ChNXT::vehicleRollForwardNB(double angle);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Make the Lego Mindstorms NXT in the vehicle configuration roll forward.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{angle} & The angle to turn the wheels, specified in degrees.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+\vspace{-12pt}
+\begin{quote}
+{\bf ChNXT::vehicleRollForward()}\\
+This function is used to roll the Lego Mindstorms forward in the vehicle
+configuration. The amount to roll the wheels is specified by the argument,
+\texttt{angle}.
+
+{\bf ChNXT::vehicleRollForwardNB()}\\
+This function is used to roll the Lego Mindstorms forward in the vehicle
+configuration. The amount to roll the wheels is specified by the argument,
+\texttt{angle}.
+
+This function has both a blocking and non-blocking version.
+The blocking version, \texttt{vehicleRollForward()}, will block until the
+robot motion has completed. The non-blocking version, \texttt{vehicleRollForwardNB()},
+will return immediately, and the motion will be performed asynchronously.\\
+\end{quote}
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h>
+
+ChNXT nxt;
+
+nxt.connect();
+
+/* Blocking function */
+nxt.vehicleRollForward(360);
+
+/* Non-blocking function */
+nxt.vehicleRollForwardNB(360);
+nxt.vehicleMotionWait();
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{vehicleRollBackward()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

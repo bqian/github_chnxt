@@ -1,0 +1,55 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::vehicleMotionWait()}\index{ChNXT::vehicleMotionWait()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{vehicleMotionWait()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::vehicleMotionWait();
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Wait for a motion to complete execution in vehicle configuration.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Description}\\
+This function is used to wait for a motion function to fully complete its cycle.\\
+
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+
+ChNXT nxt;
+
+nxt.connect();
+
+/* Non-blocking function */
+nxt.vehicleRotateRightNB(360);
+
+/* wait until non-blocking motion stops */
+nxt.vehicleMotionWait();
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{vehicleRotateRight()}, \texttt{vehicleRotateLeft()}, \\
+\texttt{vehicleRollForward()}, \texttt{vehicleRollBackward()}
+
+
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

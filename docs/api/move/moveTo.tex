@@ -1,0 +1,88 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::moveTo()} \index{ChNXT::moveTo()}}\\
+{\LARGE \texttt{ChNXT::moveToNB()} \index{ChNXT::moveToNB()}}\\
+
+\addcontentsline{toc}{subsection}{moveTo()}
+\addcontentsline{toc}{subsection}{moveToNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::moveTo(double angle1, double angle2, double angle3, double angle4);
+int ChNXT::moveToNB(double angle1, double angle2, double angle3, double angle4);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Move all joints of Lego Mindstorms NXT to the specified position.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{105 mm}}
+\texttt{angle1} & The absolute position to move joint 1, expressed in degrees. \\
+\texttt{angle2} & The absolute position to move joint 2, expressed in degrees. \\
+\texttt{angle3} & The absolute position to move joint 3, expressed in degrees. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+\vspace{-12pt}
+\begin{quote}
+{\bf ChNXT::moveTo()}\\
+This function moves all of the joints of a robot to the specified 
+absolute positions. 
+
+{\bf ChNXT::moveToNB()}\\
+This function moves all of the joints of a robot to the specified 
+absolute positions. 
+
+The function \texttt{moveToNB()} is the non-blocking version of
+the \texttt{moveTo()} function, which means that the function will
+return immediately and the physical robot motion will occur 
+asynchronously. For more details on blocking and non-blocking 
+functions, please refer to Section \ref{sec:block_nonblock} on page 
+\pageref{sec:block_nonblock}.\\
+\end{quote}
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+ 
+/* setup speed for all three joints */
+nxt.setJointSpeeds(40, 40, 40);
+
+/* move by the non-blocking function*/
+nxt.moveToNB(360, 360, 360);
+nxt.moveWait();
+
+/* move by the blocking function*/
+nxt.moveTo(360, 360, 360);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+%%%%% END OF ChNXT::move %%%%%

@@ -1,0 +1,69 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getJointSpeedRatio()}\index{ChNXT::getJointSpeedRatio()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getJointSpeedRatio()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::getJointSpeedRatio(nxtJointId_t id, double &ratio);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Get the speed ratio settings of a joint on the Lego Mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{id} & Retrieve the speed ratio setting of this joint. This is an 
+enumerated type discussed in Section \ref{sec:nxtJointId_t} on page
+\pageref{sec:nxtJointId_t}.\\
+\texttt{ratio} & A variable of type double. The value of this variable will
+be overwritten with the current speed ratio setting of the joint.
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to find the speed ratio setting of a joint. The speed
+ratio setting of a joint is the percentage of the maximum joint speed, and the
+value ranges from 0 to 1. In other words, if the ratio is set to 0.5, the joint 
+will turn at 50\% of its maximum angular velocity while moving continuously
+or moving to a new goal position.\\
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+#include <stdio.h>
+
+ChNXT nxt;
+double ratio;
+
+nxt.connect();
+
+nxt.getJointSpeedRatio(ROBOT_JOINT1, ratio);
+
+printf("The speed ratio of joint1 is: %lf\n", ratio);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{setJointSpeedRatio(), getJointSpeedRatio()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

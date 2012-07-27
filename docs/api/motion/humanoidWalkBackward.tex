@@ -1,0 +1,81 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::humanoidWalkBackward()}\index{ChNXT::humanoidWalkBackward()}}\\
+{\LARGE \texttt{ChNXT::humanoidWalkBackwardNB()}\index{ChNXT::humanoidWalkBackwardNB()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{humanoidWalkBackward()}
+\addcontentsline{toc}{subsection}{humanoidWalkBackwardNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+int ChNXT::humanoidWalkBackward(double angle);
+int ChNXT::humanoidWalkBackwardNB(double angle);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Make the Lego Mindstorms NXT in the humanoid configuration walk backward.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{angle} & The angle to turn the joints, specified in degrees.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+\vspace{-12pt}
+\begin{quote}
+{\bf ChNXT::humanoidWalkBackward()}\\
+This function is used to make the Lego Mindstorms walk backward in the humanoid
+configuration. The amount to roll the joints is specified by the argument,
+\texttt{angle}.
+
+{\bf ChNXT::humanoidWalkBackwardNB()}\\
+This function is used to make the Lego Mindstorms walk backward in the humanoid
+configuration. The amount to roll the joints is specified by the argument,
+\texttt{angle}.
+
+This function has both a blocking and non-blocking version.
+The blocking version, \texttt{humanoidWalkBackward()}, will block until the
+robot motion has completed. The non-blocking version, \texttt{humanoidWalkBackwardNB()},
+will return immediately, and the motion will be performed asynchronously.\\
+\end{quote}
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h>
+
+ChNXT nxt;
+
+nxt.connect();
+
+/* Blocking function */
+nxt.humanoidWalkBackward(360);
+
+/* Non-blocking function */
+nxt.humanoidWalkBackwardNB(360);
+nxt.humanoidMotionWait();
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{humanoidWalkBackward()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

@@ -1,0 +1,72 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::moveContinuousNB()} \index{ChNXT::moveContinuousNB()}}\\
+
+\addcontentsline{toc}{subsection}{moveContinuousNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::moveContinuousNB(nxtJointState_t dir1, 
+                            nxtJointState_t dir2, 
+                            nxtJointState_t dir3); 
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Move the joints of a robot continuously in the specified directions.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+Each parameter specifies the direction the joint should move. The types
+are enumerated in \texttt{mobot.h} and have the following values:\\
+\input{jointStateTable}
+\noindent
+More documentation about these types may be found at Section
+\ref{sec:nxtJointState_t} on page
+\pageref{sec:nxtJointState_t}.
+
+\noindent
+{\bf Description}\\
+This function causes joints of a robot to begin moving at the 
+previously set speed. The joints will continue moving until the 
+joint hits a joint limit, or the joint is stopped by setting the 
+speed to zero. This function is a non-blocking function.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+ 
+/* setup speed for all three joints */
+nxt.setJointSpeeds(60, 40, 40);
+
+/* move all joints on the Mindstorm NXT */
+nxt.moveContinuousNB(ROBOT_FORWARD, ROBOT_FORWARD, ROBOT_FORWARD);
+
+nxt.disconnect();
+\end{verbatim}
+
+%\noindent
+%{\bf Output}\\
+%None.\\
+%\\
+\noindent
+{\bf See Also}\\
+%%%%% END OF ChNXT::moveContinuousNB %%%%%

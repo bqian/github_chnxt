@@ -1,0 +1,70 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::moveJointContinuousNB()} \index{ChNXT::moveJointContinuousNB()}}\\
+
+\addcontentsline{toc}{subsection}{moveJointContinuousNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::moveJointContinuousNB(robotJointId_t id, int dir);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Move the specific joint on the Mindstorm NXT continuously in a direction.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{125 mm}}
+\texttt{id}      &The joint of the Mindstorm NXT.\\
+\texttt{dir}     &The move direction of the joint. 1 means positive and 0 means negative direction.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to rotate the specific joint of the Mindstorm NXT. The joint will move continuously until the function 
+\texttt{stopOneJoint()} is called. The variable \texttt{dir} indicates the move direction of the joint. \\
+
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+ 
+/* setup speed for all three joints */
+nxt.setJointSpeeds(60, 40, 40);
+
+/* move the joint 1 on the Mindstorm NXT */
+nxt.moveJointContinuousNB(ROBOT_JOINT1, 1);
+
+nxt.disconnect();
+\end{verbatim}
+
+%\noindent
+%{\bf Output}\\
+%None.\\
+%\\
+\noindent
+{\bf See Also}\\
+%%%%% END OF ChNXT::moveJointContinuousNB %%%%%

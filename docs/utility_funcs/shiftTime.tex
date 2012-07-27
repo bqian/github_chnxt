@@ -1,0 +1,71 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{shiftTime()}\index{shiftTime()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{shiftTime()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+int shiftTime(double tolerance, int numDataPoints, double time[], double data1[], ...);
+\end{verbatim}
+
+\noindent
+{\bf Syntax}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+shiftTime(tolerance, numDataPoints, time, angles1);
+shiftTime(tolerance, numDataPoints, time, angles1, angles2);
+shiftTime(tolerance, numDataPoints, time, angles1, angles2, angles3);
+shiftTime(tolerance, numDataPoints, time, angles1, angles2, angles3, angles4);
+etc...
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+This function is used to shift the data in one or more plots to the left. It is commonly used to
+line up the beginning of robot motions with the y-axis on plots.\\
+
+\noindent
+{\bf Return Value}\\
+The return value is the number of elements which have been shifted of the plots. \\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{25 mm}p{145 mm}}
+\texttt{tolerance} & The angle tolerance to detect the beginning of the motion. A lower tolerance
+is more sensitive to small motions, but also more sensitive to noise. A higher tolerance will
+reject noise, but may yield an inaccurate shift in time such that the motion does not appear to
+begin at time 0. \\
+\texttt{numDataPoints} & The number of elements in the arrays. \\
+\texttt{time} & The array holding time or "x-axis" values. \\
+\texttt{data1} & An array holding data. \\
+\texttt{...} & Additional arrays holding data. 
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to shift data to the left to align motion start times with the
+y-axis. This is done by detecting a change in value in any of the data arrays provided
+to the function. If there is a change greater than the value provided as the
+tolerance, that time is labeled as the beginning of the motion. All data points
+prior to the beginning of the motion are deleted, and the beginning of the
+motion is aligned with time 0.
+
+\noindent
+{\bf Example}\\
+\noindent
+
+\noindent
+{\bf See Also}\\
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

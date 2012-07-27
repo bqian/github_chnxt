@@ -1,0 +1,51 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::disconnect()} \index{ChNXT::disconnect()}}\\
+
+\addcontentsline{toc}{subsection}{disconnect()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::disconnect();
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Disconnect from a Lego mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+None.\\
+
+\noindent
+{\bf Description}\\
+This function is used to disconnect from a connected Mindstorms NXT. A call to this function is not necessary before the terminationof a program. It is only neccessary if another connection will be established within the same program at a later time.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+    
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{connect()}, \texttt{connectWithAddress}\\
+%%%%% END OF ChNXT::connect %%%%%

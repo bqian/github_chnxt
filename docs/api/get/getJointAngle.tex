@@ -1,0 +1,68 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getJointAngle()}\index{ChNXT::getJointAngle()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getJointAngle()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::getJointAngle(nxtJointId_t id, double &angle);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Retrieve a robot joint's current angle.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{id} & The joint number. This is an enumerated type 
+discussed in Section \ref{sec:nxtJointId_t} on page
+\pageref{sec:nxtJointId_t}.\\
+\texttt{angle} & A variable to store the current angle of the robot
+motor. The contents of this variable will be overwritten with a value that
+represents the motor's angle in degrees.  \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function gets the current motor angle of a NXT's motor. The
+angle returned is in units of degrees and is accurate to roughly $\pm1$
+degrees. The function \texttt{getJointAngle()} always returns an angle 
+from 0 to $\infty$ degrees.\\
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+#include <stdio.h>
+
+ChNXT nxt;
+double angle;
+
+nxt.connect();
+
+nxt.getJointAngle(ROBOT_JOINT1, angle);
+
+printf("The angle of joint1 is: %lf\n", angle);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

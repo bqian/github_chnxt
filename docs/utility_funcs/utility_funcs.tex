@@ -1,0 +1,38 @@
+%\lhead{libimobotcomms API Documentation}
+%\noindent
+%There are several utility functions which are useful when programming for
+%the NXT. 
+\subsection{Overview}
+\begin{table}[H]
+%\capstart
+\begin{center}
+\caption{NXT Utility Functions.}
+\begin{tabular}{p{38 mm}p{110 mm}}
+%\begin{tabular}{ll}
+\hline
+Function & Description \\
+\hline
+%\texttt{pose()} \dotfill & Pose multiple joints of the robot. \\
+\texttt{angle2distance()} & Calculates the angle a wheel has turned from the
+radius and distance traveled.\\
+\texttt{deg2rad()} & Converts degrees to radians. \\
+\texttt{delay()} & Puts a delay into a program. \\
+\texttt{distance2angle()} & Calculates the distance traveled by a wheel from the wheel's radius and angle turned.\\
+\texttt{rad2deg()} & Converts radians to degrees.\\
+%\texttt{shiftTime()} & Shift the data of a plot.\\
+\hline
+\end{tabular}
+\end{center}
+\label{mobilec_api_cbinary}
+\end{table}
+
+\subsection{Function Details}
+\input{utility_funcs/angle2distance}
+\input{utility_funcs/deg2rad}
+\input{utility_funcs/delay}
+%\input{utility_funcs/pause}
+\input{utility_funcs/distance2angle}
+\clearpage
+\newpage
+\input{utility_funcs/rad2deg}
+%\input{utility_funcs/shiftTime}

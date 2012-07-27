@@ -1,0 +1,55 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::moveJointWait()}\index{ChNXT::moveJointWait()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{moveJointWait()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::moveJointWait(nxtJointId_t id);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Wait for a joint to stop moving.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{id} & The joint number to wait for. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to wait for a joint motion to finish. Functions such as
+\texttt{moveNB()} and \texttt{moveJointNB()} do not wait for a joint to finish
+moving before continuing to allow multiple joints to move at the same time. The
+\texttt{moveJointWait()} function is used to wait for a 
+robotic joint motion to complete.
+
+Please note that if this function is called after a motor has been commanded to
+turn indefinitely, this function may never return and your program may hang.\\
+
+\noindent
+{\bf Example}\\
+%Please see the example in Section \ref{sec:democode} on page \pageref{sec:democode}.\\
+%\noindent
+
+\noindent
+{\bf See Also}\\
+\texttt{moveWait()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

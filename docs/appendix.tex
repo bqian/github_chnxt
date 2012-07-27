@@ -1,0 +1,294 @@
+%%%%%%%%%% APPENDIX %%%%%%%%%%
+\section{\label{sec:chnxt_api}ChNXT Class API}
+The header file nxt.h defines all the data types, macros and 
+function prototypes for th Lego Mindstorms NXT API library. 
+The header file declares a class called ChNXT which contains
+member functions which may be used to control the Lego
+Minstorms NXT.\\
+%% DATA TYPE %%
+\subsection{\label{sec:datatypes}Data Types Used in ChNXT Class}
+The data types defined in the header file \texttt{nxt.h} are 
+described in this appendix. These data types are used by the NXT 
+library to represent certain values, such as joint id's and motor 
+directions.\\
+
+\noindent
+\begin{tabular}{p{3.5cm}p{12cm}} 
+\hline 
+Data Type& Description \\
+\hline 
+\texttt{nxtJointId\_t} & An enumerated value that indicates a 
+nxt joints. \\
+\texttt{nxtJointState\_t} & The current state of a nxt joint. \\
+\texttt{nxtSensorId\_t} & An enumerate value that indicates a 
+nxt's sensors. \\
+\texttt{nxtSensorType\_t} & An enumerate value that indicates 
+the type of a sensor of a nxt.\\
+\texttt{nxtSensorMode\_t} & An enumerate value that indicates 
+the mode of a sensor for getting value. \\
+\hline
+\end{tabular}
+
+\subsubsection{\label{sec:nxtJointId_t}\texttt{nxtJointId\_t}}
+This datatype is an enumerated type used to identify a joint on 
+the Lego Mindstorms NXT. Valid values for this type are:
+\begin{verbatim}
+typedef enum nxt_joints_e {
+  NXT_JOINT1 = 0,
+  NXT_JOINT2 = 1,
+  NXT_JOINT3 = 2,
+} nxtJointId_t;
+\end{verbatim}
+\index{nxt\_joints\_t}
+
+\index{NXT\_JOINT1}
+\index{NXT\_JOINT2}
+\index{NXT\_JOINT3}
+
+\noindent
+\begin{tabular}{p{3.5cm}p{12cm}} \hline 
+Value & Description \\
+\hline 
+\texttt{NXT\_JOINT1} & PortA on the Lego Mindstorms NXT. \\
+\texttt{NXT\_JOINT2} & PortB on the Lego Mindstorms NXT. \\
+\texttt{NXT\_JOINT3} & PortC on the Lego Mindstorms NXT. \\
+\hline
+\end{tabular}
+
+\subsubsection{\label{sec:nxtJointState_t}\texttt{nxtJointState\_t}}
+This datatype is an enumerated type used to designate the current 
+movement state of a joint. The values may be retrieved from the 
+robot with the \texttt{getJointState()} function and may be set 
+with the \texttt{moveContinuous()} family of functions. Valid values are:
+
+\begin{verbatim}
+typedef enum nxt_joint_state_e {
+    NXT_FORWARD   = 1,
+    NXT_BACKWARD  = -1,
+} nxtJointState_t;
+\end{verbatim}
+
+\index{nxtJointState\_t}
+
+\index{NXT\_FORWARD}
+\index{NXT\_BACKWARD}
+
+\noindent
+\begin{tabular}{p{3.5cm}p{12cm}} \hline 
+Value & Description \\
+\hline
+\texttt{NXT\_FORWARD} & This value indicates that the joint is currently moving forward.  \\
+\texttt{NXT\_BACKWARD}& This value indicates that the joint is currently moving backward. \\
+\hline
+\end{tabular}
+\\
+
+\subsubsection{\label{sec:nxtSensorPort_t}\texttt{nxtSensorPort\_t}}
+This datatype is an enumerated type used to identify a sensor on 
+the Lego Mindstorms NXT. Valid values for this type are:
+
+\begin{verbatim}
+typedef enum nxt_sensors_e{
+    NXT_SENSORPORT1 = 0,
+    NXT_SENSORPORT2 = 1,
+    NXT_SENSORPORT3 = 2,
+    NXT_SENSORPORT4 = 3
+} nxtSensorId_t;
+\end{verbatim}
+\index{nxtSensorId\_t}
+
+\index{NXT\_SENSORPORT1}
+\index{NXT\_SENSORPORT2}
+\index{NXT\_SENSORPORT3}
+\index{NXT\_SENSORPORT4}
+
+\noindent
+\begin{tabular}{p{3.5cm}p{12cm}} \hline
+Value &       Description\\
+\hline
+\texttt{NXT\_SENSORPORT1}&Select sensor input PORT 1 on the NXT.\\
+\texttt{NXT\_SENSORPORT2}&Select sensor input PORT 2 on the NXT.\\
+\texttt{NXT\_SENSORPORT3}&Select sensor input PORT 3 on the NXT.\\
+\texttt{NXT\_SENSORPORT4}&Select sensor input PORT 4 on the NXT.\\
+\hline
+\end{tabular}
+
+\subsubsection{\label{sec:nxtSensorType_t}\texttt{nxtSensorType\_t}}
+This data type is used to identify the type of a sensor for the
+Lego Mindstorms NXT. Valid values for this type are:
+
+\begin{verbatim}
+typedef enum nxt_sensor_type_e{
+    NXT_SENSORTYPE_TOUCH           = 0x01,
+    NXT_SENSORTYPE_TEMPERATURE     = 0x02,
+    NXT_SENSORTYPE_LIGHT_ACTIVE    = 0x05,
+    NXT_SENSORTYPE_LIGHT_INACTIVE  = 0x06,
+    NXT_SENSORTYPE_SOUND_DB        = 0x07,
+    NXT_SENSORTYPE_SOUND_DBA       = 0x08,
+    NXT_SENSORTYPE_LOWSPEED        = 0x0A,
+    NXT_SENSORTYPE_ULTRASONIC      = 0x0B // LOWSPEED_9V
+} nxtSensorType_t;
+\end{verbatim}
+
+\index{nxtSensorType\_t}
+
+\index{NXT\_SENSORTYPE\_TOUCH}
+\index{NXT\_SENSORTYPE\_TEMPERATURE}
+\index{NXT\_SENSORTYPE\_LIGHT\_ACTIVE}
+\index{NXT\_SENSORTYPE\_LIGHT\_INACTIVE}
+\index{NXT\_SENSORTYPE\_SOUND\_DB}
+\index{NXT\_SENSORTYPE\_SOUND\_DBA}
+\index{NXT\_SENSORTYPE\_ULTRASONIC}
+
+\noindent
+\begin{tabular}{p{5.5cm}p{10cm}} \hline
+Value &       Description\\
+\hline
+\texttt{NXT\_SENSORTYPE\_TOUCH}          &Set to Touch sensor.\\
+\texttt{NXT\_SENSORTYPE\_TEMPERATURE}   &Set to Temperature Sensor.\\
+\texttt{NXT\_SENSORTYPE\_LIGHT\_ACTIVE} &Set to Light Sensor in active mode(LED on).\\
+\texttt{NXT\_SENSORTYPE\_LIGHT\_INACTIVE}&Set to Light Sensor in inactive mode(LED off).\\
+\texttt{NXT\_SENSORTYPE\_SOUND\_DB}    &Set to Sound Sensor in dB.\\
+\texttt{NXT\_SENSORTYPE\_SOUND\_DBA}   &Set to Sound Sensor in dBa.\\
+\texttt{NXT\_SENSORTYPE\_LOWSPEED}     &Set to ISP type sensor.\\
+\texttt{NXT\_SENSORTYPE\_ULTRASONIC}   &Set to Ultrasonic Sensor.\\
+\hline
+\end{tabular}
+
+\subsubsection{\label{sec:nxtSensorMode_t}\texttt{nxtSensorMode\_t}}
+This data type is used to identify the mode for a sensor to get value for the Lego Mindstorms NXT. Valid values for this type are:
+
+\begin{verbatim}
+typedef enum nxt_sensor_mode_e{
+    NXT_SENSORMODE_RAWMODE         = 0x00,
+    NXT_SENSORMODE_BOOLEANMODE     = 0x20
+} nxtSensorMode_t;
+\end{verbatim}
+\index{nxtSensorMode\_t}
+
+\index{NXT\_SENSORMODE\_RAWMODE}
+\index{NXT\_SENSORMODE\_BOOLEANMODE}
+
+\noindent
+\begin{tabular}{p{5.5cm}p{10cm}} \hline
+Value & Description\\
+\hline
+\texttt{NXT\_SENSORMODE\_RAWMODE}	    &Get sensor value as raw mode.\\	 
+\texttt{NXT\_SENSORMODE\_BOOLEANMODE}  &Get sensor value as boolean mode.\\
+\hline
+\end{tabular}
+%%%%%%%%%% End of Data Types %%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ChNXT Class API %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%% the table of communication functions %%%%%%%%%%%%
+\subsection{ChNXT Class API Overview}
+\begin{table}[!h]
+\caption{Functions for Communication}
+
+\begin{tabular}{ p{6cm}p{10cm}}\hline
+Function & Description\\
+\hline
+\texttt{connect()}&Connects to the Mindstorms NXT using bluetooth 
+(Read bluetooth address from the configuration file automaticly).\\
+\texttt{connectWithAddress()}&Connects to the Mindstorms NXT via 
+bluetooth (Read bluetooth address from users' input).\\
+\texttt{disconnect()}  &Disconnects from the Mindstorms NXT.\\
+\hline
+\end{tabular}
+\end{table}
+
+% the table for the checking functions %
+\begin{table}[!h]
+\caption{Functions for Checking Status}
+\begin{tabular}{ p{6cm}p{10cm}}\hline
+Function & Description\\
+\hline
+\texttt{isConnected()}    &Check the connection to a robot.\\
+\texttt{isMoving()}       &Check if any joints are currently in motion.\\
+\hline
+\end{tabular}
+\end{table}
+
+% the table for the sensors' functions %
+\begin{table}[!h]
+\caption{Functions for Sensors}
+\begin{tabular}{ p{6cm}p{10cm}}\hline
+Function & Description\\
+\hline
+\texttt{setSensor()}       &Setup the sensors to collect data from the environment.\\
+\texttt{getSensor()}       &Get the data collected by the sensors from the NXT.\\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%% functions for joints %%%%%%%%%%%%%%
+\begin{table}[!h]
+\caption{Functions for Joints}
+\begin{tabular}{ p{6cm}p{10cm} }\hline
+Functions & Description\\
+\hline
+\texttt{setJointZero()}         &Reset the tachometer to zero for a single joint.\\
+\texttt{setJointZeros()}        &Reset the tachometer to zero for all joints.\\
+\texttt{setJointSpeedRatio()}   &Set up a single joint speed.\\
+\texttt{setJointSpeedRatios()}  &Set up all joints' speed.\\
+\texttt{moveJointContinuousNB()}&Make a single joint move continuously.\\
+\texttt{moveJoint()}            &Make a single joint move a user-specified angle.\\
+\texttt{moveJointNB()}          &Identical to \texttt{moveJoint()} but non-blocking.\\
+\texttt{moveJointTo()}          &Make a single joint move to an absolute angle.\\
+\texttt{moveJointToNB()}        &Identical to \texttt{moveJointTo()} but non-blocking.\\
+\texttt{move()}                 &Make all joints move a user-specified angles.\\
+\texttt{moveNB()}               &Identical to \texttt{move()} but non-blocking.\\
+\texttt{moveTo()}               &Make all joints move to absolute angles.\\
+\texttt{moveToNB()}             &Identical to \texttt{moveTo()} but non-blocking.\\
+\texttt{moveToZero()}           &Make all joints move to absolute zero positions.\\
+\texttt{moveToZeroNB()}         &Identical to \texttt{moveToZero()} but non-blocking.\\
+\texttt{moveContinuousNB()}     &Make all joints move continuously.\\
+\texttt{moveContinuousTime()}   &Make all joints move continuously for a certain amount of time.\\
+\texttt{moveWait()}             &Wait untill all motors have stopped moving.\\
+\texttt{getJointAngle()}        &Get tachometer counts from NXT.\\
+\texttt{getJointSpeedRatio()}   &Get a motor's speed ratio from NXT.\\
+\texttt{getJointSpeedRatios()}  &Get all motors' speed ratios from NXT.\\
+\texttt{stopOneJoint()}         &Make a single joint stop moving.\\
+\texttt{stopTwoJoints()}        &Make two joints stop moving.\\
+\texttt{stopAllJoints()}        &Make all joints stop moving.\\
+\hline
+\end{tabular}
+\end{table}
+
+% the functions for vehicle configuration %
+\begin{table}[!h]
+\caption{Functions for the Vehicle Configuration}
+\begin{tabular}{ p{6cm}p{10cm} }\hline
+Functions & Description\\
+\hline
+\texttt{vehicleRollForward()}      &Moves the NXT vehicle forward.\\
+\texttt{vehicleRollForwardNB()}    &Identical to \texttt{vehicleRollForward()}, but non-blocking.\\
+\texttt{vehicleRollBackward()}     &Moves the NXT vehicle backward.\\
+\texttt{vehicleRollBackwardNB()}   &Identical to \texttt{vehicleRollBackward()}, but non-blocking.\\
+\texttt{vehicleRotateLeft()}       &Rotates the NXT vehicle left.\\
+\texttt{vehicleRotateLeftNB()}     &Identical to \texttt{vehicleRotateLeft()}, but non-blocking.\\
+\texttt{vehicleRotateRight()}      &Rotates the NXT vehicle right.\\
+\texttt{vehicleRotateRightNB()}    &Identical to \texttt{vehicleRotateRight()}, but non-blocking.\\
+\texttt{vehicleMotionWait()}       &Wait until vehicle stop moving.\\
+\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+\newpage
+% functions details %
+\subsection{ChNXT Class API Details}
+\input{api/api.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% End of Appendix chnxt_api %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix ultility_functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\newpage
+\section{\label{sec:ultility_functions}Miscellaneous Utility Functions}
+Besides the control functions described in Appendix \ref{sec:chnxt_api}, some utility functions are
+also very useful when you are programming, such as convert a certain angle to distance with the 
+coresponding radius of wheel. Therefore, we will introduce you some useful utility functions in 
+this section.\\
+\input{utility_funcs/utility_funcs.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% End of appendix ultility_functions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

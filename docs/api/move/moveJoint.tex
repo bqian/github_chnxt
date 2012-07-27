@@ -1,0 +1,100 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::moveJoint()} \index{ChNXT::moveJoint()}}\\
+{\LARGE \texttt{ChNXT::moveJointNB()} \index{ChNXT::moveJointNB()}}\\
+
+\addcontentsline{toc}{subsection}{moveJoint()}
+\addcontentsline{toc}{subsection}{moveJointNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::moveJoint(nxtJointId_t id, double angle);
+int ChNXT::moveJointNB(nxtJointId_t id, double angle);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Move a joint on the robot by a specified angle with respect to the
+current position.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{20 mm}p{135 mm}}
+\texttt{id} & The joint number to move. \\
+\texttt{angle} & The desired angle the joint need to move. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+\vspace{-12pt}
+\begin{quote}
+{\bf ChNXT::moveJoint()}\\
+This function commands the motor to move by an angle relative to 
+the joint's current position at the joints current speed setting.
+The current motor speed ratio may be set with the 
+\texttt{setJointSpeedRatio()} member function. Please note that if
+the motor speed is set to zero, the motor will not move after 
+calling the \texttt{moveJoint()} function. 
+
+{\bf ChNXT::moveJointNB()}\\
+This function commands the motor to move by an angle relative to 
+the joint's current position at the joints current speed setting.
+The current motor speed ratio may be set with the
+\texttt{setJointSpeedRatio()} member function. Please note that if
+the motor speed is set to zero, the motor will not move after 
+calling the \texttt{moveJointNB()} function. 
+
+The function \texttt{moveJointNB()} is the non-blocking version of
+the \texttt{moveJoint()} function, which means that the function 
+will return immediately and the physical robot motion will occur 
+asynchronously. For more details on blocking and non-blocking 
+functions, please refer to Section \ref{sec:block_nonblock} on page 
+\pageref{sec:block_nonblock}.\\
+\end{quote}
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+ 
+/* setup speed for joint1 */
+nxt.setJointSpeedRatio(ROBOT_JOINT1, 40);
+
+/* move joint1 360 degrees */
+nxt.moveJointNB(ROBOT_JOINT1, 360);
+nxt.moveJointWait();
+
+/* move joint1 360 degrees */
+nxt.moveJoint(ROBOT_JOINT1, 360);
+
+nxt.disconnect();
+\end{verbatim}
+
+%\noindent
+%{\bf Output}\\
+%None.\\
+%\\
+\noindent
+{\bf See Also}\\
+%%%%% END OF ChNXT::moveJoint %%%%%

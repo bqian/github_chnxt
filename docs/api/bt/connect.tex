@@ -1,0 +1,51 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::connect()} \index{ChNXT::connect()}}\\
+
+\addcontentsline{toc}{subsection}{connect()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::connect();
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Connect to a Mindstorms NXT via Bluetooth.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success, and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+None.\\
+
+\noindent
+{\bf Description}\\
+This function is used to connect to a Mindstorms NXT via Bluetooth. The Bluetooth address is gotten from the configuration file.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+if (nxt.connect()){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+    
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{connectWithAddress()}, \texttt{disconect()}\\
+%%%%% END OF ChNXT::connect %%%%%

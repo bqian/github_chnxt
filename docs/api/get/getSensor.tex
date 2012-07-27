@@ -1,0 +1,68 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getSensor()}\index{ChNXT::getSensor()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getSensor()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::getSensor(nxtSensorId_id, double &value);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Retrieve a NXT sensor's current value.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{id} & The sensor port. This is an enumerated type 
+discussed in Section \ref{sec:nxtSensorId_t} on page
+\pageref{sec:nxtSensorId_t}.\\
+\texttt{value} & A variable to store the current value of the NXT 
+sensor. The contents of this variable will be overwritten with the 
+sensor's value.  \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function gets the current sensor's value of a NXT.\\
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+#include <stdio.h>
+
+ChNXT nxt;
+int value;
+
+nxt.connect();
+
+nxt.setSensor(NXT_SENSORPORT4, NXT_SENSORTYPE_ULTRASONIC,
+		NXT_SENSORMODE_RAWMODE);
+
+nxt.getSensor(NXT_SENSORPORT4, value);
+
+printf("The value of sensor 4 is: %d\n", value);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

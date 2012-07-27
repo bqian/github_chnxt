@@ -1,0 +1,66 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getJointSpeedRatios()}\index{ChNXT::getJointSpeedRatios()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getJointSpeedRatios()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::getJointSpeedRatios(double &ratio1, double &ratio2, double &ratio3);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Get the speed ratio settings of all joints on the Lego Mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{ratio1} & The address of a variable to store the speed ratio of joint 1.\\
+\texttt{ratio2} & The address of a variable to store the speed ratio of joint 2.\\
+\texttt{ratio3} & The address of a variable to store the speed ratio of joint 3.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to retrieve all four joint speed ratio settings of a Lego
+Mindstorms NXT simultaneously. The speed ratios are as a value from 0 to 1. \\
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+#include <stdio.h>
+
+ChNXT nxt;
+double ratio1, ratio2, ratio3;
+
+nxt.connect();
+
+nxt.getJointSpeedRatio(ratio1, ratio2, ratio3);
+
+printf("The speed ratio of joint1 is: %lf\n", ratio1);
+printf("The speed ratio of joint2 is: %lf\n", ratio2);
+printf("The speed ratio of joint3 is: %lf\n", ratio3);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{getJointSpeedRatio(), setJointSpeedRatio()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

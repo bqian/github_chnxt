@@ -1,0 +1,54 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::humanoidMotionWait()}\index{ChNXT::humanoidMotionWait()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{humanoidMotionWait()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::humanoidMotionWait();
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Wait for a motion to complete execution in humanoid configuration.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Description}\\
+This function is used to wait for a motion function to fully complete its cycle.\\
+
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+
+ChNXT nxt;
+
+nxt.connect();
+
+/* Non-blocking function */
+nxt.humanoidRotateRightNB(360);
+
+/* wait until non-blocking motion stops */
+nxt.humanoidMotionWait();
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{humanoidWalkForward()}, \texttt{humanoidWalkBackward()}
+
+
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

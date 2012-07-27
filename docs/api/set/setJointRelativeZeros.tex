@@ -1,0 +1,56 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::setJointRelativeZeros()} \index{ChNXT::setJointRelativeZeros()}}\\
+
+\addcontentsline{toc}{subsection}{setJointRelativeZeros()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::setJointRelativeZero(void);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Reset the relative tachometer count for all motors.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+None.\\
+
+\noindent
+{\bf Description}\\
+This function is used to reset the relative tachometer count for 
+all joints of the Mindstorms NXT.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (!nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+    
+nxt.setJointRelativeZeros();
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf Output}\\
+None.\\
+\\
+%%%%% END OF ChNXT::setJointRelativeZeros %%%%%

@@ -1,0 +1,64 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::setJointZero()} \index{ChNXT::setJointZero()}}\\
+
+\addcontentsline{toc}{subsection}{setJointZero()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::setJointZero(nxtJointId_t id);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Reset the tachometer count for a single joint on Mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item
+\begin{tabular}{p{20mm}p{135mm}}
+\texttt{id} &The port of the joint locate on the Mindstorm NXT.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to reset the tachometer count for a joint on the Mindstorms NXT.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+    
+nxt.setJointZero(ROBOT_JOINT1);
+
+nxt.disconnect();
+\end{verbatim}
+
+%\noindent
+%{\bf Output}\\
+%None.\\
+%\\
+\noindent
+{\bf See Also}\\
+\texttt{setJointZeros()}\\
+%%%%% END OF ChNXT::setJointRelativeZero %%%%%

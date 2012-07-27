@@ -1,5 +1,4 @@
 # a list of files ignored
-*.pdf
 *.old
 test*
 mobot*
@@ -23,12 +22,8 @@ mobot*
 *.ind
 *.log
 *.out
-*.tex
 *.toc
 *.ppt
 *.sty
 *.doc
 *.txt
-code/demos/iMobotController_Windows.old/
-code/demos/WinGUI/
-docs/figure/

@@ -1,0 +1,68 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::stopOneJoint()} \index{ChNXT::stopOneJoint()}}\\
+
+\addcontentsline{toc}{subsection}{stopOneJoint()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::stopOneJoint(nxtJointId_t id);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Stop a joint moving.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item
+\begin{tabular}{ p{20mm}p{135mm} }
+\texttt{id}       &The joint of the Mindstorm NXT.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to stop the specific joint on the Mindstorm NXT.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+    
+/* setup speed for all three joints */
+nxt.setJointSpeeds(60, 40, 40);
+
+/* move joint1 360 degrees */
+nxt.moveJointContinuousNB(ROBOT_JOINT1, ROBOT_FORWARD);
+sleep(5);
+
+/* stop joint1 */
+nxt.stopOneJoint(ROBOT_JOINT1);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{stopTwoJoints(), stopAllJoints()}\\
+%%%%% END OF ChNXT::connect %%%%%

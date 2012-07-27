@@ -1,0 +1,77 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::vehicleRotateRight()}\index{ChNXT::vehicleRotateRight()}}\\
+{\LARGE \texttt{ChNXT::vehicleRotateRightNB()}\index{ChNXT::vehicleRotateRightNB()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{vehicleRotateRight()}
+\addcontentsline{toc}{subsection}{vehicleRotateRightNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+int ChNXT::vehicleRotateRight(double angle);
+int ChNXT::vehicleRotateRightNB(double angle);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Rotate the Lego Mindstorms NXT right in vehicle configuration.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{angle} & The angle in degrees to turn the wheels. The wheels will turn in opposite directions by the amount specifid by this argument in order to turn the robot to the right. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+\vspace{-12pt}
+\begin{quote}
+{\bf ChNXT::vehicleRotateRight()}\\
+This function causes the robot to rotate the wheels of the Lego Mindstorms NXT in vehicle configuration in opposite directions to cause the robot to rotate clockwise.
+
+{\bf ChNXT::vehicleRotateRightNB()}\\
+This function causes the robot to rotate the wheels of the Lego Mindstorms NXT in vehicle configuration in opposite directions to cause the robot to rotate clockwise.\\
+\newline
+This function has both a blocking and non-blocking version.
+The blocking version, \texttt{vehicleRotateRight()}, will block until the
+robot motion has completed. The non-blocking version, \texttt{vehicleRotateRightNB()},
+will return immediately, and the motion will be performed asynchronously.\\
+\end{quote}
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h>
+
+ChNXT nxt;
+
+nxt.connect();
+
+/* Blocking function */
+nxt.vehicleRotateRight(360);
+
+/* Non-blocking function */
+nxt.vehicleRotateRightNB(360);
+nxt.vehicleMotionWait();
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+\texttt{vehicleRotateRight()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

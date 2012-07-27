@@ -1,0 +1,71 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getJointState()}\index{ChNXT::getJointState()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getJointState()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::getJointState(nxtJointId_t id, nxtJointState_t &state);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Determine whether a motor is moving or not.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{id} & The joint number. This is an enumerated type 
+discussed in Section \ref{sec:nxtJointId_t} on page
+\pageref{sec:nxtJointId_t}.\\
+\texttt{state} & An integer variable which will be overwritten with the current state of the motor. 
+This is an enumerated type 
+discussed in Section \ref{sec:nxtJointState_t} on page
+\pageref{sec:nxtJointState_t}.
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to determine the current state of a motor. Valid states are listed below.\\
+\\
+\input{jointStateTable}
+
+\noindent
+{\bf Example}\\
+\begin{verbatim}
+#include <nxt.h>
+#include <stdio.h>
+
+ChNXT nxt;
+nxtJointState_t status;
+
+nxt.connect();
+
+nxt.getJointState(ROBOT_JOINT1, status);
+if(status == 0)
+    printf("Joint1 is not moving.\n");
+else
+    printf("Joint1 is moving.\n");
+
+nxt.disconnect();
+\end{verbatim}
+%\noindent
+
+\noindent
+{\bf See Also}\\
+\texttt{isMoving()}\\
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

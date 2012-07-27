@@ -1,0 +1,56 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getJointDirection()}\index{ChNXT::getJointDirection()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getJointDirection()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::getJointDirection(robotJointId_t id, int &direction);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Get the speed of a joint on the Lego Mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{id} & The joint number to pose. This is an enumerated type 
+discussed in Section \ref{sec:robotJointId_t} on page
+\pageref{sec:robotJointId_t}.\\
+\texttt{direction} & An integer variable. This variable will be overwritten
+with the current speed of the joint.
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to retrieve the motor's direction status. The valid
+status directions are
+\begin{itemize}
+\item 1: Forward direction
+\item 2: Backward direction
+\end{itemize}
+
+\noindent
+{\bf Example}\\
+\noindent
+
+\noindent
+{\bf See Also}\\
+\texttt{setJointDirection()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

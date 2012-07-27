@@ -1,0 +1,54 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{pause()}\index{pause()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{pause()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <mobot.h>
+void pause(double seconds);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Pause a program for a set amount of time.\\
+
+\noindent
+{\bf Return Value}\\
+None.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{seconds} & The number of seconds to pause. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function delays or pauses a program for a number of seconds. For instance, 
+the code 
+\begin{verbatim}
+pause(0.5);
+printf("Hello.\n");
+pause(2);
+printf("Goodbye.\n");
+\end{verbatim}
+will pause for half a second, print the text \texttt{Hello.}, pause for 2 seconds,
+and then print the text \texttt{Goodbye.}. 
+\noindent
+{\bf Example}\\
+%\noindent
+
+%\noindent
+%{\bf See Also}\\
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

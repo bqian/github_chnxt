@@ -1,0 +1,54 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::isConnected()} \index{ChNXT::isConnected()}}\\
+
+\addcontentsline{toc}{subsection}{isConnect()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::isConnected(void);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Check to see if currently connected to a Lego Mindstorms NXT via Bluetooth.
+
+\noindent
+{\bf Return Value}\\
+The function returns zero if it is not currently connected to a Lego Mindstorms NXT or if an error has occured, or 1 if the Lego Mindstorms NXT is connected.\\
+
+\noindent
+{\bf Parameters}\\
+None.\\
+
+\noindent
+{\bf Description}\\
+This function is used to check if the software is currently connected to a Lego Mindstorms NXT.\\
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h>
+
+ChNXT nxt;
+int connectStatus;
+
+nxt.connect();
+connectStatus = nxt.isConnected();
+
+if(connectStatus)
+    printf("Connected!\n");
+else
+    printf("Not connected!\n");
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+%%%%% END OF ChNXT::isConnect %%%%%

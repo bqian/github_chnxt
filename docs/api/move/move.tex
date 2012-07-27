@@ -1,0 +1,89 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::move()} \index{ChNXT::move()}}\\
+{\LARGE \texttt{ChNXT::moveNB()} \index{ChNXT::moveNB()}}\\
+
+\addcontentsline{toc}{subsection}{move()}
+\addcontentsline{toc}{subsection}{moveNB()}
+
+\noindent
+{\bf Synopsis}
+\vspace{-8pt}
+\begin{verbatim}
+#include <nxt.h>
+int ChNXT::move(double degrees1, double degrees2, double degrees3);
+int ChNXT::moveNB(double degrees1, double degrees2, double degrees3);
+\end{verbatim}
+
+\noindent
+{\bf Purpose}\\
+Move all joints of Lego Mindstorms NXT by specified degrees.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{125 mm}}
+\texttt{angle1} & The amount to move joint 1 relative to the current position. \\
+\texttt{angle2} & The amount to move joint 2 relative to the current position. \\
+\texttt{angle3} & The amount to move joint 3 relative to the current position. \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+\vspace{-12pt}
+\begin{quote}
+{\bf ChNXT::move()}\\
+This function moves all of the joints of a Lego Mindstorms NXT by 
+the specified number of degrees from their current positions. 
+
+\noindent
+{\bf ChNXT::moveNB()}\\
+This function moves all of the joints of a Lego Mindstorms NXT by 
+the specified number of degrees from their current positions. 
+
+The function \texttt{moveNB()} is the non-blocking version of the 
+\texttt{move()} function, which means that the function will 
+return immediately and the physical robot motion will occur 
+asynchronously. For more information on blocking and non-blocking 
+functions, please refer to Section \ref{sec:block_nonblock} on page 
+\pageref{sec:block_nonblock}.\\
+\end{quote}
+
+\noindent
+{\bf Example}
+\begin{verbatim}
+#include <nxt.h> 
+#include <stdio.h>
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(0);
+}
+ 
+/* setup speed for all three joints */
+nxt.setJointSpeeds(60, 40, 40);
+
+/* move by the non-blocking function*/
+nxt.moveNB(360, 360, 360);
+nxt.moveWait();
+
+/* move by the blocking function*/
+nxt.move(360, 360, 360);
+
+nxt.disconnect();
+\end{verbatim}
+
+\noindent
+{\bf See Also}\\
+%%%%% END OF ChNXT::move %%%%%
