@@ -21,7 +21,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)/ChNXTController"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
@@ -71,7 +71,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="uafxcw.lib; LIBCMT.lib;"
 				LinkIncremental="2"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -186,7 +188,7 @@
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			UseOfMFC="2"
+			UseOfMFC="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -215,7 +217,7 @@
 				AdditionalIncludeDirectories="..\..\..\"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				MinimalRebuild="false"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -235,7 +237,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="uafxcw.lib LIBCMT.lib"
+				OutputFile="$(OutDir)\ChNXTController.exe"
 				LinkIncremental="1"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -547,6 +552,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\ch.bmp"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ch.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\res\ChNXT.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\res\humanoid_brief.bmp"
 				>
 			</File>
@@ -575,6 +592,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\res\ico00006.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\res\icon1.ico"
 				>
 			</File>
@@ -599,11 +620,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\libimobot\Demos\GtkGui\interface\imobot_diagram.png"
+				RelativePath=".\res\iMobot_diagram.png"
 				>
 			</File>
 			<File
-				RelativePath=".\res\iMobot_diagram.png"
+				RelativePath="..\..\..\..\libimobot\Demos\GtkGui\interface\imobot_diagram.png"
 				>
 			</File>
 			<File

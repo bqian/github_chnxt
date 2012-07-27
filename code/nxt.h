@@ -83,8 +83,11 @@ typedef enum nxt_sensor_type_e{
 #ifndef NXT_SENSOR_MODE_E
 #define NXT_SENSOR_MODE_E
 typedef enum nxt_sensor_mode_e{
-    NXT_SENSORMODE_RAWMODE = 0x00,
-    NXT_SENSORMODE_BOOLEANMODE = 0x20
+    NXT_SENSORMODE_RAWMODE           = 0x00,
+    NXT_SENSORMODE_BOOLEANMODE	     = 0x20,
+    NXT_SENSORMODE_PCTFULLSCALEMODE  = 0x80, /* Percentage Mode */
+    NXT_SENSORMODE_CELSIUSMODE       = 0xA0,
+    NXT_SENSORMODE_FAHRENHEITMODE    = 0xC0
 } nxtSensorMode_t;
 #endif
 

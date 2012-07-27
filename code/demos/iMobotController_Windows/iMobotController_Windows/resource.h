@@ -40,6 +40,12 @@
 #define IDB_PNG4                        164
 #define IDB_BITMAP_HUMANOID             168
 #define IDB_BITMAP8                     169
+#define IDI_ICON4                       170
+#define IDB_BITMAP6                     171
+#define IDI_ICON_ch                     172
+#define IDI_ICON5                       173
+#define IDB_BITMAP9                     175
+#define IDB_BITMAP_CH                   175
 #define IDC_SLIDER_speed1               1000
 #define IDC_EDIT_speed1                 1001
 #define IDC_SLIDER_speed2               1002
@@ -163,7 +169,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        170
+#define _APS_NEXT_RESOURCE_VALUE        176
 #define _APS_NEXT_COMMAND_VALUE         32786
 #define _APS_NEXT_CONTROL_VALUE         1099
 #define _APS_NEXT_SYMED_VALUE           101

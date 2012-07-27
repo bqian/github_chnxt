@@ -548,7 +548,7 @@ int ChNXT::moveJointContinuousNB(nxtJointId_t    id,
 	    printf("Invalid direction.\n");
     }
     mode = 0x01 | 0x02 | 0x04;
-    regulationmode = RM_MOTOR_SPEED;
+    regulationmode = REM_MOTOR_SPEED;
     runstate = RS_RUNNING;
     //13 bytes follow (0x0c)
     sendMsg[0] = 0x0C;
@@ -572,7 +572,6 @@ int ChNXT::moveJointContinuousNB(nxtJointId_t    id,
     return 0;
 } // ChNXT::moveJointContinuousNB()
 
-
 int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
     /******************************************
     sets the motor output for NXT
@@ -589,15 +588,61 @@ int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
         number of degrees that motor will turn
         from current position.
     ******************************************/
+#if 0
+    double currentPosition;
+    double targetPosition;
+    double currentSpeedRatio;
+    double offset = 1.0;
+    int count = 0;
+	
+    getJointSpeedRatio(id, currentSpeedRatio);
+    getJointAngle(id, currentPosition);
+    targetPosition = currentPosition + angle;
+
+    do{
+        /* if current angle is really near to the target, slow down the speed */
+        if(abs(currentPosition - targetPosition) < 10.0){
+            setJointSpeedRatio(id, 0.01);
+        } else if (abs(currentPosition - targetPosition) < 20.0){
+            setJointSpeedRatio(id, currentSpeedRatio*0.1);
+        }
+
+        /* if current angle is grater than target, move backward,
+         * if current angle is less than target, move forward,
+         * else stop the motor */
+        if(currentPosition > targetPosition + offset){
+            moveJointContinuousNB(id, NXT_BACKWARD);
+        }else if(currentPosition < targetPosition - offset){
+            moveJointContinuousNB(id, NXT_FORWARD);
+        }else{
+            stopOneJoint(id);
+            count++;
+        }
+
+        /* get current posstion for comparasion */
+        getJointAngle(id, currentPosition);
+        Sleep(100);
+    } while((currentPosition > targetPosition + offset) 
+            || (currentPosition < targetPosition - offset)
+            || (count < 5));
+    /* to stop joint */
+    stopOneJoint(id);
+    /* set the joint speed back to origin speed ratio */
+    setJointSpeedRatio(id, currentSpeedRatio);
+#endif
+//#if 0
     int res, i;
     int degrees;
-    if(angle <0){
-	    angle = -angle;
-	    runDirection[id] = -1;
-    }else{
-	    runDirection[id] = 1;
+    unsigned char runMode = RM_MOTORON | RM_BRAKE | RM_REGULATED;
+    unsigned char regulationMode = REM_MOTOR_SPEED;
+    unsigned char runState = RS_RUNNING;
+    if(angle < 0){
+        angle = -angle;
+        runDirection[id] = -1;
+    } else {
+        runDirection[id] = 1;
     }
-    angle -= angle*0.14;
+//    angle -= angle*0.14;
     degrees = (int)angle;
     /*
     //set initial motor output
@@ -622,10 +667,11 @@ int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
     sendMsg[3] = 0x04;	//SETOUTPUTSTATE
     sendMsg[4] = (unsigned char)id; //port number 0..2
     sendMsg[5] = (unsigned char)runDirection[id] * jointSpeed[id];
-    sendMsg[6] = 0x01 | 0x20 | 0x04; //mode
-    sendMsg[7] = 0x01;		//regulation mode
-    sendMsg[8] = 0x00;		//turnratio
-    sendMsg[9] = 0x20;		//runstate
+//    sendMsg[6] = 0x01 | 0x20 | 0x04; //mode
+    sendMsg[6] = runMode; //mode
+    sendMsg[7] = regulationMode;
+    sendMsg[8] = 100;		//turnratio
+    sendMsg[9] = runState;		//runstate
     //unsigned long tacholimit
     sendMsg[10] = (unsigned int)degrees;
     sendMsg[11] = (unsigned int)degrees >> 8;
@@ -642,6 +688,8 @@ int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
     if (res == 0)
         return 0; //make sure response lenght is not zero
     return 1;
+//#endif
+	return 0;
 }// ChNXT::moveJointNB()
 
 int ChNXT::moveJoint(nxtJointId_t id, double angle){
@@ -651,8 +699,50 @@ int ChNXT::moveJoint(nxtJointId_t id, double angle){
 } // ChNXT::moveJoint()
 
 int ChNXT::moveJointToNB(nxtJointId_t id, double angle){
-    int degrees = 0;
+    int degrees;
+    double currentPosition;
+    double targetPosition = angle;
+    double currentSpeedRatio;
+    double speed;
+    int count = 0;
+    double offset = 1.0;
+#if 0
+    getJointSpeedRatio(id, currentSpeedRatio);
+    do{
+        getJointAngle(id, currentPosition);
+        if(abs(currentPosition - targetPosition) < 10.0){
+            setJointSpeedRatio(id, 0.01);
+        } else if (abs(currentPosition - targetPosition) < 20.0){
+            setJointSpeedRatio(id, currentSpeedRatio*0.1);
+        } else if (abs(currentPosition - targetPosition) < 40.0){
+            setJointSpeedRatio(id, currentSpeedRatio*0.2);
+        } else if (abs(currentPosition - targetPosition) < 80.0){
+            setJointSpeedRatio(id, currentSpeedRatio*0.3);
+        } 
+        /*
+           else {
+           setJointSpeedRatio(id, currentSpeedRatio);
+           }
+        */
+        if(currentPosition > targetPosition + offset){
+            moveJointContinuousNB(id, NXT_BACKWARD);
+        }else if(currentPosition < targetPosition - offset){
+            moveJointContinuousNB(id, NXT_FORWARD);
+        }else {
+            count++;
+            stopOneJoint(id);
+            //            setJointSpeedRatio(id, 0);
+        }
 
+        getJointAngle(id, currentPosition);
+    } while(((currentPosition > targetPosition + offset) 
+		|| (currentPosition < targetPosition - offset)) 
+		|| count < 5);
+
+    stopOneJoint(id);
+	setJointSpeedRatio(id, currentSpeedRatio);
+#endif
+    
     getOutputState(id);
     if(iRotationCount[id] > (int)angle){
         degrees = -(iRotationCount[id] - (int)angle);
@@ -663,6 +753,7 @@ int ChNXT::moveJointToNB(nxtJointId_t id, double angle){
     }else{
 	degrees = 0;
     }
+
     return 0;
 } // ChNXT::moveJointToNB()
 
@@ -733,10 +824,14 @@ int ChNXT::moveToZeroNB(void){
 } //ChNXT::moveToZeroNB()
 
 int ChNXT::stopOneJoint(nxtJointId_t id){
-    unsigned char mode = 0x01 | 0x02 | 0x04;
-    unsigned char regulationmode = 0x01;
+//    unsigned char mode = 0x01 | 0x02 | 0x04;
+    unsigned char mode = RM_MOTORON | RM_BRAKE | RM_REGULATED;
+//    unsigned char regulationmode = 0x01;
+	unsigned char regulationmode = REM_MOTOR_SPEED;
     unsigned char turnratio = 0;
-    unsigned char runstate = 0x20;
+//    unsigned char runstate = 0x20;
+//    unsigned char runstate = RS_IDLE;
+    unsigned char runstate = RS_RUNNING;
     unsigned int tacholimit = 0;
     int res;
     //13 bytes follow (0x0c)
@@ -1256,20 +1351,23 @@ int ChNXT::pollInput(nxtSensorId_t id) {
         }
         Sleep(60); //wait 60ms for response
         res = recvMessage(16 + 2);
-        if ((res == 18) && (recvMsg[2] == 0x02) && (recvMsg[3] == 0x07)) {
-            //correct return message received
-            if (recvMsg[4] != 0) { //error
+        if ((res == 18) && (recvMsg[2] == 0x02) && (recvMsg[3] == 0x07)) {   //correct return message received
+            if (recvMsg[4] != 0) {
+                /* error */
                 error = recvMsg[4];
-            } else { //received 'no error'
+            } else { 
+                /* no error */
                 if (recvMsg[5] == id) { //correct input
-                    //read current sensor type back
+                    /* read current sensor type back */
                     i_sensorType[id] = recvMsg[8];
-                    //read current sensor mode back
+                    /* read current sensor mode back */
                     i_sensorMode[id] = recvMsg[9];
                     if (recvMsg[6] == 1) { //new data is valid
                         sensorValRaw[id] = (int)recvMsg[10] + ((int)recvMsg[11] << 8);
+//                        raw_AD_value=((0xff & answer[10]) | (answer[11] << 8));
                         sensorValNorm[id] = (int)recvMsg[12] + ((int)recvMsg[13] << 8);
-                        sensorValScaled[id] = (int)((short)((int)recvMsg[12] || ((int)recvMsg[13] << 8)));
+//                        sensorValScaled[id] = (int)((short)((int)recvMsg[12] || ((int)recvMsg[13] << 8)));
+                        sensorValScaled[id] = ((0xff & recvMsg[14]) | (recvMsg[15] << 8));
                         sensorValCalib[id] = (int)((short)((int)recvMsg[14] || ((int)recvMsg[15] << 8)));
                     }
                 }
@@ -1277,9 +1375,18 @@ int ChNXT::pollInput(nxtSensorId_t id) {
         } else {
             return 0;
         }
-        return sensorValRaw[id];
+        if((i_sensorType[id] == NXT_SENSORTYPE_SOUND_DB)
+        || (i_sensorType[id] == NXT_SENSORTYPE_SOUND_DBA)
+        || (i_sensorType[id] == NXT_SENSORTYPE_LIGHT_ACTIVE)
+		|| (i_sensorType[id] == NXT_SENSORTYPE_LIGHT_INACTIVE)
+		|| (i_sensorType[id] == NXT_SENSORTYPE_TOUCH))
+		{
+            return sensorValScaled[id];
+        } else {
+            return sensorValRaw[id];
+        }
     }
-    return 1;
+//    return 1;
 } // ChNXT::pollInput()
 
 int ChNXT::updateInputTypeMode(nxtSensorId_t id) {
@@ -1549,14 +1656,35 @@ int ChNXT::getUltrasonic(nxtSensorId_t id) {
 int ChNXT::test(void) {
 //    int i;
 //    int res;
-
+    /*
     getOutputState(NXT_JOINT2);
     printf("isMoving = %d\n", iRunState[NXT_JOINT2]);
     printf("tacholimit = %d\n", iTachoLimit[NXT_JOINT2]);
     printf("tachocount = %d\n", iTachoCount[NXT_JOINT2]);
     printf("blockcount = %d\n", iBlockCount[NXT_JOINT2]);
     printf("rotationcount = %d\n", iRotationCount[NXT_JOINT2]);
+    */
+    double currentPosition;
+    double targetPosition = 360.0;
+    double offset = 1.0;
+    getJointAngle(NXT_JOINT1, currentPosition);
+    do{
+        if(abs(currentPosition - targetPosition) < 30){
+            setJointSpeedRatio(NXT_JOINT1, 0.01);
+        }
 
+        if(currentPosition > targetPosition + offset){
+            moveJointContinuousNB(NXT_JOINT1, NXT_BACKWARD);
+        }else if(currentPosition < targetPosition - offset){
+            moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+        }
+
+        getJointAngle(NXT_JOINT1, currentPosition);
+    } while((currentPosition > targetPosition + offset) || (currentPosition < targetPosition - offset));
+    stopOneJoint(NXT_JOINT1);
+    getJointAngle(NXT_JOINT1, currentPosition);
+    printf("target angle = %lf, current angle = %lf\n",
+            targetPosition, currentPosition);
 //    setOutputState(NXT_JOINT3, MOTORON | BRAKE | REGULATED, 0x01, 0x00, 0x20, 720, 0);
     return 0;
 } // ChNXT::test()

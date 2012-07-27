@@ -16,7 +16,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// 英语(美国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -80,6 +80,8 @@ IDI_ICON1               ICON                    "res\\ico00004.ico"
 IDI_ICON_GREENDOT       ICON                    "res\\ico00005.ico"
 IDI_ICON_BAROBO         ICON                    "res\\barobo.ico"
 IDI_ICON_REDDOT         ICON                    "res\\icon4.ico"
+IDI_ICON4               ICON                    "res\\ico00006.ico"
+IDI_ICON_ch             ICON                    "res\\chnxt.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -100,7 +102,7 @@ END
 IDD_IMOBOTCONTROLLER_WINDOWS_DIALOG DIALOGEX 0, 0, 507, 385
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
-CAPTION "RobotController"
+CAPTION "ChNXT Controller"
 MENU IDR_MENU1
 FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
@@ -130,11 +132,11 @@ BEGIN
     CONTROL         "",IDC_SLIDER_position3,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,176,187,20,45
     GROUPBOX        "Machine Control",IDC_STATIC,213,134,290,115
     GROUPBOX        "General Control",IDC_STATIC,7,269,204,110
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollLeft,221,36,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollForward,245,12,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollRight,269,36,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollStop,245,36,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollBack,245,60,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollLeft,221,63,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollForward,245,39,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollRight,269,63,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollStop,245,63,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollBack,245,87,24,24,BS_ICON
     GROUPBOX        "Vehicle Control",IDC_STATIC,213,1,290,115
     EDITTEXT        IDC_EDIT_setpos1,114,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
     EDITTEXT        IDC_EDIT_setpos2,144,235,24,12,ES_AUTOHSCROLL
@@ -174,11 +176,11 @@ BEGIN
     COMBOBOX        IDC_COMBO_Sensor4Type,112,357,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CONTROL         163,IDB_STATIC_MACHINE,"Static",SS_BITMAP | SS_NOTIFY | SS_REALSIZEIMAGE,298,142,200,103
     CONTROL         158,IDC_STATIC_GENERAL,"Static",SS_BITMAP,10,6,200,109
-    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,298,10,200,103
+    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,298,9,200,103
     CONTROL         168,IDC_STATIC_HUMANOID,"Static",SS_BITMAP,296,272,200,103
-    PUSHBUTTON      "Button5",IDC_BUTTON_rotateLeft,221,87,24,24,BS_ICON
-    PUSHBUTTON      "Button6",IDC_BUTTON_rotateStop,245,87,24,24,BS_ICON
-    PUSHBUTTON      "Button7",IDC_BUTTON_rotateRight,269,87,24,24,BS_ICON
+    PUSHBUTTON      "Button5",IDC_BUTTON_rotateLeft,221,12,24,24,BS_ICON
+    PUSHBUTTON      "Button6",IDC_BUTTON_rotateStop,245,12,24,24,BS_ICON
+    PUSHBUTTON      "Button7",IDC_BUTTON_rotateRight,269,12,24,24,BS_ICON
     PUSHBUTTON      "Button6",IDC_BUTTON_walkForward,233,286,48,24,BS_ICON
     PUSHBUTTON      "Button7",IDC_BUTTON_walkStop,233,313,48,24,BS_ICON
     PUSHBUTTON      "Button8",IDC_BUTTON_walkBackward,233,340,48,24,BS_ICON
@@ -297,6 +299,8 @@ IDB_BITMAP_GENERAL      BITMAP                  "res\\lego_diagram_small.bmp"
 IDB_BITMAP_MACHINE      BITMAP                  "res\\machine_brief.bmp"
 IDB_BITMAP_HUMANOID     BITMAP                  "res\\humanoid_brief.bmp"
 IDB_BITMAP8             BITMAP                  "res\\vehicle_brief.bmp"
+IDB_BITMAP6             BITMAP                  "res\\bitmap6.bmp"
+IDB_BITMAP_CH           BITMAP                  "res\\ch.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -361,7 +365,7 @@ BEGIN
     IDS_ABOUTBOX            "&About iMobotController_Windows..."
 END
 
-#endif    // English (U.S.) resources
+#endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
