@@ -83,6 +83,7 @@ typedef struct callbackArg_s
 
 /* Run Mode for Motors */
 enum {
+    RM_IDLE       = 0x00,
     RM_MOTORON    = 0x01,
     RM_BRAKE      = 0x02,
     RM_REGULATED  = 0x04
@@ -90,7 +91,7 @@ enum {
 
 /* Regulation Mode for Motors */
 enum {
-    REM_IDLE        = 0x00,
+    REM_MOTOR_IDLE  = 0x00,
     REM_MOTOR_SPEED = 0x01,
     REM_MOTOR_SYNC  = 0x02
 };

@@ -41,7 +41,7 @@
 \section{Introduction}
 Ch Mindstorms NXT Control Package brings the inherent functionality of the Ch programming language
 to the intelligence and versatility found in the LEGO Mindstorms NXT robotic design system.\\
-\newline
+
 The Ch Mindstorms NXT Control Package consists of a set of API functions enabling programmers to 
 write programs in C or C++ that can access and control the many features of the LEGO Mindstorms 
 NXT controller. The API converts the complex messaging tasks required to communicate with the NXT 
@@ -51,14 +51,14 @@ designed to support and augment all of the functionality found in the LEGO Minds
 The Ch package further enhances the capabilities of the NXT controller by adding data collection and 
 plotting capabilities. Additionally an NXT control program, written in C source code can be directly 
 run from any platform in Ch without tedious compile/link/execute/debug cycles.\\
-\newline
+
 The communication between the user, the computer, the NXT controller, the sensors, and the motors can
 be described in Figure \ref{fig_NXT_comm}. Once NXT is connected to the computer and a NXT program 
 has started, the program instructions are sent from the computer to the NXT. The NXT controller will 
 process these instructions perform appropriate tasks by sending commands to the motors or receiving 
 data from the sensors. The NXT can collect sensor data and motor encoder counts, and the data can be 
 sent back to the computer for further manipulation, display, or stored in the computer for the user.\\
-\newline
+
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[h]
   \begin{center}
@@ -68,11 +68,10 @@ sent back to the computer for further manipulation, display, or stored in the co
 \end{figure}
 %%%%% END OF FIGURE %%%%%
 
-\noindent
 With Ch Mindstorms NXT Control Package, you can quickly develop an NXT robotic application and log 
 your results. The ease of design and added functionality makes the Ch NXT Control Package a good 
 candidate for any NXT programming application.\\
-\newline
+
 In this guide, we will go over the basics of a Ch Mindstorms NXT program. We will also discuss 
 about how to control a NXT vehicle's motion. Lastly we will describe how to control non-vehicle
 NXT robots. After reading this guide, you will be ready to write your own Ch NXT program to 
@@ -88,8 +87,60 @@ those devices. The detailed information about paring part will be described in a
 and in the next part will introduce you how to setup the bluetooth addresses of NXTs to the Ch NXT
 configuration file step by step.
 
+\subsection{Getting Bluetooth Addresses of NXTs}
+Firstly, we need to get the Bluetooth address of a NXT. As Figure~\ref{fig:bt_device} shown, right click
+the Bluetooth icon in the right buttom corner.
+
+%%%%% START OF FIGURE %%%%%
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[height=0.5in]{figure/configuration/getBTaddress/bt1.png}
+    \caption{Right click the Bluetooth icon.\label{fig:bt_device}}
+  \end{center}
+\end{figure}
+%%%%% END OF FIGURE %%%%%
+
+Then, choose the option "Show Bluetooth Devices", in Figure~\ref{fig:bt_show_device}, to find the NXT which 
+has already paired with the computer.
+
+%%%%% START OF FIGURE %%%%%
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[height=3in]{figure/configuration/getBTaddress/btShowDevices.png}
+    \caption{Choose "Show Bluetooth Devices" option.\label{fig:bt_show_device}}
+  \end{center}
+\end{figure}
+%%%%% END OF FIGURE %%%%%
+
+Then, a dialog with all paired Bluetooth devices in this dialog will appear on the screen. Find the NXT icon
+and right click on the icon. Then choose "Properties" option as shown in Figure~\ref{fig:bt_property}.
+
+%%%%% START OF FIGURE %%%%%
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[height=3in]{figure/configuration/getBTaddress/btProperties.png}
+    \caption{Right click the NXT icon then choose "Properties" option.\label{fig:bt_property}}
+  \end{center}
+\end{figure}
+%%%%% END OF FIGURE %%%%%
+
+In the dialog of NXT properties as shown in Figure~\ref{fig:bt_property_dialog}, click "Bluetooth" tab on the
+top and the bluetooth address will show as "Unique identifier" with the format as "xx:xx:xx:xx:xx:xx".
+
+%%%%% START OF FIGURE %%%%%
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[height=3in]{figure/configuration/getBTaddress/btPropertiesDlg.png}
+    \caption{The properties dialog.\label{fig:bt_property_dialog}}
+  \end{center}
+\end{figure}
+%%%%% END OF FIGURE %%%%%
+
+Now that we have already learned how to get the Bluetooth addresses of our NXTs, we can begin next section, which
+will introduce you how to add the Bluetooth address we have gotten into the ChNXT package.
+
 \subsection{Adding Bluetooth Addresses of NXTs in ChNXT Controller}
-The configuration is performed through the \texttt{ChNXT Controller} program. Firstly, start the 
+The configuration is performed through the \texttt{ChNXT Controller} program. Start the 
 provided ChNXT Control Program by clicking on the icon labeled "ChNXTController" on your desktop,
 as shown in Figure~\ref{fig:chnxt_icon}.
 

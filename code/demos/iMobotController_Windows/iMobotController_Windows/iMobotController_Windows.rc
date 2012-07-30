@@ -16,7 +16,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 英语(美国) resources
+// English (U.S.) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -132,16 +132,16 @@ BEGIN
     CONTROL         "",IDC_SLIDER_position3,"msctls_trackbar32",TBS_VERT | TBS_BOTH | TBS_NOTICKS | WS_TABSTOP,176,187,20,45
     GROUPBOX        "Machine Control",IDC_STATIC,213,134,290,115
     GROUPBOX        "General Control",IDC_STATIC,7,269,204,110
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollLeft,221,63,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollForward,245,39,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollRight,269,63,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollStop,245,63,24,24,BS_ICON
-    PUSHBUTTON      "Button1",IDC_BUTTON_rollBack,245,87,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollLeft,221,51,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollForward,245,27,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollRight,269,51,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollStop,245,51,24,24,BS_ICON
+    PUSHBUTTON      "Button1",IDC_BUTTON_rollBack,245,75,24,24,BS_ICON
     GROUPBOX        "Vehicle Control",IDC_STATIC,213,1,290,115
     EDITTEXT        IDC_EDIT_setpos1,114,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
     EDITTEXT        IDC_EDIT_setpos2,144,235,24,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_setpos3,174,235,24,12,ES_AUTOHSCROLL
-    PUSHBUTTON      "MoveTo",IDC_BUTTON_GOPOS,113,251,40,12
+    PUSHBUTTON      "MoveTo",IDC_BUTTON_GOPOS,113,251,84,12
     PUSHBUTTON      "Move To Zero",IDC_BUTTON_MOVETOZERO,110,119,100,12
     CTEXT           "1",IDC_STATIC,12,159,24,8
     CTEXT           "2",IDC_STATIC,42,159,24,8
@@ -149,7 +149,7 @@ BEGIN
     EDITTEXT        IDC_EDIT_setspd1,12,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
     EDITTEXT        IDC_EDIT_setspd2,42,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
     EDITTEXT        IDC_EDIT_setspd3,72,235,24,12,ES_AUTOHSCROLL | ES_WANTRETURN
-    PUSHBUTTON      "Set",IDC_BUTTON_SETSPD,12,251,84,12
+    PUSHBUTTON      "Set Speed Ratios",IDC_BUTTON_SETSPD,11,251,84,12
     CTEXT           "1",IDC_STATIC,21,286,8,8
     CTEXT           "2",IDC_STATIC,45,286,8,8
     CTEXT           "3",IDC_STATIC,69,286,8,8
@@ -157,7 +157,6 @@ BEGIN
     CTEXT           "2",IDC_STATIC,143,158,24,8
     CTEXT           "3",IDC_STATIC,173,158,24,8
     LTEXT           "Joint speed ratio [0, 1]",IDC_STATIC,12,147,74,8
-    PUSHBUTTON      "Move",IDC_BUTTON_MOVE,158,251,40,12
     GROUPBOX        "Humanoid Control",IDC_STATIC,213,264,290,115
     PUSHBUTTON      "Reset To Zero",IDC_BUTTON_RESETTOZERO,6,119,100,12
     GROUPBOX        "Joint Control",IDC_STATIC,13,279,76,96
@@ -176,11 +175,8 @@ BEGIN
     COMBOBOX        IDC_COMBO_Sensor4Type,112,357,55,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CONTROL         163,IDB_STATIC_MACHINE,"Static",SS_BITMAP | SS_NOTIFY | SS_REALSIZEIMAGE,298,142,200,103
     CONTROL         158,IDC_STATIC_GENERAL,"Static",SS_BITMAP,10,6,200,109
-    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,298,9,200,103
+    CONTROL         169,IDC_STATIC_VEHICLE,"Static",SS_BITMAP,303,12,200,103
     CONTROL         168,IDC_STATIC_HUMANOID,"Static",SS_BITMAP,296,272,200,103
-    PUSHBUTTON      "Button5",IDC_BUTTON_rotateLeft,221,12,24,24,BS_ICON
-    PUSHBUTTON      "Button6",IDC_BUTTON_rotateStop,245,12,24,24,BS_ICON
-    PUSHBUTTON      "Button7",IDC_BUTTON_rotateRight,269,12,24,24,BS_ICON
     PUSHBUTTON      "Button6",IDC_BUTTON_walkForward,233,286,48,24,BS_ICON
     PUSHBUTTON      "Button7",IDC_BUTTON_walkStop,233,313,48,24,BS_ICON
     PUSHBUTTON      "Button8",IDC_BUTTON_walkBackward,233,340,48,24,BS_ICON
@@ -192,6 +188,7 @@ BEGIN
     CONTROL         "Open",IDC_RADIO_clawOpen,"Button",BS_AUTORADIOBUTTON | WS_GROUP,226,230,31,10
     CONTROL         "Close",IDC_RADIO_clawClose,"Button",BS_AUTORADIOBUTTON,258,230,30,10
     GROUPBOX        "Claw",IDC_STATIC,221,220,71,25
+    CONTROL         "",IDC_STATIC,"Static",SS_BITMAP,320,26,20,20
 END
 
 IDD_DIALOG_CONFIG DIALOGEX 0, 0, 214, 174
@@ -271,6 +268,7 @@ BEGIN
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 503
+        TOPMARGIN, 1
         BOTTOMMARGIN, 378
     END
 
@@ -365,7 +363,7 @@ BEGIN
     IDS_ABOUTBOX            "&About iMobotController_Windows..."
 END
 
-#endif    // 英语(美国) resources
+#endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

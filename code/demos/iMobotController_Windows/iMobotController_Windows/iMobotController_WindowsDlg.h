@@ -250,13 +250,14 @@ public:
   afx_msg void OnCbnEditupdateComboSensor3type();
   afx_msg void OnCbnEditupdateComboSensor4type();
   */
+/*
   afx_msg void OnBnClickedButtonrotateright();
   afx_msg void OnBnClickedButtonrotateleft();
   afx_msg void OnBnClickedButtonrotatestop();
-
   CButton m_button_rotateLeft;
   CButton m_button_rotateStop;
   CButton m_button_rotateRight;
+  */
   afx_msg void OnBnClickedButtonwalkforward();
   afx_msg void OnBnClickedButtonwalkstop();
   afx_msg void OnBnClickedButtonwalkbackward();

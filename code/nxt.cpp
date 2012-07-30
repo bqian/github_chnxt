@@ -634,7 +634,9 @@ int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
     int res, i;
     int degrees;
     unsigned char runMode = RM_MOTORON | RM_BRAKE | RM_REGULATED;
+//    unsigned char runMode = RM_MOTORON;
     unsigned char regulationMode = REM_MOTOR_SPEED;
+//    unsigned char regulationMode = REM_MOTOR_IDLE;
     unsigned char runState = RS_RUNNING;
     if(angle < 0){
         angle = -angle;
@@ -667,13 +669,12 @@ int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
     sendMsg[3] = 0x04;	//SETOUTPUTSTATE
     sendMsg[4] = (unsigned char)id; //port number 0..2
     sendMsg[5] = (unsigned char)runDirection[id] * jointSpeed[id];
-//    sendMsg[6] = 0x01 | 0x20 | 0x04; //mode
+//    sendMsg[6] = 0x01 | 0x02 | 0x04; //mode
     sendMsg[6] = runMode; //mode
     sendMsg[7] = regulationMode;
-    sendMsg[8] = 100;		//turnratio
+    sendMsg[8] = 0;		//turnratio
     sendMsg[9] = runState;		//runstate
     //unsigned long tacholimit
-    sendMsg[10] = (unsigned int)degrees;
     sendMsg[11] = (unsigned int)degrees >> 8;
     sendMsg[12] = (unsigned int)degrees >> 16;
     sendMsg[13] = (unsigned int)degrees >> 24;

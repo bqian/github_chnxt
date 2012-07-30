@@ -9,7 +9,6 @@ mobot*
 *.lib
 *.manifest
 *.exp
-*.zip
 # in code/demos/Windows
 #code/demos/iMobotController_Windows/
 #!code/demos/iMobotController_Windows/iMobotController_Windows/*.cpp

@@ -25,7 +25,8 @@
 #endif /* _MACH_ */
 #else
 #include <winsock2.h>
-#include <ws2bth.h>
+//#include <ws2bth.h>
+#include <Ws2bth.h>
 #include "nxt_internal.h"
 #endif /* not if _WIN32 */
 #endif /* not _CH_ */

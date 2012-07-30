@@ -71,7 +71,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="uafxcw.lib; LIBCMT.lib;"
 				LinkIncremental="2"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -612,19 +611,19 @@
 				>
 			</File>
 			<File
-				RelativePath=".\res\iMobot_diagram.bmp"
-				>
-			</File>
-			<File
 				RelativePath="..\iMobot_diagram.bmp"
 				>
 			</File>
 			<File
-				RelativePath=".\res\iMobot_diagram.png"
+				RelativePath=".\res\iMobot_diagram.bmp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\libimobot\Demos\GtkGui\interface\imobot_diagram.png"
+				>
+			</File>
+			<File
+				RelativePath=".\res\iMobot_diagram.png"
 				>
 			</File>
 			<File

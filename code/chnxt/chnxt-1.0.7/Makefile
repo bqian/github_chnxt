@@ -15,34 +15,14 @@ chnxt_chdl.obj: chnxt_chdl.cpp ../nxt.h
 
 install: 
 	ch pkginstall.ch $(PACKAGE)
-	ch cp -R $(CHHOME)/dl/Mi* $(CHHOME)/package/chmobot/dl/
+	ch cp -R "$(CHHOME)/dl/Mi*" "$(CHHOME)/package/chnxt/dl/"
 
 uninstal:
 	ch pkginstall.ch -u $(PACKAGE)
 
-createpkg: libnxt.dl
-	echo Bulding $(PACKAGE)-$(VERSION).zip ...
-	rm -rf $(PACKAGE)-$(VERSION)
-	rm -rf $(PACKAGE)-$(VERSION).zip
-	mkdir -p $(PKGDIR)
-	mkdir $(PKGDIR)/lib
-	mkdir $(PKGDIR)/include
-	mkdir $(PKGDIR)/dl
-#	mkdir $(PKGDIR)/config
-	mkdir $(PKGDIR)/demos
-	mkdir $(PKGDIR)/bin
-	cp chnxt.chf $(PKGDIR)/lib
-	cp delay.chf $(PKGDIR)/lib
-	cp ../nxt.h $(PKGDIR)/include
-	cp libnxt.dl $(PKGDIR)/dl
-#	cp nxt.config $(PKGDIR)/config
-	cp -rf ../demos/basic $(PKGDIR)/demos/
-	cp -rf ../demos/vehicle $(PKGDIR)/demos/
-	cp -rf ../demos/nonvehicle $(PKGDIR)/demos/
-	cp ../demos/iMobotController_Windows/release/* $(PKGDIR)/bin
-	cp ../demos/iMobotController_Windows/iMobotController_Windows/res/chnxt.ico $(PKGDIR)/bin
-	cp Makefile $(PACKAGE)-$(VERSION)
-	zip -rq $(PACKAGE)-$(VERSION).zip $(PACKAGE)-$(VERSION)
-
 clean:
-	rm *.obj *.dl
+	del *.obj 
+	del *.dl
+	del *.manifest
+	del *.lib
+	del *.exp
