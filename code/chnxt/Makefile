@@ -17,7 +17,7 @@ install:
 	ch pkginstall.ch $(PACKAGE)
 	ch cp -R "$(CHHOME)/dl/Mi*" "$(CHHOME)/package/chnxt/dl/"
 
-uninstal:
+uninstall:
 	ch pkginstall.ch -u $(PACKAGE)
 
 createpkg: libnxt.dl
@@ -37,13 +37,19 @@ createpkg: libnxt.dl
 	cp ../nxt.h $(PKGDIR)/include
 	cp libnxt.dl $(PKGDIR)/dl
 #	cp nxt.config $(PKGDIR)/config
-	cp -rf ../demos/basic $(PKGDIR)/demos/
+#	cp -rf ../demos/basic $(PKGDIR)/demos/
+	cp ../demos/*.ch $(PKGDIR)/demos/
 	cp -rf ../demos/vehicle $(PKGDIR)/demos/
-	cp -rf ../demos/nonvehicle $(PKGDIR)/demos/
+	cp -rf ../demos/machine $(PKGDIR)/demos/
+	cp -rf ../demos/humanoid $(PKGDIR)/demos/
+#	cp -rf ../demos/nonvehicle $(PKGDIR)/demos/
 	cp ../demos/iMobotController_Windows/release/* $(PKGDIR)/bin
 	cp ../demos/iMobotController_Windows/iMobotController_Windows/res/chnxt.ico $(PKGDIR)/bin
 	cp ../../docs/nxt_tutorial-1.07.pdf $(PKGDIR)/docs/chnxt.pdf
 	cp ../../docs/mindstorms.pdf $(PKGDIR)/docs/chnxt_bluetooth_setup.pdf
+	cp ./index.html $(PKGDIR)/docs/
+	cp ./Ch_index.png $(PKGDIR)/docs/
+	cp ./mindstorms_index.png $(PKGDIR)/docs/
 	cp Makefile.win $(PACKAGE)-$(VERSION)/Makefile
 	zip -rq $(PACKAGE)-$(VERSION).zip $(PACKAGE)-$(VERSION)
 

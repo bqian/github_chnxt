@@ -17,7 +17,7 @@ install:
 	ch pkginstall.ch $(PACKAGE)
 	ch cp -R "$(CHHOME)/dl/Mi*" "$(CHHOME)/package/chnxt/dl/"
 
-uninstal:
+uninstall:
 	ch pkginstall.ch -u $(PACKAGE)
 
 clean:

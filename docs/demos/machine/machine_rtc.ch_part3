@@ -1,0 +1,27 @@
+    }else if(dir == 'x'){//stop
+        nxt.stopAllJoints();
+    }else if(dir == 'r'){//quit
+        printf("\nQuit.");
+            quit = 1;
+    }else if(dir == 'f'){
+        nxt.setJointSpeeds(speedRatio, speedRatio, speedRatio);
+        printf("\nSpeed ratio set to %lf.", speedRatio);
+    }else
+        printf("\n");
+
+    delay(0.2);
+    nxt.getSensor(NXT_SENSORPORT1, touchValue);
+    if (touchValue < 0) {
+        printf("    The Ball was grabbed ");
+        nxt.getSensor(NXT_SENSORPORT3, lightValue);
+        if (lightValue < 500) {
+            printf("and the color is red\n");
+        }else {
+            printf("and the color is blue\n");
+        }
+    }
+}
+
+/* Disconnect from NXT */
+nxt.disconnect();
+

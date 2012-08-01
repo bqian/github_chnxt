@@ -17,22 +17,36 @@
 \makeindex
 \begin{document}
 
+%% Begin title page %%
 \begin{titlepage}
 \begin{center}
 \vspace*{2cm}
 {\Huge\sf\bf Ch NXT Package User's Guide}\\
 \vspace*{2cm}
 {\bf Version 1.0.7}\\
-\vspace*{4cm}
+\vspace*{2cm}
 \includegraphics[width = 5in]{figure/mindstorm/NXT_humanoid.png}
+\vspace*{2cm}
+\newline
+Integration Engineering Laboratory\\
+University of California, Davis\\
+Augest, 2012\\
 \end{center}
 \end{titlepage}
+%% End title page %%
+
+%% use roman page numbering %%
+\pagenumbering{Roman}
+
+%% Begin copyright %%
+\input{copyright.tex}
+%% End copyright %%
 
 \newpage
-\pagenumbering{Roman}
 \tableofcontents
 \newpage
 
+%% use arabic page numbering %%
 \pagenumbering{arabic}
 \baselineskip = 12 pt
 %\vspace*{-1.5cm}\textbf{}
@@ -205,7 +219,7 @@ button, and the "Remove" button can be used to manage your bluetooth address lis
 
 \subsection{Connecting and Disconnecting to NXTs from the ChNXT Controller}
 %%%%% START OF FIGURE %%%%%
-\begin{figure}[H]
+\begin{figure}[!h]
   \begin{center}
     \includegraphics[height=3.5in]{figure/configuration/menuConnect.png}
     \caption{Connecting to and disconnecting from an NXT.\label{fig:menu_connect}}
@@ -239,7 +253,6 @@ of a Ch NXT robot program is shown in the flow diagram in Figure \ref{fig_NXT_ps
 \end{figure}
 %%%%% END OF FIGURE %%%%%
 
-\noindent
 Also, to successfully control the Mindstorm NXT using Ch, it is important to practice good coding habits. 
 The format of the Ch Mindstorm code is very similar to how a normal C code would be written, with the
 inclusion of some Ch specific functions and header files that are used to connect and control the NXT. To 
@@ -289,38 +302,40 @@ set of functions called "methods", "menber functions", or simply "functions".
 ChNXT nxt;
 \end{verbatim}
 
-\noindent
 The next line,
 \begin{verbatim}
 nxt.connect();
 \end{verbatim}
-\noindent
+
 will connect our computer to the remote NXT, which is related to the new variable \texttt{nxt}.\\
-\newline
-\noindent
+
 Another way to get connected with the NXT is using the function \texttt{connectWithAddress()}, and the usesage
 is as following:
+
 \begin{verbatim}
 nxt.connectWithAddress("11:22:33:44:55:66");
 \end{verbatim}
-\noindent
+
 The string \texttt{"11:22:33:44:55:66"} represents the Bluetooth address of the Lego Mindstorms NXT you wish 
 to connect. Detailed documentation for \texttt{connect()} \texttt{connectWithAddress()} are presented in 
 Appendix \ref{sec:chnxt_api} on page \pageref{sec:chnxt_api}. The next line,
+
 \begin{verbatim}
 nxt.moveToZero();
 \end{verbatim}
-\noindent
+
 uses the function \texttt{moveToZero()} which is a member function of class \texttt{ChNXT}. The function causes
 all joints of the connected NXT move to zero position, which means the absolute angle will be all zero.\\
-\newline
+
 The next line of code will cause all joints of the connected NXT rotate 360 degrees.
+
 \begin{verbatim}
 nxt.move(360, 360, 360);
 \end{verbatim}
-\noindent
+
 The member function \texttt{move()} expects input angles in degrees. If you want to use angles in radians, the 
 conversion need to be done via the function \texttt{rad2deg()}. The function is implemented in Ch with code
+
 \begin{verbatim}
 #include <math.h> /* For M_PI */
 double rad2deg(double radians){
@@ -329,7 +344,7 @@ double rad2deg(double radians){
     return degrees;
 }
 \end{verbatim}
-\noindent
+
 If desired, values in radians may also be converted to degrees using the counterpart function, \texttt{deg2rad()}.
 Detailed information for function \texttt{rad2deg()} and function \texttt{deg2rad()} can be found in Appendix 
 \ref{sec:ultility_functions} on page \pageref{sec:ultility_functions}.\\
@@ -346,6 +361,7 @@ will be presented to illustrated how to set absolute zero positions for joints.
 
 \subsubsection*{Explanation}
 The first several lines of the code,\\
+
 \begin{verbatim}
 #include <nxt.h>
 
@@ -354,28 +370,31 @@ ChNXT nxt;
 /* Connect to the NXT */
 nxt.connect();
 \end{verbatim}
-\noindent
+
 initializes the program, declares the variable and connects to the remote device. The next line,
+
 \begin{verbatim}
 /* Set new zero positions */
 nxt.setJointZero(NXT_JOINT1);
 \end{verbatim}
-\noindent
+
 sets \texttt{NXT\_JOINT1} to the new zero position. In order to set new zero positions, user should 
 move the desired position before calling the function \texttt{setJointZero()}. The function \texttt{setJointZero()} 
 can only set zero position for one joint. The argument it takes is the target joint. Another function called 
 \texttt{setJointZeros()}, which takes no arguments, can set new zero positions for all joints. The next line,
+
 \begin{verbatim}
 /* Move to zero */
 nxt.moveToZero();
 \end{verbatim}
-\noindent
+
 makes all joints move to new zero positions. The last part of the code,
+
 \begin{verbatim}
 /* Disconnect from NXT */
 nxt.disconnect();
 \end{verbatim}
-\noindent
+
 disconnects from the NXT.
 
 \subsection{\label{sec:speed_demo}Controlling the Speed of NXT Joints}
@@ -391,6 +410,7 @@ present a demo program, \texttt{setSpeedRatios.ch}, to illustrate how to set spe
 
 \subsubsection*{Explanation}
 The fisrt several lines,
+
 \begin{verbatim}
 #include <nxt.h>
 ChNXT nxt;
@@ -398,28 +418,33 @@ ChNXT nxt;
 /* Connect to the paired NXT */
 nxt.connect();
 \end{verbatim}
+
 initializes the program, variable, and connect to the NXT. The next three lines,
+
 \begin{verbatim}
 /* set speed ratios */
 nxt.setJointSpeedRatios(0, 0.4, 0.4);
 nxt.setJointSpeedRatio(NXT_JOINT1, 0.5);
 \end{verbatim}
+
 sets the speed ratios setting for all joints on the NXT. The function \texttt{setJointSpeedRatios()} sets 
 the speed ratio for \texttt{NXT\_JOINT1} as 0 and sets the speed ratios for \texttt{NXT\_JOINT2} and 
 \texttt{NXT\_JOINT3} as 0.4. The function \texttt{setJointSpeedRatio()}, which can only set speed ratio
 for one joint, sets the speed ratio for \texttt{NXT\_JOINT1} as 0.5.\\
 
-\noindent
+
 The next two lines,
+
 \begin{verbatim}
 /* make NXT joints move */
 nxt.move(360, 360, 360)
 \end{verbatim}
+
 makes three joints of NXT move at setted speed ratios. The usage of the function \texttt{move()} is just 
 as the demo discussed in section~\ref{sec:basic_demo} on page \pageref{sec:basic_demo}.\\
 
-\noindent
 The last part of the code,
+
 \begin{verbatim}
 /* disconnect */
 nxt.disconnect();
@@ -453,6 +478,7 @@ In this section, a simple demo program will be presented to illustrate the serie
 
 \subsubsection*{Explanation}
 The first part of code,
+
 \begin{verbatim}
 #include <nxt.h>
 ChNXT nxt;
@@ -463,13 +489,14 @@ nxt.connect();
 /* Set speed ratios */
 nxt.setJointSpeedRatios(0.5, 0.5, 0.5);
 \end{verbatim}
-\noindent
+
 initializes the program, connects to the NXT and sets speed ratios for joints. The next couple lines,
+
 \begin{verbatim}
 /* move joint to zero position */
 nxt.moveToZero();
 \end{verbatim}
-\noindent
+
 moves the joint to the absolute zero positions for all joints. The function \texttt{setJointZero()} and \texttt{setJointZeros()} 
 are used to set joints absolute positions. Detailed information for these two functions can be found in Appendix \ref{sec:chnxt_api}
 . The next four lines,
@@ -1909,23 +1936,23 @@ we are going to explain important parts of the manual rtc program in detail.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin of machine_rtc.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{comment}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_rtc.ch}}
+    {\small\verbatiminput{demos/machine/machine_rtc.ch}}
     \caption{\texttt{machine\_rtc.ch} Source Code\label{prog_machine_rtc.ch}}
 \end{Program}
 \end{comment}
 
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_rtc.ch_part1}}
+    {\small\verbatiminput{demos/machine/machine_rtc.ch_part1}}
     \caption{\texttt{machine\_rtc.ch} Source Code\label{prog_machine_rtc.ch}}
 \end{Program}
 \addtocounter{Program}{-1}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_rtc.ch_part2}}
+    {\small\verbatiminput{demos/machine/machine_rtc.ch_part2}}
     \caption{\texttt{machine\_rtc.ch} Source Code (Continued.)\label{prog_machine_rtc.ch}}
 \end{Program}
 \addtocounter{Program}{-1}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_rtc.ch_part3}}
+    {\small\verbatiminput{demos/machine/machine_rtc.ch_part3}}
     \caption{\texttt{machine\_rtc.ch} Source Code (Continued.)\label{prog_machine_rtc.ch}}
 \end{Program}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% End of machine_rtc.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2137,23 +2164,23 @@ important parts of the automatic control program in detail.
 %%%%% Program~\ref{prog_machine_auto.ch} %%%%%
 \begin{comment}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_auto.ch}}
+    {\small\verbatiminput{demos/machine/machine_auto.ch}}
     \caption{\texttt{machine\_auto.ch} Source Code\label{prog_machine_auto.ch}}
 \end{Program}
 \end{comment}
 
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_auto.ch_part1}}
+    {\small\verbatiminput{demos/machine/machine_auto.ch_part1}}
     \caption{\texttt{machine\_auto.ch} Source Code\label{prog_machine_auto.ch}}
 \end{Program}
 \addtocounter{Program}{-1}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_auto.ch_part2}}
+    {\small\verbatiminput{demos/machine/machine_auto.ch_part2}}
     \caption{\texttt{machine\_auto.ch} Source Code (Continued.)\label{prog_machine_auto.ch}}
 \end{Program}
 \addtocounter{Program}{-1}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/machine_auto.ch_part3}}
+    {\small\verbatiminput{demos/machine/machine_auto.ch_part3}}
     \caption{\texttt{machine\_auto.ch} Source Code (Continued.)\label{prog_machine_auto.ch}}
 \end{Program}
 %%%%% End of Program~\ref{prog_machine_auto.ch} %%%%%%
@@ -2339,23 +2366,23 @@ In the rest of this section, we are going to explain important parts of the manu
 %%%%% Program~\ref{prog_humanoid_rtc.ch} %%%%%
 \begin{comment}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/humanoid_rtc.ch}}
+    {\small\verbatiminput{demos/humanoid/humanoid_rtc.ch}}
     \caption{\texttt{humanoid\_rtc.ch} Source Code\label{prog_humanoid_rtc.ch}}
 \end{Program}
 \end{comment}
 
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/humanoid_rtc.ch_part1}}
+    {\small\verbatiminput{demos/humanoid/humanoid_rtc.ch_part1}}
     \caption{\texttt{humanoid\_rtc.ch} Source Code\label{prog_humanoid_rtc.ch}}
 \end{Program}
 \addtocounter{Program}{-1}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/humanoid_rtc.ch_part2}}
+    {\small\verbatiminput{demos/humanoid/humanoid_rtc.ch_part2}}
     \caption{\texttt{humanoid\_rtc.ch} Source Code (Continued.)\label{prog_humanoid_rtc.ch}}
 \end{Program}
 \addtocounter{Program}{-1}
 \begin{Program}[H]
-    {\small\verbatiminput{demos/nonvehicle/humanoid_rtc.ch_part3}}
+    {\small\verbatiminput{demos/humanoid/humanoid_rtc.ch_part3}}
     \caption{\texttt{humanoid\_rtc.ch} Source Code (Continued.)\label{prog_humanoid_rtc.ch}}
 \end{Program}
 %%%%% End of Program~\ref{prog_humanoid_rtc.ch} %%%%%%
