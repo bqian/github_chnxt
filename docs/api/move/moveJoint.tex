@@ -69,7 +69,6 @@ functions, please refer to Section \ref{sec:block_nonblock} on page
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
@@ -87,8 +86,6 @@ nxt.moveJointWait();
 
 /* move joint1 360 degrees */
 nxt.moveJoint(ROBOT_JOINT1, 360);
-
-nxt.disconnect();
 \end{verbatim}
 
 %\noindent

@@ -80,7 +80,6 @@ int bt_connect(SOCKET *sock, SOCKADDR_BTH *sa, char btAddress[18], int channel)
 
 int NXT_init(br_comms_t* comms)
 {
-    int i;
 #ifndef __MACH__
     memset(&comms->addr, 0, sizeof(sockaddr_t));
 #endif
@@ -134,7 +133,7 @@ const char* NXT_getConfigFilePath(void)
     }
     strcat(path, "\\nxt.config");
 #else
-    /* Try to open the barobo configuration file. */
+    /* Try to open the nxt configuration file. */
 #define MAX_PATH 512
     strcpy(path, getenv("HOME"));
     strcat(path, "/.nxt.config");
@@ -294,7 +293,6 @@ int SendToNXT(br_comms_t* comms, const char str[], int datasize)
     }
 }
 
-
 ChNXT::ChNXT() {
     NXT_init(&_comms);
     int i;
@@ -325,22 +323,15 @@ ChNXT::ChNXT() {
 	jointSpeedRatio[i] = 0.25;
         jointSpeed[i] = jointSpeedRatio[i]*100;
     }
-} // ChNXT::ChNXT()
+}
 
 ChNXT::~ChNXT() {
     // if the user foget to disconnect
     if (connected == 1)
         disconnect();
-} // ChNXT::~ChNXT()
+}
 
-int ChNXT::connect(void) 
-{
-    /* Function Name: ChNXT::connect()
-     * This function is going to connect with NXT
-     * and it will get the bluetooth address from
-     * the configuration file somewhere.
-     *
-     * Created by Binsen Qian */
+int ChNXT::connect(void) {
     char path[MAX_PATH];
     FILE *stream;
 #ifdef _WIN32
@@ -377,8 +368,8 @@ int ChNXT::connect(void)
         return -1;
     }
     /*
-       fgets(btAddress, 18, stream);
-       */
+     * fgets(btAddress, 18, stream);
+     */
     if(fgets(btAddress, 18, stream) == NULL) {
         return -4;
     }
@@ -397,14 +388,13 @@ int ChNXT::connect(void)
         return 1;
     }
     //}
-} // ChNXT::connect()
+}
 
 int ChNXT::connectWithAddress(char usr_address[18], int channel) {
     // connect only if not connected
     if (connected == 0) {
         // copy bth address from user's input
         strcpy(btAddress, usr_address);
-//        if (bt_connect(&sock, &sa, btAddress, channel) == 0) 
         if(NXT_connectWithAddress(&_comms, btAddress, 1) == 0){
             connected = 1;
             return 0;
@@ -414,19 +404,22 @@ int ChNXT::connectWithAddress(char usr_address[18], int channel) {
         }
     }
     return 0;
-} // ChNXT::connectWithAddress()
+}
 
 int ChNXT::disconnect(void) {
-    int i;
-    // stop motors
     stopAllJoints();
-    // stop sensors
-    for (i = 0; i < 4; i++)
-        setSensor((nxtSensorId_t)i, 
-                NXT_SENSORTYPE_NOSENSOR, NXT_SENSORMODE_RAWMODE);
+    stopAllSensors();
     connected = 0;
     return closesocket(_comms.socket);
-} // ChNXT::disconnect()
+}
+
+int ChNXT::stopAllSensors(void){
+    for (int i = 0; i < 4; i++){
+        setSensor((nxtSensorId_t)i, 
+                NXT_SENSORTYPE_NOSENSOR, NXT_SENSORMODE_RAWMODE);
+    }
+    return 0;
+}
 
 /* functions for nxt motors */
 int ChNXT::setJointSpeed(nxtJointId_t joint, int speed){
@@ -436,27 +429,35 @@ int ChNXT::setJointSpeed(nxtJointId_t joint, int speed){
     }
     jointSpeed[joint] = speed;
     return 0;
-} // ChNXT::setJointSpeed()
+}
 
 int ChNXT::setJointSpeeds(int speed1, int speed2, int speed3){
     setJointSpeed(NXT_JOINT1, speed1);
     setJointSpeed(NXT_JOINT2, speed2);
     setJointSpeed(NXT_JOINT3, speed3);
     return 0;
-} // ChNXT::setJointSpeeds()
+}
 
 int ChNXT::setJointSpeedRatio(nxtJointId_t id, double ratio){
-    if(ratio < 0 || ratio >1)
-    {
-//        printf("Invalid speed ratio.\n");
-        return -1;
-    }
+    checkJointSpeedRatioValidation(ratio);
 
     jointSpeedRatio[id] = ratio;
     jointSpeed[id] = jointSpeedRatio[id] * 100;
 
     return 0;
-} // ChNXT::setJointSpeedRatio()
+}
+
+int ChNXT::checkJointSpeedRatioValidation(double &ratio){
+    if(ratio < 0){
+        ratio = 0;
+    } else if(ratio > 1){
+        ratio = 1;
+    } else {
+        ;
+    }
+
+    return 0;
+}
 
 int ChNXT::setJointSpeedRatios(double ratio1, double ratio2,
         double ratio3){
@@ -464,130 +465,115 @@ int ChNXT::setJointSpeedRatios(double ratio1, double ratio2,
     setJointSpeedRatio(NXT_JOINT2, ratio2);
     setJointSpeedRatio(NXT_JOINT3, ratio3);
     return 0;
-} // ChNXT::setJointSpeedRatios()
+}
 
 int ChNXT::setJointRelativeZero(nxtJointId_t id){
-    /**********************************************
-    Resets the motor tachometer counters to zero on
-    all the of the motors connected to the NXT.
-    Returns 1 if sucessfull, 0 if fail
-    ***********************************************/
-    int i, rec;
+    int rec;
     sendMsg[0] = 0x04;
     sendMsg[1] = 0x00;
     sendMsg[2] = 0x80;
     sendMsg[3] = 0x0A;
     sendMsg[4] = (unsigned char) id;
-    sendMsg[5] = TRUE; // 1: relative; 0: absolute
-    rec = sendMessage(6);
-    
-    Sleep(60);
-    if (!rec) {
-        printf("Fail to reset joint%d.\n", id+1);
-        return 0;
-    }
-    return 1;
-} // ChNXT::setJointRelativeZero()
+    sendMsg[5] = TRUE; /* relative? */
 
-int ChNXT::setJointZero(nxtJointId_t id){
-    /**********************************************
-    Resets the motor tachometer counters to zero on
-    all the of the motors connected to the NXT.
-    Returns 1 if sucessfull, 0 if fail
-    ***********************************************/
-    int i, rec;
-    sendMsg[0] = 0x04;
-    sendMsg[1] = 0x00;
-    sendMsg[2] = 0x80;
-    sendMsg[3] = 0x0A;
-    sendMsg[4] = (unsigned char) id;
-    sendMsg[5] = 0; // 1: relative; 0: absolute
     rec = sendMessage(6);
     
     Sleep(60);
     if (!rec) {
         printf("Fail to reset joint%d.\n", id+1);
-        return 0;
+        return 1;
     }
-    return 1;
-} // ChNXT::setJointZero()
+    return 0;
+}
+
+int ChNXT::setJointToZero(nxtJointId_t id){
+    int rec;
+
+    sendMsg[0] = 0x04;
+    sendMsg[1] = 0x00;
+    sendMsg[2] = 0x80;
+    sendMsg[3] = 0x0A;
+    sendMsg[4] = (unsigned char) id;
+    sendMsg[5] = FALSE; /* relative? */
+
+    rec = sendMessage(6);
+    
+    Sleep(60);
+    if (!rec) {
+        printf("Fail to reset joint%d.\n", id+1);
+        return 1;
+    }
+    return 0;
+}
 
 int ChNXT::setJointRelativeZeros(void){
     setJointRelativeZero(NXT_JOINT1);
     setJointRelativeZero(NXT_JOINT2);
     setJointRelativeZero(NXT_JOINT3);
     return 0;
-} // ChNXT::setJointRelativeZeros()
+}
 
 int ChNXT::setJointZeros(void){
-    setJointZero(NXT_JOINT1);
-    setJointZero(NXT_JOINT2);
-    setJointZero(NXT_JOINT3);
+    setJointToZero(NXT_JOINT1);
+    setJointToZero(NXT_JOINT2);
+    setJointToZero(NXT_JOINT3);
     return 0;
-} // ChNXT::setJointZeros()
+}
 
-int ChNXT::resetToZeros(void){
-    setJointZero(NXT_JOINT1);
-    setJointZero(NXT_JOINT2);
-    setJointZero(NXT_JOINT3);
+int ChNXT::setToZeros(void){
+    setJointToZero(NXT_JOINT1);
+    setJointToZero(NXT_JOINT2);
+    setJointToZero(NXT_JOINT3);
     return 0;
-} // ChNXT::resetToZeros()
+}
 
-int ChNXT::moveJointContinuousNB(nxtJointId_t    id, 
-                                 nxtJointState_t dir){
-    /* set initial motor output */
+int ChNXT::moveJointContinuousNB( nxtJointId_t id, nxtJointState_t dir ){
     unsigned char mode = 0x01 | 0x04;
-    unsigned char runstate = 0x00;
-    unsigned char regulationmode = 0x00;
+    unsigned char runState = 0x00;
+    unsigned char regulationMode = 0x00;
     int res;
-    if(dir > 0){
-	    runDirection[id] = 1;
-    }else if(dir < 0){
-	    runDirection[id] = -1;
-    }else{
-	    printf("Invalid direction.\n");
-    }
-    mode = 0x01 | 0x02 | 0x04;
-    regulationmode = REM_MOTOR_SPEED;
-    runstate = RS_RUNNING;
-    //13 bytes follow (0x0c)
+
+    checkJointRunDirection(id, (int) dir);
+
+    mode = RM_MOTORON | RM_BRAKE | RM_REGULATED;
+    regulationMode = REM_MOTOR_SPEED;
+    runState = RS_RUNNING;
+
     sendMsg[0] = 0x0C;
     sendMsg[1] = 0x00;
-    sendMsg[2] = 0x80;	//no response please
-    sendMsg[3] = 0x04;	//SETOUTPUTSTATE
-    sendMsg[4] = (unsigned char)id; //port number 0, 1, 2
+    sendMsg[2] = 0x80;	//no response please 
+    sendMsg[3] = 0x04;	/* SETOUTPUTSTATE */
+    sendMsg[4] = (unsigned char) id; 
     sendMsg[5] = (unsigned char) runDirection[id]*jointSpeed[id];
     sendMsg[6] = mode;
-    sendMsg[7] = regulationmode;
+    sendMsg[7] = regulationMode;
     sendMsg[8] = 0x00;		//turnratio;
-    sendMsg[9] = runstate;
+    sendMsg[9] = runState;
     sendMsg[10] = 0;
     sendMsg[11] = 0;
     sendMsg[12] = 0;
     sendMsg[13] = 0;
     res = sendMessage(14);
-//    res = SendToNXT(&_comms, sendMsg, 14);
+
     if (res == 0)
-        return 1; //make sure response lenght is not zero
+        return 1;
+
     return 0;
-} // ChNXT::moveJointContinuousNB()
+}
+
+int ChNXT::checkJointRunDirection(nxtJointId_t id, int dir){
+    if(dir > 0){
+        runDirection[id] = 1;
+    }else if(dir < 0){
+        runDirection[id] = -1;
+    }else{
+        printf("Invalid direction.\n");
+    }
+
+    return 0;
+}
 
 int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
-    /******************************************
-    sets the motor output for NXT
-    returns 1 if sucessfull, 0 if fail
-    port: (motor connection to NXT)
-        port_A..........0
-        port_B..........1
-        port_C..........2
-    speed: (value between -100 and 100)
-        -100 is fullspeed Counter Clockwise
-         100 is full speed Clockwise
-           0 is no speed
-    degrees:
-        number of degrees that motor will turn
-        from current position.
-    ******************************************/
 #if 0
     double currentPosition;
     double targetPosition;
@@ -633,71 +619,45 @@ int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
 //#if 0
     int res, i;
     int degrees;
-    unsigned char runMode = RM_MOTORON | RM_BRAKE | RM_REGULATED;
-//    unsigned char runMode = RM_MOTORON;
-    unsigned char regulationMode = REM_MOTOR_SPEED;
-//    unsigned char regulationMode = REM_MOTOR_IDLE;
-    unsigned char runState = RS_RUNNING;
-    if(angle < 0){
-        angle = -angle;
-        runDirection[id] = -1;
-    } else {
-        runDirection[id] = 1;
-    }
-//    angle -= angle*0.14;
-    degrees = (int)angle;
-    /*
-    //set initial motor output
-    int addDeg[4];
-    int moveTo[4] = {0, 0, 0, 0};
-    int degreeTemp;
-    //printf("%d\n", moveTo[0]);
-    addDeg[3] = (int)(degrees / (256 * 256 * 256));
-    degreeTemp = degrees % (256 * 256 * 256);
-    addDeg[2] = (int)(degreeTemp / (256 * 256));
-    degreeTemp = degreeTemp % (256 * 256);
-    addDeg[1] = (int)(degreeTemp / (256));
-    degreeTemp = degreeTemp % (256);
-    addDeg[0] = (int)(degreeTemp);
+    unsigned char mode = RM_MOTORON | RM_BRAKE;
+//    unsigned char regulationMode = REM_MOTOR_SPEED;
+    unsigned char regulationMode = REM_MOTOR_IDLE;
+//    unsigned char runState = RS_RUNNING;
+    unsigned char runState = RS_RAMPUP;
 
-    for (i = 0; i < 3; i++)
-        moveTo[i] = addDeg[i];
-    */
-    sendMsg[0] = 0x0c;  //12 bytes follow (0x0c)
+    checkJointRunDirection(id, (int) angle);
+
+    degrees = (int)abs(angle);
+
+    sendMsg[0] = 0x0c;
     sendMsg[1] = 0x00;
-    sendMsg[2] = 0x80;	//no response please
-    sendMsg[3] = 0x04;	//SETOUTPUTSTATE
-    sendMsg[4] = (unsigned char)id; //port number 0..2
-    sendMsg[5] = (unsigned char)runDirection[id] * jointSpeed[id];
-//    sendMsg[6] = 0x01 | 0x02 | 0x04; //mode
-    sendMsg[6] = runMode; //mode
+    sendMsg[2] = 0x80;	/* no response please */
+    sendMsg[3] = 0x04;	/* Set Output State */
+    sendMsg[4] = (unsigned char) id;
+    sendMsg[5] = (unsigned char) runDirection[id] * jointSpeed[id];
+    sendMsg[6] = mode;
     sendMsg[7] = regulationMode;
-    sendMsg[8] = 0;		//turnratio
-    sendMsg[9] = runState;		//runstate
-    //unsigned long tacholimit
+    sendMsg[8] = 0x00;	/* turnratio */
+    sendMsg[9] = runState;
     sendMsg[11] = (unsigned int)degrees >> 8;
     sendMsg[12] = (unsigned int)degrees >> 16;
     sendMsg[13] = (unsigned int)degrees >> 24;
-    /*
-    sendMsg[10] = (unsigned char)moveTo[0];
-    sendMsg[11] = (unsigned char)moveTo[1];
-    sendMsg[12] = (unsigned char)moveTo[2];
-    sendMsg[13] = (unsigned char)moveTo[3];
-    */
     sendMsg[14] = 0x00;
+
     res = sendMessage(14);
-    if (res == 0)
-        return 0; //make sure response lenght is not zero
-    return 1;
+    
+    if (res == 0){
+        return 1;
+    }
 //#endif
-	return 0;
-}// ChNXT::moveJointNB()
+    return 0;
+}
 
 int ChNXT::moveJoint(nxtJointId_t id, double angle){
     moveJointNB(id, angle);
 
     return moveJointWait(id);
-} // ChNXT::moveJoint()
+}
 
 int ChNXT::moveJointToNB(nxtJointId_t id, double angle){
     int degrees;
@@ -756,13 +716,13 @@ int ChNXT::moveJointToNB(nxtJointId_t id, double angle){
     }
 
     return 0;
-} // ChNXT::moveJointToNB()
+}
 
 int ChNXT::moveJointTo(nxtJointId_t id, double angle){
     moveJointToNB(id, angle);
 
     return moveJointWait(id);
-} //ChNXT::moveJointTo()
+}
 
 int ChNXT::moveContinuousNB(nxtJointState_t dir1,
 	nxtJointState_t dir2, nxtJointState_t dir3){
@@ -770,7 +730,7 @@ int ChNXT::moveContinuousNB(nxtJointState_t dir1,
     moveJointContinuousNB(NXT_JOINT2, dir2);
     moveJointContinuousNB(NXT_JOINT3, dir3);
     return 0;
-} // ChNXT::moveContinuousNB()
+}
 
 int ChNXT::moveContinuousTime(nxtJointState_t dir1,
 	nxtJointState_t dir2, nxtJointState_t dir3, double seconds){
@@ -780,7 +740,7 @@ int ChNXT::moveContinuousTime(nxtJointState_t dir1,
     Sleep(seconds * 1000);
     stopAllJoints();
     return 0;
-} // ChNXT::moveContinuousTime()
+}
 
 int ChNXT::moveTo(double angle1, double angle2, double angle3){
     moveJointToNB(NXT_JOINT1, angle1);
@@ -788,7 +748,7 @@ int ChNXT::moveTo(double angle1, double angle2, double angle3){
     moveJointToNB(NXT_JOINT3, angle3);
 
     return moveWait();
-} // ChNXT::moveTo();
+}
 
 int ChNXT::move(double angle1, double angle2, double angle3){
     moveJointNB(NXT_JOINT1, angle1);
@@ -796,7 +756,7 @@ int ChNXT::move(double angle1, double angle2, double angle3){
     moveJointNB(NXT_JOINT3, angle3);
 
     return moveWait();
-} // ChNXT::move();
+}
 
 int ChNXT::moveNB(double angle1, double angle2, double angle3){
     moveJointNB(NXT_JOINT1, angle1);
@@ -804,7 +764,7 @@ int ChNXT::moveNB(double angle1, double angle2, double angle3){
     moveJointNB(NXT_JOINT3, angle3);
 
     return 0;
-} // ChNXT::moveNB();
+}
 
 int ChNXT::moveToNB(double angle1, double angle2, double angle3){
     moveJointToNB(NXT_JOINT1, angle1);
@@ -812,12 +772,12 @@ int ChNXT::moveToNB(double angle1, double angle2, double angle3){
     moveJointToNB(NXT_JOINT3, angle3);
 
     return 0;
-} // ChNXT::moveToNB();
+}
 
 int ChNXT::moveToZero(void){
     moveToNB(0, 0, 0);
     return moveWait();
-} //ChNXT::moveToZero()
+}
  
 int ChNXT::moveToZeroNB(void){
     moveToNB(0, 0, 0);
@@ -854,20 +814,20 @@ int ChNXT::stopOneJoint(nxtJointId_t id){
     if (res == 0)
         return 1; //make sure response lenght is not zero
     return 0;
-} //ChNXT::stopOneJoint()
+}
 
 int ChNXT::stopTwoJoints(nxtJointId_t id1, nxtJointId_t id2){
     stopOneJoint(id1);
     stopOneJoint(id2);
     return 0;
-} // ChNXT::stopTwoJoints()
+}
 
 int ChNXT::stopAllJoints(void){
     stopOneJoint(NXT_JOINT1);
     stopOneJoint(NXT_JOINT2);
     stopOneJoint(NXT_JOINT3);
     return 0;
-} // ChNXT::stopAllJoints()
+}
 
 int ChNXT::getJointAngle(nxtJointId_t id, double &angle){
 //int ChNXT::getJointAngle(nxtJointId_t id, int &angle){
@@ -875,12 +835,12 @@ int ChNXT::getJointAngle(nxtJointId_t id, double &angle){
 //    angle = (double)iRotationCount[id];
     angle = iRotationCount[id];
     return 0;
-} // ChNXT::getJointAngle()
+}
 
 int ChNXT::getJointSpeedRatio(nxtJointId_t id, double &ratio){
     ratio = jointSpeedRatio[id];
     return 0;
-} // ChNXT::getJointSpeedRatio()
+}
 
 int ChNXT::getJointSpeedRatios(double &ratio1, double &ratio2,
         double &ratio3){
@@ -888,7 +848,7 @@ int ChNXT::getJointSpeedRatios(double &ratio1, double &ratio2,
     ratio2 = jointSpeedRatio[2];
     ratio3 = jointSpeedRatio[3];
     return 0;
-} // ChNXT::getJointSpeedRatios()
+}
 
 int ChNXT::getJointState(nxtJointId_t id, int &status){
     isJointMoving(id);
@@ -897,23 +857,23 @@ int ChNXT::getJointState(nxtJointId_t id, int &status){
     else
         status = 1;
     return 0;
-} // ChNXT::getJointState()
+}
 /*
 double ChNXT::getJointPosition(nxtJointId_t id){
     getTacho(id);
     return motorPosCum[id];
-} //ChNXT::getJointPosition()
+}
 */
 
 int ChNXT::isConnected(void){
     return connected;
-} //ChNXT::isConnected()
+}
 
 int ChNXT::isJointMoving(nxtJointId_t id){
     getOutputState(id);
     Sleep(100);
     return iRunState[id];
-} //ChNXT::isJointMoving()
+}
 
 int ChNXT::isMoving(){
     int i;
@@ -923,14 +883,14 @@ int ChNXT::isMoving(){
             return 1;
     }
     return 0;
-} //ChNXT::isMoving()
+}
 
 int ChNXT::moveJointWait(nxtJointId_t id){
     while(isJointMoving(id) != 0){
         Sleep(200);
     }
     return 0;
-} // ChNXT::moveJointWait()
+}
 
 int ChNXT::moveWait(){
     int i;
@@ -939,7 +899,7 @@ int ChNXT::moveWait(){
 	    return -1;
     }
     return 0;
-} // ChNXT::moveWait()
+}
 
 int ChNXT::setSensor(nxtSensorId_t id, 
         nxtSensorType_t type, nxtSensorMode_t mode) {
@@ -955,7 +915,7 @@ int ChNXT::setSensor(nxtSensorId_t id,
     if (!initInput(id))
         return 1;
     return 0;
-} // ChNXT::setSensor()
+}
 
 int ChNXT::getSensor(nxtSensorId_t id, int &value) {
     if (id > 3) {
@@ -972,7 +932,7 @@ int ChNXT::getSensor(nxtSensorId_t id, int &value) {
     }
     */
     return 0;
-} // ChNXT::getSensor()
+}
 
 int ChNXT::printMess(){
     int j;
@@ -985,7 +945,7 @@ int ChNXT::printMess(){
         printf(" %x", recvMsg[j]);
     printf("\n");
     return(1);
-}// ChNXT::printMess
+}
 
 int ChNXT::playTone(int freq, int duration){
     sendMsg[0] =0x04;
@@ -995,7 +955,7 @@ int ChNXT::playTone(int freq, int duration){
     sendMsg[4] =freq;
     sendMsg[5] =duration;
     return sendMessage(6);
-} //ChNXT::playTone()
+}
 /*
 int ChNXT::getTacho(int port){
 	int res;
@@ -1041,7 +1001,7 @@ int ChNXT::getTacho(int port){
 	motorPosRaw[port]= new_pos;
 
 	return 1;
-} // ChNXT::getTacho()
+}
 */
 int ChNXT::vehicleRollForwardNB(double angle){
     if(angle < 0)
@@ -1049,7 +1009,7 @@ int ChNXT::vehicleRollForwardNB(double angle){
     moveJointNB(NXT_JOINT2, angle);
     moveJointNB(NXT_JOINT3, angle);
     return 0;
-} // ChNXT::vehicleRollForwardNB()
+}
 
 int ChNXT::vehicleRollForward(double angle){
     if(angle < 0)
@@ -1057,7 +1017,7 @@ int ChNXT::vehicleRollForward(double angle){
     moveJointNB(NXT_JOINT2, angle);
     moveJointNB(NXT_JOINT3, angle);
     return vehicleMotionWait();
-} // ChNXT::vehicleRollForward()
+}
 
 int ChNXT::vehicleRollBackwardNB(double angle){
     if(angle < 0)
@@ -1065,7 +1025,7 @@ int ChNXT::vehicleRollBackwardNB(double angle){
     moveJointNB(NXT_JOINT2, -angle);
     moveJointNB(NXT_JOINT3, -angle);
     return 0;
-} // ChNXT::vehicleRollBackwardNB()
+}
 
 int ChNXT::vehicleRollBackward(double angle){
     if(angle < 0)
@@ -1073,7 +1033,7 @@ int ChNXT::vehicleRollBackward(double angle){
     moveJointNB(NXT_JOINT2, -angle);
     moveJointNB(NXT_JOINT3, -angle);
     return vehicleMotionWait();
-} // ChNXT::vehicleRollBackward()
+}
 
 int ChNXT::vehicleRotateLeftNB(double angle){
     if(angle < 0)
@@ -1081,7 +1041,7 @@ int ChNXT::vehicleRotateLeftNB(double angle){
     moveJointNB(NXT_JOINT2, angle);
     moveJointNB(NXT_JOINT3, -angle);
     return 0;
-} // ChNXT::vehicleRotateLeftNB()
+}
 
 int ChNXT::vehicleRotateLeft(double angle){
     if(angle < 0)
@@ -1089,7 +1049,7 @@ int ChNXT::vehicleRotateLeft(double angle){
     moveJointNB(NXT_JOINT2, angle);
     moveJointNB(NXT_JOINT3, -angle);
     return vehicleMotionWait();
-} // ChNXT::vehicleRotateLeft()
+}
 
 int ChNXT::vehicleRotateRightNB(double angle){
     if(angle < 0){
@@ -1198,45 +1158,45 @@ int ChNXT::motionMoveForward(void){
     moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
     moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
     return 0;
-} // ChNXT::motionMoveForward()
+}
 
 int ChNXT::motionMoveBackward(void){
     moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
     moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
     return 0;
-} // ChNXT::motionMoveBackward()
+}
 
 int ChNXT::motionRotateLeft(void){
     moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
     moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
     return 0;
-} // ChNXT::motionRotateLeft()
+}
 
 int ChNXT::motionRotateRight(void){
     moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
     moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
     return 0;
-} // ChNXT::motionRotateRight()
+}
 
 int ChNXT::motionTurnLeft(void){
     jointSpeed[NXT_JOINT3] = 0.7*jointSpeed[NXT_JOINT2];
     moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
     moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
     return 0;
-} // ChNXT::motionTurnLeft()
+}
 
 int ChNXT::motionTurnRight(void){
     jointSpeed[NXT_JOINT2] = 0.7*jointSpeed[NXT_JOINT3];
     moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
     moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
     return 0;
-} // ChNXT::motionTurnRight()
+}
 
 int ChNXT::stopMotion(void){
     stopOneJoint(NXT_JOINT2);
     stopOneJoint(NXT_JOINT3);
     return 0;
-} // ChNXT::motionTurnRight()
+}
 
 /* internal functions */
 int ChNXT::sendMessage(int length) {
@@ -1246,7 +1206,7 @@ int ChNXT::sendMessage(int length) {
         return 0;
     }
     return 1;
-} // ChNXT::sendMessage()
+}
 
 int ChNXT::recvMessage(int length) {
     error = recv(_comms.socket, (char *)recvMsg, length, 0);
@@ -1254,7 +1214,7 @@ int ChNXT::recvMessage(int length) {
         printf("connection broken or no more charactors\n");
     }
     return error;
-} // ChNXT::recvMessage()
+}
 /*
 int ChNXT::setOutputState(nxtJointId_t id, unsigned char mode,
         unsigned char regulationMode, char turnRatio,
@@ -1301,7 +1261,7 @@ int ChNXT::setOutputState(nxtJointId_t id, unsigned char mode,
     if (res == 0)
         return 1;   //make sure response lenght is not zero
     return 0;
-} // ChNXT::setOutputState()
+}
 */
 int ChNXT::getOutputState(nxtJointId_t id){
     int res;
@@ -1325,7 +1285,7 @@ int ChNXT::getOutputState(nxtJointId_t id){
     iBlockCount[id] = (0xFF & recvMsg[19]) | ((0xFF & recvMsg[20]) << 8)| ((0xFF & recvMsg[21]) << 16)| ((0xFF & recvMsg[22]) << 24);
     iRotationCount[id] = (0xFF & recvMsg[23]) | ((0xFF & recvMsg[24]) << 8)| ((0xFF & recvMsg[25]) << 16)| ((0xFF & recvMsg[26]) << 24);
     return 0;
-} // ChNXT::getOutputState()
+}
 
 int ChNXT::pollInput(nxtSensorId_t id) {
     /****************************************************
@@ -1336,23 +1296,26 @@ int ChNXT::pollInput(nxtSensorId_t id) {
      ***************************************************/
     int res;
     //special care for the ultrasound sensor
-    if (i_sensorType[id] == 0x0B) {
+    if (i_sensorType[id] == NXT_SENSORTYPE_ULTRASONIC) {
         //if (nxt_usr->NXT_sensorvalraw[id]==0)
         return getUltrasonic(id);
         //else NXT_getultrasonicvaluefast(id);
     } else {
-        sendMsg[0] = 3; //three bytes follow
-        sendMsg[1] = 0;
+        sendMsg[0] = 0x03; //three bytes follow
+        sendMsg[1] = 0x00;
         sendMsg[2] = 0x00; //request response
-        sendMsg[3] = 0x07; //GETINPUTVALUES
+        sendMsg[3] = 0x07; /* GETINPUTVALUES */
         sendMsg[4] = id; //from port 0 (1 on the brick)
+
         if (!sendMessage(5)) {
             error = -1; //communication error
             return 0;
         }
+
         Sleep(60); //wait 60ms for response
-        res = recvMessage(16 + 2);
-        if ((res == 18) && (recvMsg[2] == 0x02) && (recvMsg[3] == 0x07)) {   //correct return message received
+        res = recvMessage(18);
+        if ((res == 18) && (recvMsg[2] == 0x02) && (recvMsg[3] == 0x07)) {
+            //correct return message received
             if (recvMsg[4] != 0) {
                 /* error */
                 error = recvMsg[4];
@@ -1364,8 +1327,8 @@ int ChNXT::pollInput(nxtSensorId_t id) {
                     /* read current sensor mode back */
                     i_sensorMode[id] = recvMsg[9];
                     if (recvMsg[6] == 1) { //new data is valid
-                        sensorValRaw[id] = (int)recvMsg[10] + ((int)recvMsg[11] << 8);
-//                        raw_AD_value=((0xff & answer[10]) | (answer[11] << 8));
+//                        sensorValRaw[id] = (int)recvMsg[10] + ((int)recvMsg[11] << 8);
+                        sensorValRaw[id]=((0xff & recvMsg[10]) | (recvMsg[11] << 8));
                         sensorValNorm[id] = (int)recvMsg[12] + ((int)recvMsg[13] << 8);
 //                        sensorValScaled[id] = (int)((short)((int)recvMsg[12] || ((int)recvMsg[13] << 8)));
                         sensorValScaled[id] = ((0xff & recvMsg[14]) | (recvMsg[15] << 8));
@@ -1376,19 +1339,27 @@ int ChNXT::pollInput(nxtSensorId_t id) {
         } else {
             return 0;
         }
+
         if((i_sensorType[id] == NXT_SENSORTYPE_SOUND_DB)
-        || (i_sensorType[id] == NXT_SENSORTYPE_SOUND_DBA)
-        || (i_sensorType[id] == NXT_SENSORTYPE_LIGHT_ACTIVE)
-		|| (i_sensorType[id] == NXT_SENSORTYPE_LIGHT_INACTIVE)
-		|| (i_sensorType[id] == NXT_SENSORTYPE_TOUCH))
-		{
+                || (i_sensorType[id] == NXT_SENSORTYPE_SOUND_DBA)
+                || (i_sensorType[id] == NXT_SENSORTYPE_LIGHT_ACTIVE)
+                || (i_sensorType[id] == NXT_SENSORTYPE_LIGHT_INACTIVE)
+                || (i_sensorType[id] == NXT_SENSORTYPE_TOUCH)
+                || (i_sensorType[id] == NXT_SENSORTYPE_COLORRED)
+                || (i_sensorType[id] == NXT_SENSORTYPE_COLORGREEN)
+                || (i_sensorType[id] == NXT_SENSORTYPE_COLORBLUE))
+        {
             return sensorValScaled[id];
+            /*
+        } else if((i_sensorType[id] == NXT_SENSORTYPE_COLORFULL)){
+            return sensorValNorm[id];
+            */
         } else {
             return sensorValRaw[id];
         }
     }
 //    return 1;
-} // ChNXT::pollInput()
+}
 
 int ChNXT::updateInputTypeMode(nxtSensorId_t id) {
     /*************************************************
@@ -1425,7 +1396,7 @@ int ChNXT::updateInputTypeMode(nxtSensorId_t id) {
     i_sensorType[id] = sensorType[id];
     i_sensorMode[id] = sensorMode[id];
     return ret;
-} // ChNXT::updateInputTypeMode()
+}
 
 int ChNXT::initInput(nxtSensorId_t id) {
     /**********************************************
@@ -1471,7 +1442,7 @@ int ChNXT::initInput(nxtSensorId_t id) {
         return 0;
     }
     return 1;
-} // ChNXT::initInput()
+}
 
 int ChNXT::setUltrasonic(nxtSensorId_t id) {
     /*************************************
@@ -1520,7 +1491,7 @@ int ChNXT::setUltrasonic(nxtSensorId_t id) {
     if ((res != 5) || (recvMsg[4] != 0))
         return 0;
     return 1;
-} // ChNXT::setUltrasonic()
+}
 
 int ChNXT::stopUltrasonic(nxtSensorId_t id) {
     /*******************************************************
@@ -1545,7 +1516,7 @@ int ChNXT::stopUltrasonic(nxtSensorId_t id) {
     if ((res != 5) || (recvMsg[4] != 0))
         return 0;
     return 1;
-} //ChNXT::stopUltrasonic()
+}
 
 int ChNXT::getUltrasonic(nxtSensorId_t id) {
     /********************************************
@@ -1584,7 +1555,7 @@ int ChNXT::getUltrasonic(nxtSensorId_t id) {
     sendMsg[1] = 0x00;
     sendMsg[2] = 0x00; //0x80; //no response please (to LS write)
     sendMsg[3] = 0x0F; //LSWrite
-    sendMsg[4] = id; //port number 0..3
+    sendMsg[4] = id;
     sendMsg[5] = 0x02; //Tx Data length (two bytes sent - 02 42)
     sendMsg[6] = 0x01; //Rx Data length (1 byte reply expected)
     sendMsg[7] = 0x02; //address for "read sonar"
@@ -1652,7 +1623,7 @@ int ChNXT::getUltrasonic(nxtSensorId_t id) {
     }
     sensorValRaw[id] = -8;
     return 0;
-} // ChNXT::getUltrasonic()
+}
 
 int ChNXT::test(void) {
 //    int i;
@@ -1688,4 +1659,4 @@ int ChNXT::test(void) {
             targetPosition, currentPosition);
 //    setOutputState(NXT_JOINT3, MOTORON | BRAKE | REGULATED, 0x01, 0x00, 0x20, 720, 0);
     return 0;
-} // ChNXT::test()
+}

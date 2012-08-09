@@ -61,13 +61,12 @@ functions, please refer to Section \ref{sec:block_nonblock} on page
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
  
 /* setup speed for all three joints */
@@ -79,10 +78,9 @@ nxt.moveWait();
 
 /* move by the blocking function*/
 nxt.moveTo(360, 360, 360);
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent
 {\bf See Also}\\
+{\tt move(), moveNB()}\\
 %%%%% END OF ChNXT::move %%%%%

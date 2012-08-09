@@ -9,7 +9,7 @@ ChNXT nxt;
 nxt.connect();
 
 /* Set new zero positions */
-nxt.setJointZero(NXT_JOINT1);
+nxt.setJointToZero(NXT_JOINT1);
 
 /* Move to zero */
 nxt.moveToZero();

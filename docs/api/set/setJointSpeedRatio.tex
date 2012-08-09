@@ -46,19 +46,16 @@ continuously or moving to a new goal position.\\
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
     
 /* set the speed ratio setting for joint1 on port0 */
 nxt.setJointSpeedRatio(ROBOT_JOINT1, 0.5);
-
-nxt.disconnect();
 \end{verbatim}
 \noindent
 {\bf See Also}\\

@@ -1,5 +1,5 @@
 PACKAGE = chnxt
-VERSION = 1.0.7
+VERSION = 2.0.0
 PKGDIR = $(PACKAGE)-$(VERSION)/$(PACKAGE)
 
 target: libnxt.dl
@@ -21,7 +21,7 @@ uninstall:
 	ch pkginstall.ch -u $(PACKAGE)
 
 createpkg: libnxt.dl
-	echo Bulding $(PACKAGE)-$(VERSION).zip ...
+	@echo Bulding $(PACKAGE)-$(VERSION).zip ...
 	rm -rf $(PACKAGE)-$(VERSION)
 	rm -rf $(PACKAGE)-$(VERSION).zip
 	mkdir -p $(PKGDIR)
@@ -42,10 +42,13 @@ createpkg: libnxt.dl
 	cp -rf ../demos/vehicle $(PKGDIR)/demos/
 	cp -rf ../demos/machine $(PKGDIR)/demos/
 	cp -rf ../demos/humanoid $(PKGDIR)/demos/
+	cp -rf license $(PKGDIR)/
 #	cp -rf ../demos/nonvehicle $(PKGDIR)/demos/
-	cp ../demos/iMobotController_Windows/release/* $(PKGDIR)/bin
+	cp ../demos/iMobotController_Windows/release/*.exe $(PKGDIR)/bin
 	cp ../demos/iMobotController_Windows/iMobotController_Windows/res/chnxt.ico $(PKGDIR)/bin
-	cp ../../docs/nxt_tutorial-1.07.pdf $(PKGDIR)/docs/chnxt.pdf
+	cp -rf Microsoft.VC90.CRT $(PKGDIR)/bin
+	cp -rf Microsoft.VC90.MFC $(PKGDIR)/bin
+	cp ../../docs/nxt-$(VERSION).pdf $(PKGDIR)/docs/chnxt.pdf
 	cp ../../docs/mindstorms.pdf $(PKGDIR)/docs/chnxt_bluetooth_setup.pdf
 	cp ./index.html $(PKGDIR)/docs/
 	cp ./Ch_index.png $(PKGDIR)/docs/

@@ -1,7 +1,9 @@
+VERSION = 2.0.0
+
 all:
-	pdflatex nxt_tutorial-1.07.tex
-	makeindex nxt_tutorial-1.07.idx
-	cp nxt_tutorial-1.07.ind nxt_index.tex
-	pdflatex nxt_tutorial-1.07.tex
+	pdflatex nxt-$(VERSION).tex
+	makeindex nxt-$(VERSION).idx
+	cp nxt-$(VERSION).ind nxt_index.tex
+	pdflatex nxt-$(VERSION).tex
 clean:
 	rm *.log *.aux *.out

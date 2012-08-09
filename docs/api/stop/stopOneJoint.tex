@@ -40,13 +40,12 @@ This function is used to stop the specific joint on the Mindstorm NXT.\\
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
     
 /* setup speed for all three joints */
@@ -54,7 +53,7 @@ nxt.setJointSpeeds(60, 40, 40);
 
 /* move joint1 360 degrees */
 nxt.moveJointContinuousNB(ROBOT_JOINT1, ROBOT_FORWARD);
-sleep(5);
+delay(5);
 
 /* stop joint1 */
 nxt.stopOneJoint(ROBOT_JOINT1);

@@ -13,6 +13,3 @@ nxt.setJointSpeedRatio(NXT_JOINT1, 0.5);
 
 /* make NXT joints move */
 nxt.move(360, 360, 360);
-
-/* disconnect */
-nxt.disconnect();

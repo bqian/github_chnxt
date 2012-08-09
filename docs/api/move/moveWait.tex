@@ -37,13 +37,12 @@ turn indefinitely, this function may never return and your program may hang.\\
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (!nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
  
 /* setup speed for all three joints */
@@ -54,8 +53,6 @@ nxt.moveNB(360, 360, 360);
 
 /* wait until motors stop moving */
 nxt.moveWait();
-
-nxt.disconnect();
 \end{verbatim}
 
 %See the sample program in Section \ref{sec:democode} on page \pageref{sec:democode}.

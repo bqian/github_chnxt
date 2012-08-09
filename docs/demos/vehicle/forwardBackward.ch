@@ -1,11 +1,8 @@
-/************************************************************
-forwardBackward.ch
-Created by Michael Schirle
-Modified by Binsen Qian
+/* File name: forwardBackward.ch
+ *
+ * Introduce how to get the nxt robot 
+ * to reverse direction.*/
 
-The purpose of this program is to introduce how to get the
-nxt_robot to reverse direction.
-*************************************************************/
 #include <nxt.h>
 
 ChNXT nxt;
@@ -25,6 +22,3 @@ nxt.vehicleRollForward(360);
 
 /* Move the Robot Backwards */
 nxt.vehicleRollBackward(360);
-
-/* Disconnect NXT */
-nxt.disconnect();

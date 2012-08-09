@@ -15,5 +15,3 @@ nxt.moveToZero();
 
 /* Rotate joint 2 and 3 by 360 degrees */
 nxt.move(360, 360, 360);
-
-nxt.disconnect();

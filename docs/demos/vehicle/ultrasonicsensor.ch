@@ -1,8 +1,7 @@
-/*File name: ultrasonicsensor.ch
-  
-  The purpose of this demo is to demonstrate the CH Mindstorms
-  Control Package's ability to control the NXT Mindstorm to use
-  the ultra sonic sensor.*/
+/* File name: ultrasonicsensor.ch
+ *
+ * Demonstrate the Ch Mindstorms Control Package's ability 
+ * to control the NXT Mindstorm to use the ultrasonic sensor.*/
   
 #include <nxt.h>
 
@@ -21,6 +20,7 @@ if (nxt.connect()) {
 status = nxt.setSensor(NXT_SENSORPORT4, 
         NXT_SENSORTYPE_ULTRASONIC, NXT_SENSORMODE_RAWMODE);
 if (status) {
+    printf("Fail to setup sensors\n");
     exit(-1);
 }
 
@@ -30,7 +30,7 @@ while (1) {
     nxt.getSensor(NXT_SENSORPORT4, ultraValue);
 
     /* If obstacle is really close */
-    if (ultraValue < 35 ultraValue >0) {
+    if (ultraValue < 20 && ultraValue >0) {
         speedRatio = 0.25;
         /* Move backward */
         nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
@@ -39,17 +39,14 @@ while (1) {
         /* Quit the while loop */
         break;
     }/* Else if the obstacle is close */
-    else if (ultraValue < 60) {
-        speedRatio = .25;
+    else if (ultraValue < 40) {
+        speedRatio = .5;
     }/* Else if the obstacle is not close */
-    else if (ultraValue < 100) {
-        speedRatio = .50;
+    else if (ultraValue < 80) {
+        speedRatio = .75;
     }/* Else if there is no obstacle in sight */
-    else if (ultraValue < 200) {
-        speedRatio = .75;
-    } /* Sensor value larger than 200 */
     else {
-        speedRatio = .75;
+        speedRatio = 1.0;
     }
     /* Move forward (constantly)*/
     nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
@@ -57,8 +54,5 @@ while (1) {
     nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
 }
 
-/* Stop the motors*/
+/* Stop the motors */
 nxt.stopTwoJoints(NXT_JOINT2, NXT_JOINT3);
-
-/*Disconnect NXT*/
-nxt.disconnect();

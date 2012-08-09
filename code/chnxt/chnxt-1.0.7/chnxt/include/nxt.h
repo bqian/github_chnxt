@@ -25,10 +25,9 @@
 #endif /* _MACH_ */
 #else
 #include <winsock2.h>
-//#include <ws2bth.h>
 #include <Ws2bth.h>
-#include "nxt_internal.h"
 #endif /* not if _WIN32 */
+#include "nxt_internal.h"
 #endif /* not _CH_ */
 
 #ifndef _CH_
@@ -73,11 +72,13 @@ typedef enum nxt_sensor_type_e{
     NXT_SENSORTYPE_TEMPERATURE     = 0x02,
     NXT_SENSORTYPE_LIGHT_ACTIVE    = 0x05,
     NXT_SENSORTYPE_LIGHT_INACTIVE  = 0x06,
-    NXT_SENSORTYPE_SOUND_DB        = 0x07,
-    NXT_SENSORTYPE_SOUND_DBA       = 0x08,
+    NXT_SENSORTYPE_SOUND_DB        = 0x07, // Sound sensor (unadjusted)
+    NXT_SENSORTYPE_SOUND_DBA       = 0x08, // Sound sensor (adjusted)
     NXT_SENSORTYPE_LOWSPEED        = 0x0A,
-    NXT_SENSORTYPE_ULTRASONIC      = 0x0B // LOWSPEED_9V
+    NXT_SENSORTYPE_LOWSPEED_9V     = 0x0B, 
+    NXT_SENSORTYPE_COLORFULL       = 0x0D  // Color sensor in full color mode (color sensor mode)
 } nxtSensorType_t;
+#define NXT_SENSORTYPE_ULTRASONIC NXT_SENSORTYPE_LOWSPEED_9V
 #endif
 
 /* Modes for Sensors */
@@ -102,10 +103,11 @@ class ChNXT {
         int disconnect(void);
         /* functions for a single joint(motor) */
         int setJointRelativeZero(nxtJointId_t id);
-	int setJointZero(nxtJointId_t id);
+	int setJointToZero(nxtJointId_t id);
         int setJointRelativeZeros(void);
 	int setJointZeros(void);
         int resetToZeros(void);
+        int setToZeros(void);
         int moveJointContinuousNB(nxtJointId_t id, 
                                   nxtJointState_t dir); 
 	int moveJointNB(nxtJointId_t id, double angle);

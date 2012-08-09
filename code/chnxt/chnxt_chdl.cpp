@@ -69,7 +69,7 @@ EXPORTCH int disconnect_chdl(void *varg) {
     return retval;
 }
 
-EXPORTCH int setJointZero_chdl(void *varg) {
+EXPORTCH int setJointToZero_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
@@ -79,7 +79,7 @@ EXPORTCH int setJointZero_chdl(void *varg) {
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
     id = Ch_VaArg(interp, ap, nxtJointId_t);
-    retval = chnxt->setJointZero(id);
+    retval = chnxt->setJointToZero(id);
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -93,6 +93,19 @@ EXPORTCH int setJointZeros_chdl(void *varg) {
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
     retval = chnxt->setJointZeros();
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int setToZeros_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    retval = chnxt->setToZeros();
     Ch_VaEnd(interp, ap);
     return retval;
 }

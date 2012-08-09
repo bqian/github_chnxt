@@ -40,18 +40,15 @@ This function is used to reset the relative tachometer count for a joint on the 
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (!nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
     
 nxt.setJointRelativeZero(ROBOT_JOINT1);
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent

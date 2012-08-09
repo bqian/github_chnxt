@@ -13,6 +13,3 @@ nxt.getJointAngle(NXT_JOINT1, angle);
 
 /* Print out the joint angle */
 printf("The current joint angle for joint 1 is %lf degrees.\n", angle);
-
-/* Disconnect from NXT */
-nxt.disconnect();

@@ -45,7 +45,6 @@ speed to zero. This function is a non-blocking function.\\
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
@@ -59,8 +58,6 @@ nxt.setJointSpeeds(60, 40, 40);
 
 /* move all joints on the Mindstorm NXT */
 nxt.moveContinuousNB(ROBOT_FORWARD, ROBOT_FORWARD, ROBOT_FORWARD);
-
-nxt.disconnect();
 \end{verbatim}
 
 %\noindent

@@ -35,18 +35,15 @@ all joints of the Mindstorms NXT.\\
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
     
 nxt.setJointZeros();
-
-nxt.disconnect();
 \end{verbatim}
 
 %\noindent

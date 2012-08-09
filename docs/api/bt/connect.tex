@@ -34,15 +34,12 @@ This function is used to connect to a Mindstorms NXT via Bluetooth. The Bluetoot
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 if (nxt.connect()){
     printf("Connection to NXT has failed.");
     exit(0);
 }
-    
-nxt.disconnect();
 \end{verbatim}
 
 \noindent

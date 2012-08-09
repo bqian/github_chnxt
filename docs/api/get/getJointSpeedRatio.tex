@@ -48,7 +48,6 @@ or moving to a new goal position.\\
 {\bf Example}\\
 \begin{verbatim}
 #include <nxt.h>
-#include <stdio.h>
 
 ChNXT nxt;
 double ratio;
@@ -58,8 +57,6 @@ nxt.connect();
 nxt.getJointSpeedRatio(ROBOT_JOINT1, ratio);
 
 printf("The speed ratio of joint1 is: %lf\n", ratio);
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent

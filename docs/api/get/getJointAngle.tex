@@ -48,7 +48,6 @@ from 0 to $\infty$ degrees.\\
 {\bf Example}\\
 \begin{verbatim}
 #include <nxt.h>
-#include <stdio.h>
 
 ChNXT nxt;
 double angle;
@@ -58,8 +57,6 @@ nxt.connect();
 nxt.getJointAngle(ROBOT_JOINT1, angle);
 
 printf("The angle of joint1 is: %lf\n", angle);
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent

@@ -9,10 +9,10 @@ ChNXT::ChNXT() {
      * g_chnxt_dlcount is a global int counting instances for all classess */
 
     if(g_chnxt_dlhandle == NULL || g_chnxt_dlcount == 0){
-	g_chnxt_dlhandle = dlopen("libnxt.dl", RTLD_LAZY);
-	if(g_chnxt_dlhandle == NULL){
-	    printf("Error: dlopen(): %s\n", dlerror());
-	}
+        g_chnxt_dlhandle = dlopen("libnxt.dl", RTLD_LAZY);
+        if(g_chnxt_dlhandle == NULL){
+            printf("Error: dlopen(): %s\n", dlerror());
+        }
     }
 
     /* to get the address by function name */
@@ -37,8 +37,8 @@ ChNXT::~ChNXT() {
     /* call the chdl function in DLL by address */
     dlrunfun(fptr, NULL, NULL, this);
     if(g_chnxt_dlcount <= 0 && g_chnxt_dlhandle != NULL){
-	if(dlclose(g_chnxt_dlhandle) != 0)
-	    printf("Error: dlclose(): %s\n", dlerror());
+        if(dlclose(g_chnxt_dlhandle) != 0)
+            printf("Error: dlclose(): %s\n", dlerror());
     }
 }
 
@@ -134,18 +134,18 @@ int ChNXT::getJointState(nxtJointId_t id, int &status) {
 }
 
 /*
-int ChNXT::getJointStates() {
-    void *fptr;
-    int retval;
+   int ChNXT::getJointStates() {
+   void *fptr;
+   int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "getJointStates_chdl");
-    if(fptr == NULL) {
-        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
-        return -1;
-    }
-    dlrunfun(fptr, &retval, NULL, this, getJointStates);
-    return retval;
-}*/
+   fptr = dlsym(g_chnxt_dlhandle, "getJointStates_chdl");
+   if(fptr == NULL) {
+   fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+   return -1;
+   }
+   dlrunfun(fptr, &retval, NULL, this, getJointStates);
+   return retval;
+   }*/
 
 int ChNXT::getSensor(nxtSensorId_t id, int &value) {
     void *fptr;
@@ -548,19 +548,19 @@ int ChNXT::humanoidWalkBackward(double angle) {
 }
 
 /*
-int ChNXT::humanoidWalkBackwardNB(double angle) {
-    void *fptr;
-    int retval;
+   int ChNXT::humanoidWalkBackwardNB(double angle) {
+   void *fptr;
+   int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkBackwardNB_chdl");
-    if(fptr == NULL) {
-        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
-        return -1;
-    }
-    dlrunfun(fptr, &retval, humanoidWalkBackwardNB, this, angle);
-    return retval;
-}
-*/
+   fptr = dlsym(g_chnxt_dlhandle, "humanoidWalkBackwardNB_chdl");
+   if(fptr == NULL) {
+   fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+   return -1;
+   }
+   dlrunfun(fptr, &retval, humanoidWalkBackwardNB, this, angle);
+   return retval;
+   }
+   */
 
 int ChNXT::vehicleRollBackward(double angle) {
     void *fptr;

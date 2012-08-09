@@ -53,13 +53,12 @@ on page \pageref{sec:block_nonblock}.\\
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
  
 /* setup speed for all three joints */
@@ -71,8 +70,6 @@ nxt.moveWait();
 
 /* move to zero by the blocking function*/
 nxt.moveToZero();
-
-nxt.disconnect();
 \end{verbatim}
 
 %\noindent

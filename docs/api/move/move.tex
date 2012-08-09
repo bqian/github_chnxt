@@ -62,7 +62,6 @@ functions, please refer to Section \ref{sec:block_nonblock} on page
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
@@ -80,10 +79,9 @@ nxt.moveWait();
 
 /* move by the blocking function*/
 nxt.move(360, 360, 360);
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent
 {\bf See Also}\\
+{\tt moveTo(), moveToNB()}\\
 %%%%% END OF ChNXT::move %%%%%

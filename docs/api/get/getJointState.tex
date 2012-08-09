@@ -48,7 +48,6 @@ This function is used to determine the current state of a motor. Valid states ar
 {\bf Example}\\
 \begin{verbatim}
 #include <nxt.h>
-#include <stdio.h>
 
 ChNXT nxt;
 nxtJointState_t status;
@@ -60,8 +59,6 @@ if(status == 0)
     printf("Joint1 is not moving.\n");
 else
     printf("Joint1 is moving.\n");
-
-nxt.disconnect();
 \end{verbatim}
 %\noindent
 

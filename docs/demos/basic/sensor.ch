@@ -39,6 +39,3 @@ nxt.getSensor(NXT_SENSORPORT4, ultraValue);
 /* display the values we got onto the screen */
 printf("Touch sensor: %d\n", touchValue);
 printf("Ultrasonic sensor: %d\n", ultraValue);
-
-/* disconnect */
-//nxt.disconnect();

@@ -37,15 +37,53 @@ The function returns 0 on success and non-zero otherwise.\\
 \end{description}
 
 \noindent
+{\bf NXT Sensor Types}\\
+\begin{longtable}{p{5.5cm}p{10cm}}
+%\begin{tabular}{p{5.5cm}p{10cm}} \hline
+Value &       Description\\
+\hline
+{\tt NXT\_SENSORTYPE\_SWITCH}        &Set to a switch type sensor. Touch sensor is a switch type sensor.\\
+{\tt NXT\_SENSORTYPE\_TEMPERATURE}   &Set to Temperature Sensor.\\
+{\tt NXT\_SENSORTYPE\_LIGHT\_ACTIVE} &Set to Light Sensor in light active mode(LED on).\\
+{\tt NXT\_SENSORTYPE\_LIGHT\_INACTIVE}&Set to Light Sensor in light inactive mode(LED off).\\
+{\tt NXT\_SENSORTYPE\_SOUND\_DB}     &Set to Sound Sensor in dB.\\
+{\tt NXT\_SENSORTYPE\_SOUND\_DBA}    &Set to Sound Sensor in dB with adjusted.\\
+{\tt NXT\_SENSORTYPE\_LOWSPEED}      &Set to ISP type sensor.\\
+{\tt NXT\_SENSORTYPE\_LOWSPEED\_9V}  &Set to ISP type sensor with 9 Voltage. The ultrasonic sensor belongs to this type of sensor.\\
+{\tt NXT\_SENSORTYPE\_HIGHSPEED}     &Not avialable now.\\
+{\tt NXT\_SENSORTYPE\_COLORFULL}     &Set to Color Sensor in color detector mode.\\
+{\tt NXT\_SENSORTYPE\_COLORRED}      &Set to Color Sensor in lightsensor mode with red light on.\\
+{\tt NXT\_SENSORTYPE\_COLORGREEN}    &Set to Color Sensor in lightsensor mode with green light on.\\
+{\tt NXT\_SENSORTYPE\_COLORBLUE}     &Set to Color Sensor in lightsensor mode with blue light on.\\
+{\tt NXT\_SENSORTYPE\_COLORNONE}     &Set to Color Sensor in lightsensor mode with no light on.\\
+\hline
+\end{longtable}
+
+\noindent
+{\bf NXT Sensor Modes}\\
+\begin{longtable}{p{6cm}p{9.5cm}}
+%\begin{tabular}{p{6cm}p{9.5cm}} \hline
+Value & Description\\
+\hline
+{\tt NXT\_SENSORMODE\_RAWMODE}      &Get sensor value as raw mode.\\	 
+{\tt NXT\_SENSORMODE\_BOOLEANMODE}  &Get sensor value as boolean mode.\\
+{\tt NXT\_SENSORMODE\_TRANSITIONCNTMODE}  &Get sensor value as a number of transitions between TRUE and FALSE.\\
+{\tt NXT\_SENSORMODE\_COUNTERMODE}  &Get sensor value as a number of transitions from FALSE to TRUE, then back to FALSE.\\
+{\tt NXT\_SENSORMODE\_PCTFULLSCALEDMODE}  &Get sensor value as percentage of full scale reading for configured sensor type.\\
+{\tt NXT\_SENSORMODE\_CELSIUSMODE}  &Get sensor value of temperature in degrees Celsius.\\
+{\tt NXT\_SENSORMODE\_FAHRENHEITMODE}  &Get sensor value of temperature in degrees Fahrenheit.\\
+\hline
+%\end{tabular}
+\end{longtable}
+
+\noindent
 {\bf Description}\\
-This function is used to set up a sensor on the Mindstorm with a specific type and mode of the sensor. See the Macros section for 
-the details of ports, types and modes.\\
+This function is used to set up a sensor on the Mindstorm with a specific type and mode of the sensor. Function {\tt getSensor()} can be used to get the sensor values for each type of sensor.\\
 
 \noindent
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 int status_1=2;
@@ -53,7 +91,7 @@ int status_2=2;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
     
 /* setup port 1 as touch sensor */
@@ -69,11 +107,10 @@ status_2=nxt.setSensor(SENSOR_PORT4,
 if(status_2){
     printf("Connection to ultrasonic sensor has failed");
 }
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent
 {\bf See Also}\\
+{\tt getSensor()}
 
 %%%%% END OF ChNXT::setSensor %%%%%

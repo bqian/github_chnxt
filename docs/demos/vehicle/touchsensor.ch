@@ -1,8 +1,7 @@
 /* File name: touchsensor.ch
-   
-   The purpose of this demo is to demonstrate the CH Mindstorms
-   Control Package's ability to control the NXT Mindstorm to use
-   the touch sensor. */
+ *
+ * Demonstrate the CH Mindstorms Control Package's ability 
+ * to control the NXT Mindstorm to use the touch sensor. */
 
 #include <nxt.h>
 
@@ -28,18 +27,18 @@ if (status) {
 nxt.setJointSpeedRatios(0, 0.25, 0.25);
 
 /* Move Robot Forward */
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
 
 /* Commands: */
 while (1) {
     /* Get touch sensor data */
     nxt.getSensor(NXT_SENSORPORT1, touchValue);
     /* If touch sensor is triggered */
-    if (touchValue < 0) {
+    if (touchValue == 1) {
         /* Move backward */
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
         delay(2);
         /* quit the while loop */
         break;
@@ -48,6 +47,3 @@ while (1) {
 
 /* Stop the motors */
 nxt.stopTwoJoints(NXT_JOINT2, NXT_JOINT3);
-
-/* Disconnect NXT */
-nxt.disconnect();

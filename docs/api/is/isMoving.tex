@@ -35,7 +35,6 @@ This function is used to determine if a robot is currently moving any of its joi
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h>
-#include <stdio.h>
 
 ChNXT nxt;
 int moveStatus;
@@ -47,8 +46,6 @@ if(moveStatus)
     printf("Joint1 is moving!\n");
 else
     printf("Joint1 is not moving!\n");
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent

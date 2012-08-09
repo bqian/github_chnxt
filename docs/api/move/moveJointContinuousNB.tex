@@ -43,13 +43,12 @@ This function is used to rotate the specific joint of the Mindstorm NXT. The joi
 {\bf Example}
 \begin{verbatim}
 #include <nxt.h> 
-#include <stdio.h>
 
 ChNXT nxt;
 
 if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
-    exit(0);
+    exit(-1);
 }
  
 /* setup speed for all three joints */
@@ -57,8 +56,6 @@ nxt.setJointSpeeds(60, 40, 40);
 
 /* move the joint 1 on the Mindstorm NXT */
 nxt.moveJointContinuousNB(ROBOT_JOINT1, 1);
-
-nxt.disconnect();
 \end{verbatim}
 
 %\noindent

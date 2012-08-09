@@ -29,8 +29,8 @@ The function returns 0 on success and non-zero otherwise.\\
 \item               
 \begin{tabular}{p{15 mm}p{145 mm}}
 \texttt{id} & The sensor port. This is an enumerated type 
-discussed in Section \ref{sec:nxtSensorId_t} on page
-\pageref{sec:nxtSensorId_t}.\\
+discussed in Section~\ref{sec:nxtSensorIdPort_t} on page
+\pageref{sec:nxtSensorIdPort_t}.\\
 \texttt{value} & A variable to store the current value of the NXT 
 sensor. The contents of this variable will be overwritten with the 
 sensor's value.  \\
@@ -45,7 +45,6 @@ This function gets the current sensor's value of a NXT.\\
 {\bf Example}\\
 \begin{verbatim}
 #include <nxt.h>
-#include <stdio.h>
 
 ChNXT nxt;
 int value;
@@ -58,8 +57,6 @@ nxt.setSensor(NXT_SENSORPORT4, NXT_SENSORTYPE_ULTRASONIC,
 nxt.getSensor(NXT_SENSORPORT4, value);
 
 printf("The value of sensor 4 is: %d\n", value);
-
-nxt.disconnect();
 \end{verbatim}
 
 \noindent

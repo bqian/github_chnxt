@@ -24,6 +24,3 @@ nxt.move(180, 360, 360);
 
 /* move all joints to absolute angles */
 nxt.moveTo(360, 360, 360);
-
-/* disconnect from NXT */
-nxt.disconnect();

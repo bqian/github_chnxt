@@ -15,17 +15,18 @@ double speedRatio = 0.30;
 int quit = 0,    //used to exit for loop
     i,           //counter variable
     status;      //stores status of function
-int ultraValue, position;
+double ultraValue;
+int position;
 double gearratio = (8.0 / 56) * (1.0 / 24);
-enum {numpoints = 20};  //desired number of data points
+enum {numpoints = 20};      //desired number of data points
 const int anglestep = 2;	//angle moved between steps
-double angle[numpoints];//angle calculated from the tachometer
-double distance[numpoints];//data received from the ultrasonic sensor
+double angle[numpoints];    //angle calculated from the tachometer
+double distance[numpoints]; //data received from the ultrasonic sensor
 
 /* Connect to NXT exit if failure */
 if (nxt.connect()) {
     printf("\nPress any key to quit.");
-    while (!_kbhit()); //wait for key press
+    while (!_kbhit());      //wait for key press
     exit(-1);
 }
 
@@ -51,7 +52,7 @@ printf("\n%d Data points will be collected with a"
 printf("\nPlease ensure that the arm can rotate"
        "%d degrees from its current position.", 
        (numpoints*anglestep));
-printf("\nPress any key to continue. Press q at any time to quit.");
+printf("\nPress any key to continue. Press q at any time to quit.\n");
 
 if (getch() == 'q') {
     printf("\nQuitting program.");
@@ -63,16 +64,14 @@ if (getch() == 'q') {
 for (i = 0; i < numpoints; i++) {
     printf("hello\n");
     /* get sensor data, if success print data, else print error*/
-    if ((nxt.getSensor(NXT_SENSORPORT4, ultraValue)) == 0) {
-        distance[i] = ultraValue;
-        if ((nxt.getJointAngle(NXT_JOINT1, angle[i])) == 0) {
-            printf("\nSample: %d,  distance: %d,  Angle: %lf",
+    nxt.getSensor(NXT_SENSORPORT4, ultraValue);
+    distance[i] = ultraValue;
+    nxt.getJointAngle(NXT_JOINT1, angle[i]);
+    printf("\nSample: %d,  distance: %lf,  Angle: %lf",
                    i, distance[i], angle[i]);
-        }
-    }else	
-        printf("\nError!");
 
     /* check if q was pressed and if so exit program*/
+
     if (!_kbhit) {
         if (getch() == 'q') {
             printf("\nQuitting program.");
@@ -80,13 +79,9 @@ for (i = 0; i < numpoints; i++) {
         }
     }
     /* rotate arm by anglestep (rotate motor anglestep/gear ratio)*/
-    nxt.moveJoint(NXT_JOINT1, (anglestep / gearratio));
+    nxt.moveJoint(NXT_JOINT1, anglestep / gearratio);
     delay(1);
 } //end of for(i=0;i<numpoints-1;i++)
-
-/* Stop interfacing. This also stops the motors and sensors.*/
-nxt.disconnect();
-printf("\n");
 
 //plot data in CH
 plot.data2DCurve(angle, distance, numpoints);
