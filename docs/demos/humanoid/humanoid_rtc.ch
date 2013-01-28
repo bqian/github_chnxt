@@ -57,17 +57,17 @@ while (quit != 1){
     nxt.setJointSpeedRatios(0.3, speedRatio, speedRatio);
     key = _getch();
     if(key == 'w'){      //up
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
         movemode = 'w';
     }else if(key =='s'){ //down
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
         movemode = 's';
     }else if(key == 'd'){//right
-        nxt.moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
     }else if(key == 'a'){//left
-        nxt.moveJointContinuousNB(NXT_JOINT1, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
     }else if(key == 'q'){//print sensor
         printSensor(&nxt);
     }else if(key == 'x'){//stop

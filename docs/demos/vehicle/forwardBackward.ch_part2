@@ -1,8 +1,0 @@
-/* Move the Robot Forward */
-nxt.vehicleRollForward(360);
-
-/* Move the Robot Backwards */
-nxt.vehicleRollBackward(360);
-
-/* Disconnect NXT */
-nxt.disconnect();

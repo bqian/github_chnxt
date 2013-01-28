@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::moveJointContinuousNB(robotJointId_t id, int dir);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -41,7 +40,7 @@ This function is used to rotate the specific joint of the Mindstorm NXT. The joi
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -55,8 +54,8 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 nxt.setJointSpeeds(60, 40, 40);
 
 /* move the joint 1 on the Mindstorm NXT */
-nxt.moveJointContinuousNB(ROBOT_JOINT1, 1);
-\end{verbatim}
+nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+\end{lstlisting}
 
 %\noindent
 %{\bf Output}\\

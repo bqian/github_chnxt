@@ -10,12 +10,11 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::moveJoint(nxtJointId_t id, double angle);
 int ChNXT::moveJointNB(nxtJointId_t id, double angle);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -67,7 +66,7 @@ functions, please refer to Section \ref{sec:block_nonblock} on page
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -78,15 +77,15 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 }
  
 /* setup speed for joint1 */
-nxt.setJointSpeedRatio(ROBOT_JOINT1, 40);
+nxt.setJointSpeedRatio(NXT_JOINTA, 40);
 
 /* move joint1 360 degrees */
-nxt.moveJointNB(ROBOT_JOINT1, 360);
+nxt.moveJointNB(NXT_JOINTA, 360);
 nxt.moveJointWait();
 
 /* move joint1 360 degrees */
-nxt.moveJoint(ROBOT_JOINT1, 360);
-\end{verbatim}
+nxt.moveJoint(NXT_JOINTA, 360);
+\end{lstlisting}
 
 %\noindent
 %{\bf Output}\\

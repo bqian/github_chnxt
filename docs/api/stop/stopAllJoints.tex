@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::stopAllJoints(void);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -32,7 +31,7 @@ This function is used to stop all joints on the Mindstorm NXT.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -46,14 +45,14 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 nxt.setJointSpeeds(60, 40, 40);
 
 /* move all joints forward */
-nxt.moveJointContinuousNB(ROBOT_JOINT1, ROBOT_FORWARD);
-nxt.moveJointContinuousNB(ROBOT_JOINT2, ROBOT_FORWARD);
-nxt.moveJointContinuousNB(ROBOT_JOINT3, ROBOT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 delay(5);
 
 /* stop all joints */
 nxt.stopAllJoints();
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

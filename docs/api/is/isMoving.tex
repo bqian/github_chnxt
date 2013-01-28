@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::isMoving(void);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -33,20 +32,20 @@ This function is used to determine if a robot is currently moving any of its joi
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
 int moveStatus;
 
 nxt.connect();
-moveStatus = isMoving(ROBOT_JOINT1);
+moveStatus = isMoving(NXT_JOINTA);
 
 if(moveStatus)
-    printf("Joint1 is moving!\n");
+    printf("JointA is moving!\n");
 else
-    printf("Joint1 is not moving!\n");
-\end{verbatim}
+    printf("JointA is not moving!\n");
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

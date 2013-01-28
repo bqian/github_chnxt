@@ -7,5 +7,6 @@ nxt.obj: nxt.cpp
 	cl /c nxt.cpp -I./
 
 clean:
+	del *.lib
 	del *.obj
 	del *.exe

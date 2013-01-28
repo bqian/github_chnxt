@@ -422,6 +422,21 @@ EXPORTCH int getJointStates_chdl(void *varg) {
     return retval;
 }
 
+EXPORTCH int setJointSpeed_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    nxtJointId_t id;
+    double speed;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    ratio = Ch_VaArg(interp, ap, double);
+    retval = setJointSpeed(id, speed);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
 EXPORTCH int setJointSpeedRatio_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
@@ -563,3 +578,31 @@ EXPORTCH int vehicleMotionWait_chdl(void *varg) {
     retval = vehicleMotionWait();
     return retval;
 }
+
+EXPORTCH int setTwoWheelRobotSpeed_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    nxtJointId_t id;
+    double speed, radius;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    speed = Ch_VaArg(interp, ap, double);
+    radius = Ch_VaArg(interp, ap, double);
+    retval = setTwoWheelRobotSpeed(speed, radius);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+/*EXPORTCH int isMotorReady_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    nxtJointId_t id;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    retval = isMotorReady(id);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}*/

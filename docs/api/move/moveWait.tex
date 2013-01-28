@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::moveWait();
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -35,7 +34,7 @@ turn indefinitely, this function may never return and your program may hang.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -53,7 +52,7 @@ nxt.moveNB(360, 360, 360);
 
 /* wait until motors stop moving */
 nxt.moveWait();
-\end{verbatim}
+\end{lstlisting}
 
 %See the sample program in Section \ref{sec:democode} on page \pageref{sec:democode}.
 

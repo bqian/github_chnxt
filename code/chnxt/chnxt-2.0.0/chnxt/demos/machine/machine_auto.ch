@@ -1,9 +1,9 @@
-/*File name: machine_auto.ch
-  
-  The purpose of this demo is to demonstrate the CH Mindstorms
-  Control Package's ability to control the machine robot model
-  autonomously, as well as demonstrate how to collect and plot
-  sensor data from the NXT.*/
+/* File name: machine_auto.ch
+ *
+ * Demonstrate the CH Mindstorms Control Package's ability 
+ * to control the machine robot model autonomously, as well 
+ * as demonstrate how to collect and plot sensor data from the NXT.*/
+
 #include <conio.h>
 #include <stdio.h>
 #include <chplot.h>
@@ -12,20 +12,20 @@
 CPlot plot;
 ChNXT nxt;
 double speedRatio = 0.30;
-int quit = 0,    //used to exit for loop
-    i,           //counter variable
-    status;      //stores status of function
+int quit = 0,                   //used to exit for loop
+    i,                          //counter variable
+    status;                     //stores status of function
 int ultraValue, position;
 double gearratio = (8.0 / 56) * (1.0 / 24);
-enum {numpoints = 20};  //desired number of data points
+enum {numpoints = 20};          //desired number of data points
 const int anglestep = 2;	//angle moved between steps
-double angle[numpoints];//angle calculated from the tachometer
-double distance[numpoints];//data received from the ultrasonic sensor
+double angle[numpoints];        //angle calculated from the tachometer
+double distance[numpoints];     //data received from the ultrasonic sensor
 
 /* Connect to NXT exit if failure */
 if (nxt.connect()) {
     printf("\nPress any key to quit.");
-    while (!_kbhit()); //wait for key press
+    while (!_kbhit());          //wait for key press
     exit(-1);
 }
 
@@ -35,8 +35,8 @@ status = nxt.setSensor(NXT_SENSORPORT4,
         NXT_SENSORTYPE_ULTRASONIC, NXT_SENSORMODE_RAWMODE);
 if (status) {
     printf("\nSensor Setup failed. Exiting program.");
-    while (!_kbhit());  //wait for key press
-    nxt.disconnect();	//stop interfacing. This also stops the motors.
+    while (!_kbhit());          //wait for key press
+    nxt.disconnect();	        //stop interfacing. This also stops the motors.
     exit(-1);
 }
 
@@ -65,7 +65,7 @@ for (i = 0; i < numpoints; i++) {
     /* get sensor data, if success print data, else print error*/
     if ((nxt.getSensor(NXT_SENSORPORT4, ultraValue)) == 0) {
         distance[i] = ultraValue;
-        if ((nxt.getJointAngle(NXT_JOINT1, angle[i])) == 0) {
+        if ((nxt.getJointAngle(NXT_JOINTA, angle[i])) == 0) {
             printf("\nSample: %d,  distance: %d,  Angle: %lf",
                    i, distance[i], angle[i]);
         }
@@ -80,11 +80,17 @@ for (i = 0; i < numpoints; i++) {
         }
     }
     /* rotate arm by anglestep (rotate motor anglestep/gear ratio)*/
-    nxt.moveJoint(NXT_JOINT1, (anglestep / gearratio));
+    nxt.moveJoint(NXT_JOINTA, anglestep / gearratio);
     delay(1);
-} //end of for(i=0;i<numpoints-1;i++)
+}
 
-//plot data in CH
+/* Stop interfacing. This also stops the motors and sensors.*/
+nxt.disconnect();
+printf("\n");
+
+/* plot data in Ch */
+plot.polarPlot(PLOT_ANGLE_DEG);
 plot.data2DCurve(angle, distance, numpoints);
+plot.sizeRatio(1);
 plot.grid(PLOT_ON);
 plot.plotting();

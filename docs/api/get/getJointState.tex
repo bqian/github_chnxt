@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::getJointState(nxtJointId_t id, nxtJointState_t &state);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -29,12 +28,10 @@ The function returns 0 on success and non-zero otherwise.\\
 \item               
 \begin{tabular}{p{10 mm}p{145 mm}}
 \texttt{id} & The joint number. This is an enumerated type 
-discussed in Section \ref{sec:nxtJointId_t} on page
-\pageref{sec:nxtJointId_t}.\\
-\texttt{state} & An integer variable which will be overwritten with the current state of the motor. 
-This is an enumerated type 
-discussed in Section \ref{sec:nxtJointState_t} on page
-\pageref{sec:nxtJointState_t}.
+discussed in Section \ref{sec:nxtJointId_t} on Page~\pageref{sec:nxtJointId_t}.\\
+\texttt{state} & An integer variable which will be overwritten with the current 
+state of the motor. This is an enumerated type discussed in 
+Section~\ref{sec:nxtJointState_t} on Page~\pageref{sec:nxtJointState_t}.\\
 \end{tabular}
 \end{description}
 
@@ -45,8 +42,8 @@ This function is used to determine the current state of a motor. Valid states ar
 \input{jointStateTable}
 
 \noindent
-{\bf Example}\\
-\begin{verbatim}
+{\bf Example}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -54,12 +51,12 @@ nxtJointState_t status;
 
 nxt.connect();
 
-nxt.getJointState(ROBOT_JOINT1, status);
+nxt.getJointState(NXT_JOINTA, status);
 if(status == 0)
-    printf("Joint1 is not moving.\n");
+    printf("JointA is not moving.\n");
 else
-    printf("Joint1 is moving.\n");
-\end{verbatim}
+    printf("JointA is moving.\n");
+\end{lstlisting}
 %\noindent
 
 \noindent

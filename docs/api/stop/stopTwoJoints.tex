@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::stopTwoJoints(nxtJointId_t id1, nxtJointId_t id2);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -39,7 +38,7 @@ This function is used to stop two specific joints on the Mindstorm NXT.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -53,13 +52,13 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 nxt.setJointSpeeds(60, 40, 40);
 
 /* move joint2 and joint3 forward */
-nxt.moveJointContinuousNB(ROBOT_JOINT2, ROBOT_FORWARD);
-nxt.moveJointContinuousNB(ROBOT_JOINT3, ROBOT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 delay(5);
 
 /* stop joint2 and joint3 */
-nxt.stopTwoJoints(ROBOT_JOINT2, ROBOT_JOINT3);
-\end{verbatim}
+nxt.stopTwoJoints(NXT_JOINTB, NXT_JOINTC);
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

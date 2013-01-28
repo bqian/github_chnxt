@@ -33,8 +33,8 @@ while (1) {
     if (ultraValue < 20 && ultraValue >0) {
         speedRatio = 0.25;
         /* Move backward */
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
         sleep(3);
         /* Quit the while loop */
         break;
@@ -50,9 +50,9 @@ while (1) {
     }
     /* Move forward (constantly)*/
     nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 }
 
 /* Stop the motors */
-nxt.stopTwoJoints(NXT_JOINT2, NXT_JOINT3);
+nxt.stopTwoJoints(NXT_JOINTB, NXT_JOINTC);

@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::getJointSpeedRatios(double &ratio1, double &ratio2, double &ratio3);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -28,9 +27,9 @@ The function returns 0 on success and non-zero otherwise.\\
 \begin{description}
 \item               
 \begin{tabular}{p{10 mm}p{145 mm}}
-\texttt{ratio1} & The address of a variable to store the speed ratio of joint 1.\\
-\texttt{ratio2} & The address of a variable to store the speed ratio of joint 2.\\
-\texttt{ratio3} & The address of a variable to store the speed ratio of joint 3.\\
+\texttt{ratio1} & The address of a variable to store the speed ratio of joint A.\\
+\texttt{ratio2} & The address of a variable to store the speed ratio of joint B.\\
+\texttt{ratio3} & The address of a variable to store the speed ratio of joint C.\\
 \end{tabular}
 \end{description}
 
@@ -40,8 +39,8 @@ This function is used to retrieve all four joint speed ratio settings of a Lego
 Mindstorms NXT simultaneously. The speed ratios are as a value from 0 to 1. \\
 
 \noindent
-{\bf Example}\\
-\begin{verbatim}
+{\bf Example}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -51,10 +50,10 @@ nxt.connect();
 
 nxt.getJointSpeedRatio(ratio1, ratio2, ratio3);
 
-printf("The speed ratio of joint1 is: %lf\n", ratio1);
-printf("The speed ratio of joint2 is: %lf\n", ratio2);
-printf("The speed ratio of joint3 is: %lf\n", ratio3);
-\end{verbatim}
+printf("The speed ratio of jointA is: %lf\n", ratio1);
+printf("The speed ratio of jointB is: %lf\n", ratio2);
+printf("The speed ratio of jointC is: %lf\n", ratio3);
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

@@ -39,9 +39,10 @@ createpkg: libnxt.dl
 #	cp nxt.config $(PKGDIR)/config
 #	cp -rf ../demos/basic $(PKGDIR)/demos/
 	cp ../demos/*.ch $(PKGDIR)/demos/
-	cp -rf ../demos/vehicle $(PKGDIR)/demos/
-	cp -rf ../demos/machine $(PKGDIR)/demos/
-	cp -rf ../demos/humanoid $(PKGDIR)/demos/
+	cp ../../docs/demos/basic/*.ch $(PKGDIR)/demos/
+	cp -rf ../../docs/demos/vehicle $(PKGDIR)/demos/
+	cp -rf ../../docs/demos/machine $(PKGDIR)/demos/
+	cp -rf ../../docs/demos/humanoid $(PKGDIR)/demos/
 	cp -rf license $(PKGDIR)/
 #	cp -rf ../demos/nonvehicle $(PKGDIR)/demos/
 	cp ../demos/iMobotController_Windows/release/*.exe $(PKGDIR)/bin

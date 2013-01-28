@@ -47,22 +47,22 @@ while (1) {
     /* get touch sensor. If pressed reverse and turn left */
     nxt.getSensor(NXT_SENSORPORT1, touchValue);
     if (touchValue < 0){
-        nxt.moveJoint(NXT_JOINT2, 720);
-        nxt.moveJoint(NXT_JOINT3, 720);
+        nxt.moveJoint(NXT_JOINTB, 720);
+        nxt.moveJoint(NXT_JOINTC, 720);
         delay(1);
-        nxt.moveJoint(NXT_JOINT2, -720);
-        nxt.moveJoint(NXT_JOINT3, 720);
+        nxt.moveJoint(NXT_JOINTB, -720);
+        nxt.moveJoint(NXT_JOINTC, 720);
     }
 
     /* get distance from UltraSonic sensor,
        set speed according to distance. Turn left if really close.*/
     nxt.getSensor(NXT_SENSORPORT4, ultraValue);
     if (ultraValue < 0){
-        nxt.moveJoint(NXT_JOINT2, -720);
-        nxt.moveJoint(NXT_JOINT3, -720);
+        nxt.moveJoint(NXT_JOINTB, -720);
+        nxt.moveJoint(NXT_JOINTC, -720);
         delay(1);
-        nxt.moveJoint(NXT_JOINT2, 720);
-        nxt.moveJoint(NXT_JOINT3, -720);
+        nxt.moveJoint(NXT_JOINTB, 720);
+        nxt.moveJoint(NXT_JOINTC, -720);
         delay(0.75);
     } else if (ultraValue < 30){
         speedRatio = 0.25;
@@ -78,8 +78,8 @@ while (1) {
 
     /* Turn motors on (drive forward) */
     nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 }
 /* stop interfacing. This also stops the motors. */
 nxt.disconnect();   

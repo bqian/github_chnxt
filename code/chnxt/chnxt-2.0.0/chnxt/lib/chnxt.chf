@@ -68,6 +68,19 @@ int ChNXT::connectWithAddress(char *usr_addr, int channel) {
     return retval;
 }
 
+int ChNXT::connectWithBluetoothAddress(char *usr_addr, int channel) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "connectWithBluetoothAddress_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, connectWithBluetoothAddress, this, usr_addr, channel);
+    return retval;
+}
+
 int ChNXT::disconnect() {
     void *fptr;
     int retval;
@@ -427,6 +440,19 @@ int ChNXT::setJointToZero(nxtJointId_t id) {
         return -1;
     }
     dlrunfun(fptr, &retval, setJointToZero, this, id);
+    return retval;
+}
+
+int ChNXT::setToZeros(void) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "setToZeros_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, NULL, this, setToZeros);
     return retval;
 }
 

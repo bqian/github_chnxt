@@ -10,12 +10,11 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <mobot.h>
 int ChNXT::vehicleRollForward(double angle);
 int ChNXT::vehicleRollForwardNB(double angle);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -57,7 +56,7 @@ will return immediately, and the motion will be performed asynchronously.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -70,7 +69,7 @@ nxt.vehicleRollForward(360);
 /* Non-blocking function */
 nxt.vehicleRollForwardNB(360);
 nxt.vehicleMotionWait();
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

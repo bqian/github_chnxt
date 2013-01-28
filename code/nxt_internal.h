@@ -161,9 +161,15 @@ extern "C" {
 #endif /* _WIN32 */
 
 DLLIMPORT int NXT_connectWithAddress(
-    br_comms_t* comms, const char* address, int channel);
+        br_comms_t* comms, const char* address, int channel);
 DLLIMPORT int NXT_init(br_comms_t* comms);
 DLLIMPORT const char* NXT_getConfigFilePath();
+DLLIMPORT int NXT_setConnectionParameters(
+        br_comms_t *comms, const char *address, int channel);
+DLLIMPORT int NXT_buildSocket(br_comms_t *comms);
+DLLIMPORT int NXT_connectToServer(br_comms_t *comms);
+int PrintSocketBuildError(void);
+int PrintConnectionError(void);
 int SendToNXT(br_comms_t* comms, const char str[], int datasize);
 /*
 DLLIMPORT int Mobot_blinkLED(br_comms_t* comms, double delay, int numBlinks);

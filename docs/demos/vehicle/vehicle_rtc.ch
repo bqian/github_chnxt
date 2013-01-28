@@ -38,37 +38,37 @@ while (quit != 1 ) {
     key = _getch();
     if(key == 'w'){             //up
         nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
         movemode = 'w';
     }else if(key == 's'){       //down
         nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
         movemode = 's';
     }else if(key == 'd'){       //right
         nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
         movemode = 'd';
     }else if(key == 'a'){       //left
         nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
         movemode = 'a';
     }else if(key == 'q'){       //forward-left
         nxt.setJointSpeedRatios(0, speedRatio, 0.7*speedRatio);
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
         movemode = 'q';
     }else if(key == 'e'){       //forward-right
         nxt.setJointSpeedRatios(0, 0.7*speedRatio, speedRatio);
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
         movemode = 'e';
     }else if(key == 'x'){       //stop
-        nxt.stopOneJoint(NXT_JOINT2);
-        nxt.stopOneJoint(NXT_JOINT3);
+        nxt.stopOneJoint(NXT_JOINTB);
+        nxt.stopOneJoint(NXT_JOINTC);
         movemode = 'x';
     }else if(key == 'r'){       //quit
         printf("\nExiting program.\n");

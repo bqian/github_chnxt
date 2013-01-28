@@ -69,22 +69,22 @@ EXPORTCH int disconnect_chdl(void *varg) {
     return retval;
 }
 
-EXPORTCH int setJointToZero_chdl(void *varg) {
+EXPORTCH int setMotorToZero_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
-    retval = chnxt->setJointToZero(id);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    retval = chnxt->setMotorToZero(id);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int setJointZeros_chdl(void *varg) {
+EXPORTCH int setMotorZeros_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
@@ -92,7 +92,7 @@ EXPORTCH int setJointZeros_chdl(void *varg) {
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    retval = chnxt->setJointZeros();
+    retval = chnxt->setMotorZeros();
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -110,53 +110,53 @@ EXPORTCH int setToZeros_chdl(void *varg) {
     return retval;
 }
 
-EXPORTCH int moveJointContinuousNB_chdl(void *varg) {
+EXPORTCH int moveMotorContinuousNB_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
-    nxtJointState_t dir;
+    nxtMotorId_t id;
+    nxtMotorState_t dir;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
-    dir = Ch_VaArg(interp, ap, nxtJointState_t);
-    retval = chnxt->moveJointContinuousNB(id, dir);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    dir = Ch_VaArg(interp, ap, nxtMotorState_t);
+    retval = chnxt->moveMotorContinuousNB(id, dir);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int moveJointNB_chdl(void *varg) {
+EXPORTCH int moveMotorNB_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     double angle;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     angle = Ch_VaArg(interp, ap, double);
-    retval = chnxt->moveJointNB(id, angle);
+    retval = chnxt->moveMotorNB(id, angle);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int moveJointToNB_chdl(void *varg) {
+EXPORTCH int moveMotorToNB_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     double angle;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     angle = Ch_VaArg(interp, ap, double);
-    retval = chnxt->moveJointToNB(id, angle);
+    retval = chnxt->moveMotorToNB(id, angle);
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -212,36 +212,36 @@ EXPORTCH int moveToZeroNB_chdl(void *varg) {
     return retval;
 }
 
-EXPORTCH int moveJoint_chdl(void *varg) {
+EXPORTCH int moveMotor_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     double angle;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     angle = Ch_VaArg(interp, ap, double);
-    retval = chnxt->moveJoint(id, angle);
+    retval = chnxt->moveMotor(id, angle);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int moveJointTo_chdl(void *varg) {
+EXPORTCH int moveMotorTo_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     double angle;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     angle = Ch_VaArg(interp, ap, double);
-    retval = chnxt->moveJointTo(id, angle);
+    retval = chnxt->moveMotorTo(id, angle);
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -301,16 +301,16 @@ EXPORTCH int moveContinuousNB_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointState_t dir1;
-    nxtJointState_t dir2;
-    nxtJointState_t dir3;
+    nxtMotorState_t dir1;
+    nxtMotorState_t dir2;
+    nxtMotorState_t dir3;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    dir1 = Ch_VaArg(interp, ap, nxtJointState_t);
-    dir2 = Ch_VaArg(interp, ap, nxtJointState_t);
-    dir3 = Ch_VaArg(interp, ap, nxtJointState_t);
+    dir1 = Ch_VaArg(interp, ap, nxtMotorState_t);
+    dir2 = Ch_VaArg(interp, ap, nxtMotorState_t);
+    dir3 = Ch_VaArg(interp, ap, nxtMotorState_t);
     retval = chnxt->moveContinuousNB(dir1, dir2, dir3);
     Ch_VaEnd(interp, ap);
     return retval;
@@ -320,34 +320,34 @@ EXPORTCH int moveContinuousTime_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointState_t dir1;
-    nxtJointState_t dir2;
-    nxtJointState_t dir;
+    nxtMotorState_t dir1;
+    nxtMotorState_t dir2;
+    nxtMotorState_t dir;
     double seconds;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    dir1 = Ch_VaArg(interp, ap, nxtJointState_t);
-    dir2 = Ch_VaArg(interp, ap, nxtJointState_t);
-    dir = Ch_VaArg(interp, ap, nxtJointState_t);
+    dir1 = Ch_VaArg(interp, ap, nxtMotorState_t);
+    dir2 = Ch_VaArg(interp, ap, nxtMotorState_t);
+    dir = Ch_VaArg(interp, ap, nxtMotorState_t);
     seconds = Ch_VaArg(interp, ap, double);
     retval = chnxt->moveContinuousTime(dir1, dir2, dir, seconds);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int moveJointWait_chdl(void *varg) {
+EXPORTCH int moveMotorWait_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
-    retval = chnxt->moveJointWait(id);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    retval = chnxt->moveMotorWait(id);
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -391,56 +391,92 @@ EXPORTCH int isMoving_chdl(void *varg) {
     return retval;
 }
 
-EXPORTCH int isJointMoving_chdl(void *varg) {
+/*EXPORTCH int isMotorMoving_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
-    retval = chnxt->isJointMoving(id);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    retval = chnxt->isMotorMoving(id);
     Ch_VaEnd(interp, ap);
     return retval;
-}
+}*/
 
-EXPORTCH int getJointAngle_chdl(void *varg) {
+EXPORTCH int getMotorAngle_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     double *angle;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     angle = Ch_VaArg(interp, ap, double*);
-    retval = chnxt->getJointAngle(id, *angle);
+    retval = chnxt->getMotorAngle(id, *angle);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int getJointSpeedRatio_chdl(void *varg) {
+EXPORTCH int getMotorSpeed_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
+    int *speed;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    speed = Ch_VaArg(interp, ap, int *);
+    retval = chnxt->getMotorSpeed(id, *speed);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int getMotorSpeeds_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    int *speed1;
+    int *speed2;
+    int *speed3;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    speed1 = Ch_VaArg(interp, ap, int *);
+    speed2 = Ch_VaArg(interp, ap, int *);
+    speed3 = Ch_VaArg(interp, ap, int *);
+    retval = chnxt->getMotorSpeeds(*speed1, *speed2, *speed3);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int getMotorSpeedRatio_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    nxtMotorId_t id;
     double *ratio;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     ratio = Ch_VaArg(interp, ap, double *);
-    retval = chnxt->getJointSpeedRatio(id, *ratio);
+    retval = chnxt->getMotorSpeedRatio(id, *ratio);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int getJointSpeedRatios_chdl(void *varg) {
+EXPORTCH int getMotorSpeedRatios_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
@@ -454,61 +490,61 @@ EXPORTCH int getJointSpeedRatios_chdl(void *varg) {
     ratio1 = Ch_VaArg(interp, ap, double *);
     ratio2 = Ch_VaArg(interp, ap, double *);
     ratio3 = Ch_VaArg(interp, ap, double *);
-    retval = chnxt->getJointSpeedRatios(*ratio1, *ratio2, *ratio3);
+    retval = chnxt->getMotorSpeedRatios(*ratio1, *ratio2, *ratio3);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int getJointState_chdl(void *varg) {
+EXPORTCH int getMotorState_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     int *status;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     status = Ch_VaArg(interp, ap, int *);
-    retval = chnxt->getJointState(id, *status);
+    retval = chnxt->getMotorState(id, *status);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int stopOneJoint_chdl(void *varg) {
+EXPORTCH int stopOneMotor_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
-    retval = chnxt->stopOneJoint(id);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    retval = chnxt->stopOneMotor(id);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int stopTwoJoints_chdl(void *varg) {
+EXPORTCH int stopTwoMotors_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id1;
-    nxtJointId_t id2;
+    nxtMotorId_t id1;
+    nxtMotorId_t id2;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id1 = Ch_VaArg(interp, ap, nxtJointId_t);
-    id2 = Ch_VaArg(interp, ap, nxtJointId_t);
-    retval = chnxt->stopTwoJoints(id1, id2);
+    id1 = Ch_VaArg(interp, ap, nxtMotorId_t);
+    id2 = Ch_VaArg(interp, ap, nxtMotorId_t);
+    retval = chnxt->stopTwoMotors(id1, id2);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int stopAllJoints_chdl(void *varg) {
+EXPORTCH int stopAllMotors_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
@@ -516,7 +552,7 @@ EXPORTCH int stopAllJoints_chdl(void *varg) {
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    retval = chnxt->stopAllJoints();
+    retval = chnxt->stopAllMotors();
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -570,24 +606,60 @@ EXPORTCH int getSensor_chdl(void *varg) {
     return retval;
 }
 
-EXPORTCH int setJointSpeedRatio_chdl(void *varg) {
+EXPORTCH int setMotorSpeed_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
-    nxtJointId_t id;
+    nxtMotorId_t id;
+    int speed;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
+    speed = Ch_VaArg(interp, ap, int);
+    retval = chnxt->setMotorSpeed(id, speed);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int setMotorSpeeds_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    int speed1;
+    int speed2;
+    int speed3;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+    chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    speed1 = Ch_VaArg(interp, ap, int);
+    speed2 = Ch_VaArg(interp, ap, int);
+    speed3 = Ch_VaArg(interp, ap, int);
+    retval = chnxt->setMotorSpeeds(speed1, speed2, speed3);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+
+EXPORTCH int setMotorSpeedRatio_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+    class ChNXT *chnxt;
+    nxtMotorId_t id;
     double ratio;
     int retval;
 
     Ch_VaStart(interp, ap, varg);
     chnxt = Ch_VaArg(interp, ap, class ChNXT *);
-    id = Ch_VaArg(interp, ap, nxtJointId_t);
+    id = Ch_VaArg(interp, ap, nxtMotorId_t);
     ratio = Ch_VaArg(interp, ap, double);
-    retval = chnxt->setJointSpeedRatio(id, ratio);
+    retval = chnxt->setMotorSpeedRatio(id, ratio);
     Ch_VaEnd(interp, ap);
     return retval;
 }
 
-EXPORTCH int setJointSpeedRatios_chdl(void *varg) {
+EXPORTCH int setMotorSpeedRatios_chdl(void *varg) {
     ChInterp_t interp;
     ChVaList_t ap;
     class ChNXT *chnxt;
@@ -601,7 +673,7 @@ EXPORTCH int setJointSpeedRatios_chdl(void *varg) {
     ratio1 = Ch_VaArg(interp, ap, double);
     ratio2 = Ch_VaArg(interp, ap, double);
     ratio3 = Ch_VaArg(interp, ap, double);
-    retval = chnxt->setJointSpeedRatios(ratio1, ratio2, ratio3);
+    retval = chnxt->setMotorSpeedRatios(ratio1, ratio2, ratio3);
     Ch_VaEnd(interp, ap);
     return retval;
 }
@@ -811,3 +883,22 @@ EXPORTCH int humanoidMotionWait_chdl(void *varg) {
     Ch_VaEnd(interp, ap);
     return retval;
 }
+
+EXPORTCH int setTwoWheelRobotSpeed_chdl(void *varg) {
+    ChInterp_t interp;
+    ChVaList_t ap;
+	class ChNXT *chnxt;
+	
+    nxtMotorId_t id;
+    double speed, radius;
+    int retval;
+
+    Ch_VaStart(interp, ap, varg);
+	chnxt = Ch_VaArg(interp, ap, class ChNXT *);
+    speed = Ch_VaArg(interp, ap, double);
+    radius = Ch_VaArg(interp, ap, double);
+    retval = chnxt->setTwoWheelRobotSpeed(speed, radius);
+    Ch_VaEnd(interp, ap);
+    return retval;
+}
+

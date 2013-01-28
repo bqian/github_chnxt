@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
-int ChNXT::setJointSpeedRatios(double ratio1, double ratio2, double ratio3);
-\end{verbatim}
+int ChNXT::setJointSpeedRatios(double ratioA, double ratioB, double ratioC);
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -28,9 +27,9 @@ The function returns 0 on success and non-zero otherwise.\\
 \begin{description}
 \item
 \begin{tabular}{ p{20mm}p{135mm} }
-\texttt{ratio1}&The speed ratio setting for the first joint.\\
-\texttt{ratio2}&The speed ratio setting for the second joint.\\
-\texttt{ratio3}&The speed ratio setting for the third joint.\\
+\texttt{ratioA}&The speed ratio setting for the first joint.\\
+\texttt{ratioB}&The speed ratio setting for the second joint.\\
+\texttt{ratioC}&The speed ratio setting for the third joint.\\
 \end{tabular}
 \end{description}
 
@@ -43,7 +42,7 @@ ranges from 0 to 1.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -55,7 +54,7 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     
 /* set the speed ratio settings for all joints*/
 nxt.setJointSpeedRatios(0.5, 0.4, 0.4);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

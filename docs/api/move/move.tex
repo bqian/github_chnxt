@@ -10,12 +10,11 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
-int ChNXT::move(double degrees1, double degrees2, double degrees3);
-int ChNXT::moveNB(double degrees1, double degrees2, double degrees3);
-\end{verbatim}
+int ChNXT::move(double degreesA, double degreesB, double degreesC);
+int ChNXT::moveNB(double degreesA, double degreesB, double degreesC);
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -31,9 +30,9 @@ The function returns 0 on success and non-zero otherwise.\\
 \begin{description}
 \item               
 \begin{tabular}{p{15 mm}p{125 mm}}
-\texttt{angle1} & The amount to move joint 1 relative to the current position. \\
-\texttt{angle2} & The amount to move joint 2 relative to the current position. \\
-\texttt{angle3} & The amount to move joint 3 relative to the current position. \\
+\texttt{angle1} & The amount to move joint A relative to the current position. \\
+\texttt{angle2} & The amount to move joint B relative to the current position. \\
+\texttt{angle3} & The amount to move joint C relative to the current position. \\
 \end{tabular}
 \end{description}
 
@@ -60,7 +59,7 @@ functions, please refer to Section \ref{sec:block_nonblock} on page
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -79,7 +78,7 @@ nxt.moveWait();
 
 /* move by the blocking function*/
 nxt.move(360, 360, 360);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

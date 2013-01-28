@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::getJointAngle(nxtJointId_t id, double &angle);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -45,8 +44,8 @@ degrees. The function \texttt{getJointAngle()} always returns an angle
 from 0 to $\infty$ degrees.\\
 
 \noindent
-{\bf Example}\\
-\begin{verbatim}
+{\bf Example}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -54,10 +53,10 @@ double angle;
 
 nxt.connect();
 
-nxt.getJointAngle(ROBOT_JOINT1, angle);
+nxt.getJointAngle(NXT_JOINTA, angle);
 
-printf("The angle of joint1 is: %lf\n", angle);
-\end{verbatim}
+printf("The angle of jointA is: %lf\n", angle);
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

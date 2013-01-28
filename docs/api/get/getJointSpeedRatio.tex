@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::getJointSpeedRatio(nxtJointId_t id, double &ratio);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -45,8 +44,8 @@ will turn at 50\% of its maximum angular velocity while moving continuously
 or moving to a new goal position.\\
 
 \noindent
-{\bf Example}\\
-\begin{verbatim}
+{\bf Example}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -54,10 +53,10 @@ double ratio;
 
 nxt.connect();
 
-nxt.getJointSpeedRatio(ROBOT_JOINT1, ratio);
+nxt.getJointSpeedRatio(NXT_JOINTA, ratio);
 
-printf("The speed ratio of joint1 is: %lf\n", ratio);
-\end{verbatim}
+printf("The speed ratio of jointA is: %lf\n", ratio);
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

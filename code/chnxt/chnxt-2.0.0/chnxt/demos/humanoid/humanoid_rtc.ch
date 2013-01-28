@@ -1,27 +1,28 @@
 /* File name: humanoid_rtc.ch
-   
-   The purpose of this demo is to demonstrate the CH Mindstorms
-   Control Package's ability to control the Humanoid Robot Model,
-   as well as demonstrate how to get sensor data. */
+ * 
+ * Demonstrate the CH Mindstorms Control Package's ability 
+ * to control the Humanoid Robot Model, as well as demonstrate 
+ * how to get sensor data. */
+
 #include <conio.h>
 #include <stdio.h>
 #include <nxt.h>
 
 ChNXT nxt;
 double speedRatio = 0.25;//speedRatio of the motors. (default to 25)
-int quit = 0,	//used by quit case to exit the loop
-    status1,	//used to check for errors
-    status2,	//used to check for errors
-    status3,	//used to check for errors
-    status4;	//used to check for errors
-char key = 'x',	//stores the input from the user
-     movemode = 'x';//stores the last movement command
+int quit = 0,	         //used by quit case to exit the loop
+    status1,	         //used to check for errors
+    status2,	         //used to check for errors
+    status3,	         //used to check for errors
+    status4;	         //used to check for errors
+char key = 'x',	         //stores the input from the user
+     movemode = 'x';     //stores the last movement command
 
 /* Connect to NXT */
 printf("Initializing vehicle and assuming control...");
 if (nxt.connect()) {
     printf("\nPress and key to exit.\n");
-    while (!_kbhit()); //wait for keypress
+    while (!_kbhit());   //wait for keypress
     exit(0);
 }
 
@@ -37,7 +38,7 @@ status4 = nxt.setSensor(NXT_SENSORPORT4,
 if ((status1) || (status2) || (status3)
         || (status4)) {
     printf("\nError initializing sensors.\nPress any key to exit.\n");
-    while (!_kbhit()); //wait for key press
+    while (!_kbhit());   //wait for key press
     exit(0);
 }
 
@@ -55,18 +56,18 @@ printf("Please Enter command:");
 while (quit != 1){
     nxt.setJointSpeedRatios(0.3, speedRatio, speedRatio);
     key = _getch();
-    if(key == 'w'){//up
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    if(key == 'w'){      //up
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
         movemode = 'w';
     }else if(key =='s'){ //down
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
         movemode = 's';
     }else if(key == 'd'){//right
-        nxt.moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
     }else if(key == 'a'){//left
-        nxt.moveJointContinuousNB(NXT_JOINT1, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
     }else if(key == 'q'){//print sensor
         printSensor(&nxt);
     }else if(key == 'x'){//stop
@@ -105,7 +106,7 @@ int printSensor(ChNXT *nxt) {
     nxt->getSensor(NXT_SENSORPORT4, ultraValue);
 
     /* display the values */
-    if (touchValue < 0)
+    if (touchValue == 1)
         printf("\n\n\nThe touch sensor has been activated.\n", 
                 touchValue);
     else
@@ -114,7 +115,7 @@ int printSensor(ChNXT *nxt) {
     printf("The distance reported by the ultrasonic sensor is %d.\n", 
 			ultraValue);
     /*
-    if (light<500)  printf("\nThe touch sensor has been activated\n");
+    if (light<50)  printf("\nThe touch sensor has been activated\n");
     else    printf("\nThe touch sensor has been activated\n");
     */
     printf("The light level is %d.\n", lightValue);

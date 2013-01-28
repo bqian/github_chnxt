@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::setJointSpeedRatio(nxtJointId_t id, double ratio);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -44,7 +43,7 @@ continuously or moving to a new goal position.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -55,8 +54,8 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 }
     
 /* set the speed ratio setting for joint1 on port0 */
-nxt.setJointSpeedRatio(ROBOT_JOINT1, 0.5);
-\end{verbatim}
+nxt.setJointSpeedRatio(NXT_JOINTA, 0.5);
+\end{lstlisting}
 \noindent
 {\bf See Also}\\
 \texttt{setJointSpeedRatios()}\\

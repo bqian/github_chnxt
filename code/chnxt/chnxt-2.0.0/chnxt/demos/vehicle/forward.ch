@@ -1,12 +1,8 @@
-/************************************************************
-forward.ch
-Created by Michael Schirle
-Modified by Binsen Qian
+/* File name: forward.ch
+ *
+ * Introduce the CH Mindstorms control Package syntax 
+ * to new users by moving the robot forward. */
 
-The purpose of this demo is to introduce the CH Mindstorms
-Control Package syntax to new users by moving the robot
-forward.
-*************************************************************/
 #include <nxt.h>
 
 ChNXT nxt;
@@ -22,6 +18,3 @@ nxt.setJointSpeedRatios(0, 0.25, 0.25);
 
 /* Turn the motors on */
 nxt.vehicleRollForward(360);
-
-/* Disconnect NXT */
-nxt.disconnect();

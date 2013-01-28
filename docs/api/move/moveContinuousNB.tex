@@ -8,13 +8,12 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
-int ChNXT::moveContinuousNB(nxtJointState_t dir1, 
-                            nxtJointState_t dir2, 
-                            nxtJointState_t dir3); 
-\end{verbatim}
+int ChNXT::moveContinuousNB(nxtJointState_t dirA, 
+                            nxtJointState_t dirB, 
+                            nxtJointState_t dirC); 
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -43,7 +42,7 @@ speed to zero. This function is a non-blocking function.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -57,8 +56,8 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 nxt.setJointSpeeds(60, 40, 40);
 
 /* move all joints on the Mindstorm NXT */
-nxt.moveContinuousNB(ROBOT_FORWARD, ROBOT_FORWARD, ROBOT_FORWARD);
-\end{verbatim}
+nxt.moveContinuousNB(NXT_FORWARD, NXT_FORWARD, NXT_FORWARD);
+\end{lstlisting}
 
 %\noindent
 %{\bf Output}\\

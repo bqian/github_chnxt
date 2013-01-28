@@ -38,6 +38,11 @@
 #define IDI_ICON5                       173
 #define IDB_BITMAP9                     175
 #define IDB_BITMAP_CH                   175
+#define IDB_BITMAP_DISCONNECTED         176
+#define IDB_BITMAP3                     177
+#define IDB_BITMAP_CONNECTED            177
+#define IDB_BITMAP4                     178
+#define IDB_BITMAP_BTICON               178
 #define IDC_SLIDER_speed1               1000
 #define IDC_EDIT_speed1                 1001
 #define IDC_SLIDER_speed2               1002
@@ -141,6 +146,7 @@
 #define IDC_BUTTON_rotateArmRight       1095
 #define IDC_RADIO_clawOpen              1097
 #define IDC_RADIO_clawClose             1098
+#define IDC_STATIC_CONNECTION           1099
 #define ID_ROBOT_CONFIGUREROBOTBLUETOOTH 32771
 #define ID_ROBOT_CONNECTTOAROBOT        32772
 #define ID_FILE                         32773
@@ -161,9 +167,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        176
+#define _APS_NEXT_RESOURCE_VALUE        179
 #define _APS_NEXT_COMMAND_VALUE         32786
-#define _APS_NEXT_CONTROL_VALUE         1099
+#define _APS_NEXT_CONTROL_VALUE         1100
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

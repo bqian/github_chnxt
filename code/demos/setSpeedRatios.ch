@@ -9,7 +9,7 @@ nxt.connect();
 
 /* set speed ratios */
 nxt.setJointSpeedRatios(0, 0.4, 0.4);
-nxt.setJointSpeedRatio(NXT_JOINT1, 0.5);
+nxt.setJointSpeedRatio(NXT_JOINTA, 0.5);
 
 /* make NXT joints move */
 nxt.move(360, 360, 360);

@@ -10,12 +10,11 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::vehicleRotateLeft(double angle);
 int ChNXT::vehicleRotateLeftNB(double angle);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -55,7 +54,7 @@ will return immediately, and the motion will be performed asynchronously.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -68,7 +67,7 @@ nxt.vehicleRotateLeft(360);
 /* Non-blocking function */
 nxt.vehicleRotateLeftNB(360);
 nxt.vehicleMotionWait();
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

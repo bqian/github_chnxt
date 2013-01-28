@@ -9,7 +9,7 @@ nxt.connect();
 
 /* Get the joint angle of the first joint */
 double angle;
-nxt.getJointAngle(NXT_JOINT1, angle);
+nxt.getJointAngle(NXT_JOINTA, angle);
 
 /* Print out the joint angle */
 printf("The current joint angle for joint 1 is %lf degrees.\n", angle);

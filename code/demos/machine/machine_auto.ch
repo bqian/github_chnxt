@@ -66,7 +66,7 @@ for (i = 0; i < numpoints; i++) {
     /* get sensor data, if success print data, else print error*/
     nxt.getSensor(NXT_SENSORPORT4, ultraValue);
     distance[i] = ultraValue;
-    nxt.getJointAngle(NXT_JOINT1, angle[i]);
+    nxt.getJointAngle(NXT_JOINTA, angle[i]);
     printf("\nSample: %d,  distance: %lf,  Angle: %lf",
                    i, distance[i], angle[i]);
 
@@ -79,7 +79,7 @@ for (i = 0; i < numpoints; i++) {
         }
     }
     /* rotate arm by anglestep (rotate motor anglestep/gear ratio)*/
-    nxt.moveJoint(NXT_JOINT1, anglestep / gearratio);
+    nxt.moveJoint(NXT_JOINTA, anglestep / gearratio);
     delay(1);
 } //end of for(i=0;i<numpoints-1;i++)
 

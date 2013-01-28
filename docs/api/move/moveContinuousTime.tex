@@ -8,14 +8,13 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
-int ChNXT::moveContinuousTime(nxtJointState_t dir1, 
-                              nxtJointState_t dir2, 
-                              nxtJointState_t dir3, 
+int ChNXT::moveContinuousTime(nxtJointState_t dirA, 
+                              nxtJointState_t dirB, 
+                              nxtJointState_t dirC, 
                               double seconds);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -43,7 +42,7 @@ function will block until the motion is completed.\\
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -57,9 +56,9 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
 nxt.setJointSpeedRatios(0.4, 0.4, 0.4);
 
 /* move all joints on the Mindstorm NXT in 10 seconds*/
-nxt.moveContinuousTime(ROBOT_FORWARD, ROBOT_FORWARD, 
-                       ROBOT_FORWARD, 10);
-\end{verbatim}
+nxt.moveContinuousTime(NXT_FORWARD, NXT_FORWARD, 
+                       NXT_FORWARD, 10);
+\end{lstlisting}
 
 %\noindent
 %{\bf Output}\\

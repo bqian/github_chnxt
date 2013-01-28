@@ -33,9 +33,9 @@
 #ifndef NXT_JOINTS_E
 #define NXT_JOINTS_E
 typedef enum nxt_joints_e{
-    NXT_JOINT1 = 0, // PORT_A
-    NXT_JOINT2 = 1, // PORT_B
-    NXT_JOINT3 = 2  // PORT_C
+    NXT_JOINTA = 0, // PORT_A
+    NXT_JOINTB = 1, // PORT_B
+    NXT_JOINTC = 2  // PORT_C
 } nxtJointId_t;
 #endif /* NXT_JOINTS_E */
 
@@ -104,6 +104,7 @@ class ChNXT {
         /* functions for BTH connection */
         int connect(void);
         int connectWithAddress(char usr_addr[18], int channel);
+        int connectWithBluetoothAddress(char usr_addr[18], int channel);
         int disconnect(void);
         /* functions for a single joint(motor) */
         int setJointRelativeZero(nxtJointId_t id);
@@ -139,7 +140,7 @@ class ChNXT {
         int isJointMoving(nxtJointId_t id);
         double getJointPosition(nxtJointId_t id);
         int getJointAngle(nxtJointId_t id, double &angle);
-        //        int getJointAngle(nxtJointId_t id, int &angle);
+        //int getJointAngle(nxtJointId_t id, int &angle);
         int getJointSpeedRatio(nxtJointId_t id, double &ratio);
         int getJointSpeedRatios(double &ratio1, 
                 double &ratio2,
@@ -174,17 +175,18 @@ class ChNXT {
         int vehicleRotateLeft(double angle);
         int vehicleRotateRight(double angle);
         int vehicleMotionWait(void);
-        int humanoidWalkForwardNB(double angle);
-        int humanoidWalkBackwardNB(double angle);
-        int humanoidWalkForward(double angle);
-        int humanoidWalkBackward(double angle);
-        int humanoidMotionWait(void);
         int motionMoveForward(void);
         int motionMoveBackward(void);
         int motionRotateLeft(void);
         int motionRotateRight(void);
         int motionTurnLeft(void);
         int motionTurnRight(void);
+        /* functions for humanoid configuration */
+        int humanoidWalkForwardNB(double angle);
+        int humanoidWalkBackwardNB(double angle);
+        int humanoidWalkForward(double angle);
+        int humanoidWalkBackward(double angle);
+        int humanoidMotionWait(void);
         /* print infromation */
         int printDeviceInfo(void);
         int printJointInfo(nxtJointId_t id);
@@ -193,17 +195,19 @@ class ChNXT {
         int test(void);
 #ifndef _CH_
     private:
+        int getBluetoothAddress(void);
+        int getConfigFilePath(void);
         /* functions for communication */
         int sendMessage(int length);
         int recvMessage(int length);
         /* functions for actuators */
-        //        int setOutputState(nxtJointId_t id,  unsigned char mode,
-        //                unsigned char regulationMode, char turnRatio,
-        //                unsigned char runState, unsigned int tachoLimit, int reply);
+        //int setOutputState(nxtJointId_t id,  unsigned char mode,
+        //unsigned char regulationMode, char turnRatio,
+        //unsigned char runState, unsigned int tachoLimit, int reply);
         int getOutputState(nxtJointId_t port);
         int checkJointRunDirection(nxtJointId_t id, int dir);
         int checkJointSpeedRatioValidation(double &ratio);
-        //        int getTacho(int port);
+        //int getTacho(int port);
         /* functions for sensors */
         int initInput(nxtSensorId_t id);
         int pollInput(nxtSensorId_t id);
@@ -211,11 +215,15 @@ class ChNXT {
         int setUltrasonic(nxtSensorId_t id);
         int getUltrasonic(nxtSensorId_t id);
         int stopUltrasonic(nxtSensorId_t id);
+        int setColorfull(nxtSensorId_t id);
+        int getColorfull(nxtSensorId_t id);
+        int stopColorfull(nxtSensorId_t id);
         int stopAllSensors(void);
         /* variables for communication*/
         br_comms_t _comms;
-        //        SOCKET sock;
-        //        SOCKADDR_BTH sa;
+        //SOCKET sock;
+        //SOCKADDR_BTH sa;
+        char configFilePath[512];
         char btAddress[18];
         char sendMsg[256];
         char recvMsg[256];

@@ -10,12 +10,11 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
-int ChNXT::moveTo(double angle1, double angle2, double angle3, double angle4);
-int ChNXT::moveToNB(double angle1, double angle2, double angle3, double angle4);
-\end{verbatim}
+int ChNXT::moveTo(double angleA, double angleB, double angleC);
+int ChNXT::moveToNB(double angleA, double angleB, double angleC);
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -31,9 +30,9 @@ The function returns 0 on success and non-zero otherwise.\\
 \begin{description}
 \item               
 \begin{tabular}{p{15 mm}p{105 mm}}
-\texttt{angle1} & The absolute position to move joint 1, expressed in degrees. \\
-\texttt{angle2} & The absolute position to move joint 2, expressed in degrees. \\
-\texttt{angle3} & The absolute position to move joint 3, expressed in degrees. \\
+\texttt{angle1} & The absolute position to move joint A, expressed in degrees. \\
+\texttt{angle2} & The absolute position to move joint B, expressed in degrees. \\
+\texttt{angle3} & The absolute position to move joint C, expressed in degrees. \\
 \end{tabular}
 \end{description}
 
@@ -59,7 +58,7 @@ functions, please refer to Section \ref{sec:block_nonblock} on page
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -78,7 +77,7 @@ nxt.moveWait();
 
 /* move by the blocking function*/
 nxt.moveTo(360, 360, 360);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

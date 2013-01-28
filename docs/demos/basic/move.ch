@@ -14,10 +14,10 @@ nxt.setJointSpeedRatios(0.5, 0.5, 0.5);
 nxt.moveToZero();
 
 /* move a joint by user specified angle */
-nxt.moveJoint(NXT_JOINT1, 360);
+nxt.moveJoint(NXT_JOINTA, 360);
 
 /* move a joint to absolute angle */
-nxt.moveJointTo(NXT_JOINT1, 360);
+nxt.moveJointTo(NXT_JOINTA, 360);
 
 /* move all joints by specified angles */
 nxt.move(180, 360, 360);

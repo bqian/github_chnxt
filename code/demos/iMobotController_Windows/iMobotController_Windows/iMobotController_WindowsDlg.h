@@ -96,6 +96,7 @@ public:
   void UpdateSliders();
   void UpdateSpeedSliders(int i, double speed);
   void UpdateSensorValues();
+  void SetAsDisconnected(void);
 //  void UpdateSpeedSliders(int i, double speedRatio);
   int addGait(Gait* gait);
   int poseJoints(const double *angles, unsigned char motorMask);
@@ -107,20 +108,16 @@ public:
 	CButton m_button_Motor1Forward;
 	CButton m_button_Motor2Forward;
 	CButton m_button_Motor3Forward;
-//	CButton m_button_Motor4Forward;
 	CButton m_button_Motor1Stop;
 	CButton m_button_Motor2Stop;
 	CButton m_button_Motor3Stop;
-//	CButton m_button_Motor4Stop;
 	CButton m_button_Motor1Backward;
 	CButton m_button_Motor2Backward;
 	CButton m_button_Motor3Backward;
-//	CButton m_button_Motor4Backward;
 	CListBox m_list_gaits;
 	CEdit m_edit_Motor1Position;
 	CEdit m_edit_Motor2Position;
 	CEdit m_edit_Motor3Position;
-//	CEdit m_edit_Motor4Position;
 public:
 	CEdit *m_edit_MotorPositions[4];
 	CEdit *m_edit_MotorSpeeds[4];
@@ -129,12 +126,10 @@ public:
 	CSliderCtrl m_slider_Speed1;
 	CSliderCtrl m_slider_Speed2;
 	CSliderCtrl m_slider_Speed3;
-//	CSliderCtrl m_slider_Speed4;
 	CSliderCtrl *m_slider_Speeds[4];
 	CSliderCtrl m_slider_Position1;
 	CSliderCtrl m_slider_Position2;
 	CSliderCtrl m_slider_Position3;
-//	CSliderCtrl m_slider_Position4;
 	CSliderCtrl *m_slider_Positions[4];
 //	afx_msg void OnBnClickedButtonplay();
 //  void handlerPlay(void);
@@ -155,23 +150,18 @@ public:
   void handlerM1F();
   void handlerM2F();
   void handlerM3F();
-//  void handlerM4F();
 	afx_msg void OnBnClickedButtonMotor1stop();
 	afx_msg void OnBnClickedButtonMotor2stop();
 	afx_msg void OnBnClickedButtonMotor3stop();
-//	afx_msg void OnBnClickedButtonMotor4stop();
   void handlerM1S();
   void handlerM2S();
   void handlerM3S();
-//  void handlerM4S();
 	afx_msg void OnBnClickedButtonMotor1backward();
 	afx_msg void OnBnClickedButtonMotor2backward();
 	afx_msg void OnBnClickedButtonMotor3backward();
-//	afx_msg void OnBnClickedButtonMotor4backward();
   void handlerM1B();
   void handlerM2B();
   void handlerM3B();
-//  void handlerM4B();
 	afx_msg void OnBnClickedButtonrollforward();
 	afx_msg void OnBnClickedButtonrollstop();
 	afx_msg void OnBnClickedButtonrollleft();
@@ -201,11 +191,9 @@ public:
 	CEdit m_edit_MotorSpeed1;
 	CEdit m_edit_MotorSpeed2;
 	CEdit m_edit_MotorSpeed3;
-//	CEdit m_edit_MotorSpeed4;
 	CEdit m_edit_setpos1;
 	CEdit m_edit_setpos2;
 	CEdit m_edit_setpos3;
-//	CEdit m_edit_setpos4;
 	afx_msg void OnBnClickedButtonGopos();
 	void handlerSETPOS();
 	afx_msg void OnRobotConnecttoarobot();
@@ -222,7 +210,6 @@ public:
   CEdit m_edit_setspd1;
   CEdit m_edit_setspd2;
   CEdit m_edit_setspd3;
-//  CEdit m_edit_setspd4;
   afx_msg void OnBnClickedButtonMove();
   void handlerMOVE();
   afx_msg void OnHelpDemos();
@@ -286,6 +273,10 @@ public:
   afx_msg void OnBnClickedRadioclawclose();
   void handlerCLAWCLOSE();
   void handlerCLAWOPEN();
+  CStatic m_static_connectionStatus;
+private:
+	CBitmap BmpConnected;
+	CBitmap BmpDisconnected;
 };
 
 DWORD WINAPI HandlerThread(void*);

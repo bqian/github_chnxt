@@ -82,21 +82,21 @@ while (quit != 1)
     }
 
     if(dir == 'a'){ //Arm rotate left.
-        nxt.moveJoint(NXT_JOINT3, (angle / gearratio));
+        nxt.moveJoint(NXT_JOINTC, (angle / gearratio));
     }else if(dir == 'd'){ //Arm rotate right.
-        nxt.moveJoint(NXT_JOINT3, (int)(-angle / gearratio));
+        nxt.moveJoint(NXT_JOINTC, (int)(-angle / gearratio));
     }else if(dir == 'w'){
-        nxt.moveJoint(NXT_JOINT2, (int)(angle / gearratio));
+        nxt.moveJoint(NXT_JOINTB, (int)(angle / gearratio));
     }else if(dir == 's'){//lowdder arm down
-        nxt.moveJoint(NXT_JOINT2, (int)(-angle / gearratio));
+        nxt.moveJoint(NXT_JOINTB, (int)(-angle / gearratio));
     }else if(dir == 'q'){//claw open
-        nxt.moveJointContinuousNB(NXT_JOINT1, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
         delay(1);
-        nxt.stopOneJoint(NXT_JOINT1);
+        nxt.stopOneJoint(NXT_JOINTA);
     }else if(dir == 'e'){//claw close
-        nxt.moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
         delay(1);
-        nxt.stopOneJoint(NXT_JOINT1);
+        nxt.stopOneJoint(NXT_JOINTA);
     }else if(dir == 'x'){//stop
         nxt.stopAllJoints();
     }else if(dir == 'r'){//quit

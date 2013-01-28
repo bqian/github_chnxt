@@ -118,3 +118,21 @@ int getJointSpeedRatios(double *ratio1, double *ratio2, double *ratio3) {
     dlrunfun(fptr, &retval, getJointSpeedRatios, ratio1, ratio2, ratio3);
     return retval;
 }
+
+/*int isMotorReady(nxtJointId_t id){
+        void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "isMotorReady_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, isMotorReady, id);
+    return retval;
+}*/
+
+
+nt setTwoWheelRobotSpeed(double speed, double radius){
+
+}

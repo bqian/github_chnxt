@@ -7,6 +7,7 @@
 \usepackage{verbatim}
 \usepackage{float}
 \usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{makeidx}
 \usepackage{listings}
 \usepackage{longtable}
@@ -19,10 +20,31 @@
 \definecolor{pink}{rgb}{1.0,0,0.5}
 \definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
 \definecolor{ballblue}{rgb}{0.13, 0.67, 0.8}
+\definecolor{lightSkyBlue}{rgb}{0.74, 0.82, 0.93}
+\definecolor{lightGreen}{rgb}{1, 1, 0.94}
+\definecolor{gray}{rgb}{0.79, 0.79, 0.79}
+\definecolor{lightBlue}{rgb}{0.92, 0.92, 0.93}
+
+\lstdefinestyle{output}{
+    language=C,
+    basicstyle=\footnotesize\tt,
+    showstringspaces=false,
+    captionpos=b,
+    identifierstyle=\ttfamily,
+    backgroundcolor=\color{gray},
+    commentstyle=\color{black},
+    stringstyle=\color{black},
+    numberstyle=\color{black}
+}
 
 \lstset{
     language=C,
-    basicstyle=\footnotesize\bf,
+    basicstyle=\footnotesize\tt,
+    frame=single,
+    framerule=0pt,
+    rulesep = 1pt,
+%    framextopmargin=-5mm,
+%    framexrightmargin=-50mm,
     showstringspaces=false,
     captionpos=b,
     morekeywords=[2]{printf,exit},
@@ -31,6 +53,8 @@
     keywordstyle=[2]\color{pink},
     keywordstyle=[4]\color{brass},
     commentstyle=\color{dkgreen},
+%    backgroundcolor=\color{lightGreen},
+    backgroundcolor=\color{lightBlue},
     identifierstyle=\ttfamily,
     stringstyle=\color{brickred},
     numberstyle=\color{ballblue}
@@ -57,22 +81,18 @@
 \newline
 Integration Engineering Laboratory\\
 University of California, Davis\\
-Augest 2012\\
+Augest 31, 2012\\
 \end{center}
 \end{titlepage}
 %% End title page %%
-
 %% use roman page numbering %%
 \pagenumbering{Roman}
-
 %% Begin copyright %%
 \input{copyright.tex}
 %% End copyright %%
-
 \newpage
 \tableofcontents
 \newpage
-
 %% use arabic page numbering %%
 \pagenumbering{arabic}
 \baselineskip = 12 pt
@@ -94,21 +114,19 @@ plotting capabilities. Additionally an NXT control program, written in C source 
 run from any platform in Ch without tedious compile/link/execute/debug cycles.\\
 
 The communication between the user, the computer, the NXT controller, the sensors, and the motors can
-be described in Figure \ref{fig_NXT_comm}. Once NXT is connected to the computer and a NXT program 
+be described in Figure~\ref{fig_NXT_comm}. Once NXT is connected to the computer and a NXT program 
 has started, the program instructions are sent from the computer to the NXT. The NXT controller will 
 process these instructions perform appropriate tasks by sending commands to the motors or receiving 
 data from the sensors. The NXT can collect sensor data and motor encoder counts, and the data can be 
 sent back to the computer for further manipulation, display, or stored in the computer for the user.\\
-
 %%%%% START OF FIGURE %%%%%
-\begin{figure}[h]
+\begin{figure}[H]
   \begin{center}
     \includegraphics[height=2.5in]{figure/mindstorm/NXT_connect.png}
     \caption{Communication Diagram of NXT\label{fig_NXT_comm}}
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
 With Ch Mindstorms NXT Control Package, you can quickly develop an NXT robotic application and log 
 your results. The ease of design and added functionality makes the Ch NXT Control Package a good 
 candidate for any NXT programming application.\\
@@ -119,19 +137,21 @@ NXT robots. After reading this guide, you will be ready to write your own Ch NXT
 control your NXT robot.
 
 \newpage
+%% begin section configuration %%
 \section{Configuring Lego Mindstorms NXT for Remote Control}
-Before using the Ch NXT package to control NXTs, we need to configure the NXTs' bluetooth addresses.
-Firstly, the NXT modules need to be paired with the PC, which tells the computer the device is able
-to connect to. After successfully paired with the computer, we need to add the bluetooth addresses of
-NXTs to the configuration files, which allows the {\tt ChNXT API} {\tt connect()} to access
-those devices. The detailed information about paring part will be described in another documentation
-, which is entitled "chnxt\_bluetooth\_setup.pdf", and in the next part will introduce you how to 
-setup the bluetooth addresses of NXTs to the Ch NXT configuration file step by step.
+Before using the Ch NXT package to control NXTs, we need to configure the NXTs' 
+bluetooth addresses. Firstly, the NXT modules need to be paired with the PC, 
+which tells the computer the device is able to connect to. After successfully 
+paired with the computer, we need to add the bluetooth addresses of NXTs to the 
+configuration files, which allows the {\tt ChNXT API} {\tt connect()} to access 
+those devices. The detailed information about paring part will be described in 
+another documentation, which is entitled ``chnxt\_bluetooth\_setup.pdf'', and in 
+the next part will introduce you how to setup the bluetooth addresses of NXTs 
+to the Ch NXT configuration file step by step.
 
 \subsection{Getting Bluetooth Addresses of NXTs}
-First, we need to get the Bluetooth address of a NXT. As Figure~\ref{fig:bt_device} shown, right click
-the Bluetooth icon in the right buttom corner.
-
+First, we need to get the Bluetooth address of a NXT. As Figure~\ref{fig:bt_device} 
+shown, right click the Bluetooth icon in the right buttom corner.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -140,34 +160,30 @@ the Bluetooth icon in the right buttom corner.
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Then, choose the option "Show Bluetooth Devices", in Figure~\ref{fig:bt_show_device}, to find the NXT which 
-has already paired with the computer.
-
+Then, choose the option ``Show Bluetooth Devices'', in Figure~\ref{fig:bt_show_device}, 
+to find the NXT which has already paired with the computer.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
     \includegraphics[height=3in]{figure/configuration/getBTaddress/btShowDevices.png}
-    \caption{Choose "Show Bluetooth Devices" option.\label{fig:bt_show_device}}
+    \caption{Choose ``Show Bluetooth Devices'' option.\label{fig:bt_show_device}}
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Then, a dialog with all paired Bluetooth devices in this dialog will appear on the screen. Find the NXT icon
-and right click on the icon. Then choose "Properties" option as shown in Figure~\ref{fig:bt_property}.
-
+Then, a dialog with all paired Bluetooth devices in this dialog will appear on 
+the screen. Find the NXT icon and right click on the icon. Then choose 
+``Properties'' option as shown in Figure~\ref{fig:bt_property}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
     \includegraphics[height=3in]{figure/configuration/getBTaddress/btProperties.png}
-    \caption{Right click the NXT icon then choose "Properties" option.\label{fig:bt_property}}
+    \caption{Right click the NXT icon then choose ``Properties'' option.\label{fig:bt_property}}
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-In the dialog of NXT properties as shown in Figure~\ref{fig:bt_property_dialog}, click "Bluetooth" tab on the
-top and the bluetooth address will show as "Unique identifier" with the format as "xx:xx:xx:xx:xx:xx".
-
+In the dialog of NXT properties as shown in Figure~\ref{fig:bt_property_dialog}, 
+click ``Bluetooth'' tab on the top and the bluetooth address will show as ``Unique 
+identifier'' with the format as ``xx:xx:xx:xx:xx:xx''.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -176,15 +192,14 @@ top and the bluetooth address will show as "Unique identifier" with the format a
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Now that we have already learned how to get the Bluetooth addresses of our NXTs, we can begin next section, which
-will introduce you how to add the Bluetooth address we have gotten into the ChNXT package.
+Now that we have already learned how to get the Bluetooth addresses of our NXTs, 
+we can begin next section, which will introduce you how to add the Bluetooth 
+address we have gotten into the ChNXT package.
 
 \subsection{Adding Bluetooth Addresses of NXTs in ChNXT Controller}
-The configuration is performed through the {\tt ChNXT Controller} program. Start the 
-provided ChNXT Control Program by clicking on the icon labeled "ChNXTController" on your desktop,
-as shown in Figure~\ref{fig:chnxt_icon}.
-
+The configuration is performed through the {\tt ChNXT Controller} program. Start 
+the provided ChNXT Control Program by clicking on the icon labeled ``ChNXTController'' 
+on your desktop, as shown in Figure~\ref{fig:chnxt_icon}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -193,9 +208,8 @@ as shown in Figure~\ref{fig:chnxt_icon}.
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Then the main dialog of ChNXT Controller will appear on your screen as shown in Figure~\ref{fig:main_dialog} below.
-
+Then the main dialog of ChNXT Controller will appear on your screen as shown in 
+Figure~\ref{fig:main_dialog} below.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -204,9 +218,8 @@ Then the main dialog of ChNXT Controller will appear on your screen as shown in 
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Then click the menu item "Configure $\rightarrow$ Configure Robot Bluetooth", as shown in Figure~\ref{fig:menu_config}.
-
+Then click the menu item ``Configure $\rightarrow$ Configure Robot Bluetooth'', as 
+shown in Figure~\ref{fig:menu_config}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -215,10 +228,8 @@ Then click the menu item "Configure $\rightarrow$ Configure Robot Bluetooth", as
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Now, the configuration dialog will appear on your screen, which is titled as "Configure Robot Bluetooth", as shown in 
-Figure~\ref{fig:config_dialog}.
-
+Now, the configuration dialog will appear on your screen, which is titled as 
+``Configure Robot Bluetooth'', as shown in Figure~\ref{fig:config_dialog}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -227,10 +238,10 @@ Figure~\ref{fig:config_dialog}.
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-In this configuration dialog, we can add robot bluetooth addresses to the list of currently know robot bluetooth addresses.
-To add an address, first type in the address in the text box on the top of the dialog, as shown in Figure~\ref{fig:add_address}.
-
+In this configuration dialog, we can add robot bluetooth addresses to the list 
+of currently know robot bluetooth addresses. To add an address, first type in 
+the address in the text box on the top of the dialog, as shown in 
+Figure~\ref{fig:add_address}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -239,42 +250,155 @@ To add an address, first type in the address in the text box on the top of the d
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-Then, click the "Add" button. The newly added address will appear in the list of known addresses and click "Ok" button to exit 
-the configuration dialog. With this method, you can add more bluetooth addresses. Also, the "Move Up" button, "Move Down" 
-button, and the "Remove" button can be used to manage your bluetooth address list.
+Then, click the ``Add'' button. The newly added address will appear in the list 
+of known addresses and click ``Ok'' button to exit the configuration dialog. With 
+this method, you can add more bluetooth addresses. Also, the ``Move Up'' button, 
+``Move Down'' button, and the ``Remove'' button can be used to manage your bluetooth 
+address list.
 
 \subsection{Connecting and Disconnecting to NXTs from the ChNXT Controller}
+Once bluetooth addresses are added to the ChNXT Controller, you are now able to 
+connect to a NXT device by clicking on the ``Connect $\rightarrow$ Connect to Robot'' 
+menu item. Then the first NXT on the bluetooth address list will be connected 
+and please make sure the NXT is turned on, otherwise the connection will fail. 
+After connected, the Bluetooth connection status on the main dialog will turn
+green as Figure~\ref{fig:bt_connection_status} shows. Besides, the joints angles
+and joints speed ratios will show on the main dialog too.
 %%%%% START OF FIGURE %%%%%
-\begin{figure}[!h]
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[height=0.3in]{figure/configuration/btConnectionStatus.png}
+    \caption{The Bluetooth Connection Status bar.\label{fig:bt_connection_status}}
+  \end{center}
+\end{figure}
+%%%%% END OF FIGURE %%%%%
+To disconnect from a robot, you can click ``Connect $\rightarrow$ Disconnect 
+from Robot'' menu item, the computer will disconnect from the remote device 
+and then the Bluetooth will turn red. Those two menu items are as shown in 
+Figure~\ref{fig:menu_connect}.\\
+%%%%% START OF FIGURE %%%%%
+\begin{figure}[H]
   \begin{center}
     \includegraphics[height=3.5in]{figure/configuration/menuConnect.png}
     \caption{Connecting to and disconnecting from an NXT.\label{fig:menu_connect}}
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
+{\bf Please note that in order to run a Ch program that controls NXTs, the NXTs 
+should not currently be connected to any other application, including the ChNXT 
+Controller, other Ch Programs, and other programs on other devices.}\\
 
-Once bluetooth addresses are added to the ChNXT Controller, you are now able to connect to a NXT device by clicking on the 
-"Connect $\rightarrow$ Connect to Robot" menu item. Then the first NXT on the bluetooth address list will be connected and please make
-sure the NXT is turned on, otherwise the connection will fail. Also, by clicking "Connect $\rightarrow$ Disconnect from Robot" menu 
-item, the computer will disconnect from the remote device. Those two menu items are as shown in Figure~\ref{fig:menu_connect}.\\
+Furthermore, the Bluetooth devices have a maximum limit of connected devices. 
+The maximum limit is 7 devices connected simultaneously.
+%% end of section configuration %%
 
-{\bf
-Please note that in order to run a Ch program that controls NXTs, the NXTs should not currently be connected to any other
-application, including the ChNXT Controller, other Ch Programs, and other programs on other devices.
-}\\
+\newpage
+%% begin section GUI controller %%
+\section{Control the NXT via the GUI controller\label{sec:gui_controller}}
+%%%%% START OF FIGURE %%%%%
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[height=5in]{figure/mindstorm/controlWithGUI.png}
+    \caption{The main dialog of the ChNXT Controller.\label{fig:gui_control}}
+  \end{center}
+\end{figure}
+%%%%% END OF FIGURE %%%%%
+In this section, I will introduce how to use Graphic User's Interface (GUI) to
+control NXT bricks. Compared with the C/C++ code, it is a easier way to control
+an NXT brick. Even though the GUI controller offers a direct and convinient way
+for users, it has some limitations. In the following contents, we will introduce
+all the features of the controller.
 
-Furthermore, the Bluetooth devices have a maximum limit of connected devices. The maximum limit is 7 devices connected 
-simultaneously.
+\subsection{Introduction \label{sec:gui_introduction}}
+The GUI controller consists of six parts. The first part is the main diagram on
+the left top of the controller. The second part is including the ``Reset To Zer''o
+button and the ``Move To Zero'' button, and also the speed and joint set side bars.
+The next four parts contains general control, vehicle control, machine control 
+and humanoid control.
+
+\subsection{The main diagram and the two ``Zero'' buttons
+\label{sec:gui_maindiagram}}
+First, as we can see in the main diagram, each NXT brick can have a maximum four
+sensors and three motors. Under the main diagram is the ``Reset To Zero'' button
+and the ``Move To Zero'' button. Once the ``Reset To Zero'' button is clicked, the
+motor counter in the NXT will be reset to zero, which means that the NXT will 
+remove the previous record of position and set the current position as the zero
+position. The ``Move To Zero'' will make the motor rotate back to the zero point
+wherever you set before. 
+
+%\subsection{The speed and joint setting slide bars\label{sec:gui_speedjoint}}
+\subsection{The Slide Bars\label{sec:gui_speedjoint}}
+The slide bars are used to set the speed ratios and positions of the joints. The
+sliders for ``Joint Speed Ratio Control'', are three the slide bars for each motor 
+and two text boxes. One is on the top of the slide bar and the other is in buttom 
+of each slide bar. The top text box shows the current speed ratio of the 
+coresponding joint and the slide bar. The text box in the bottom can be used to 
+set a speed ratio. Clicking the ``Set Speed Ratios'' button below the speed ratio 
+of the joint will set it to the one you typed in. Also, you can type three ratios 
+and set them concurrently. The speed ratio is from 0 to 1. Similarly, in the 
+``Joint Position Control'' section, it shows the current joint position in top three 
+text boxes that users can type the desired positions in the three text boxes in 
+the bottom and click the ``MoveTo'' button to move the joints to the desired position.
+
+\subsection{General Control\label{sec:gui_generalcontrol}}
+In the general control block, there are three sets of buttons to control each of 
+the three joints. There are also four text boxes used to setup sensors and to 
+view the values of those sensors. The whole block is used for general control of 
+a NXT. The NXT can be controlled in any configuration, such as a vehicle or a 
+humanoid.\\
+
+For the button sets, it is easy to find that the button with the ``up'' icon 
+indicates the positive direction. Once it is clicked the joint will move 
+continuously in the direction. Similarly, the ``down'' button means the negative 
+direction and it will make the joint keep moving in the negative direction. The 
+red ``stop'' button will stop the joints immediately. The numbers on the top of 
+the ``up'' buttons indicates the joints. \\
+
+For the ``Sensor Control'' section, each drop down list represent one sensor 
+port on the NXT. In the drop-down menu, there is a list of sensor types that 
+you can set and the text box right beside the menu will show the value of the 
+coresponding sensor. Please choose the correct sensor type for the physical 
+configuration.
+
+\subsection{Specified Configurations Control\label{sec:gui_specifiedcontrol}}
+The next three blocks control the NXT in three specified configurations, which 
+are vehicle, machine and humanoid configuration. \\
+
+In the vehicle part, there are five buttons, which are ``up'', ``down'', ``right'', 
+``left'' and ``stop'' buttons. These buttons can make the NXT as a vehicle move
+forward and backward, rotate it right and left and also stop it. The default
+joints of two wheels of the vehicle are Port B and Port C on the NXT. To control 
+the third joint, which is jointA on Port A of the NXT, you can use the buttons
+in the ``General Control'' block.\\
+
+For the machine configuration, we assume that the machine has two joints to mov
+e an arm. One moves the arm back and forth and the other rotates it around the 
+center. The third joint is used for controlling the claw on the arm. As we can 
+see, the ``up'' and ``down'' buttons are used to contrl the arm move back and 
+forth. The ``righ'' and ``left'' buttons rotate the arm. There is a subblock 
+called ``Claw'' controlling it to open or close. Also you can use the buttons 
+in the ``General Control'' but please note that the joint for the claw has a 
+limited motion. You might break it by moving it continuously.\\
+
+The last section is for the humanoid control. There are only three buttons in this
+part. The ``up'' button will make the robot walk forward. The ``down'' will move 
+the robot backward, and the ``stop'' button will stop the robot.\\
+
+Finally, all three sections share the ``Sensor Control'' section in the ``General 
+Control'' block. You can setup sensors for vehicles, machines and humanoids as
+introduced in Section~\ref{sec:gui_generalcontrol} on 
+Page~\pageref{sec:gui_generalcontrol}.
+%%% end section GUI controller %%%
 
 \newpage
 %%% Begin of Section Getting Started with Ch NXT Package %%%
 \section{Getting Started with Ch NXT Package}
-In this chapter, the basics of controlling an NXT via Ch program will be discussed. The basics include
-controlling an NXT joint, setup an NXT sensor, and also get information from joints and sensors. The basic structure 
-of a Ch NXT robot program is shown in a flowchart in Figure \ref{fig_NXT_pstruc}.\\
+In this chapter, the basics of controlling an NXT via Ch programing will be discussed. 
+The basics include controlling an NXT joint, setting up an NXT sensor, and also getting 
+information from joints and sensors. The basic structure of a Ch NXT robot program 
+is shown in a flowchart in Figure \ref{fig_NXT_pstruc}.\\
 %%%%% START OF FIGURE %%%%%
-\begin{figure}[h!]
+\begin{figure}[H]
   \begin{center}
     \includegraphics[height=3in]{figure/mindstorm/NXT_pstruc.png}
     \caption{Flow Diagram of a basic NXT program\label{fig_NXT_pstruc}}
@@ -294,16 +418,16 @@ Ch NXT control program. The sample programsare located at {\tt CHHOME/package
 by default.
 
 \subsection{\label{sec:basic_intro}Introduction for ChNXT Package}
-As we known, each NXT brick has three ports for motors and four ports for sensors.
+Each NXT brick has three ports for motors and four ports for sensors.
 Therefore, in the ChNXT Package, we have our own symbols to represent the motors
 and the sensors, which are presented in the following tables.
 
 \subsubsection*{Symbols for motors}
 \begin{longtable}{p{3.5cm}p{12cm}}
 \hline 
-{\tt NXT\_JOINT1} & PortA on the Lego Mindstorms NXT. \\
-{\tt NXT\_JOINT2} & PortB on the Lego Mindstorms NXT. \\
-{\tt NXT\_JOINT3} & PortC on the Lego Mindstorms NXT. \\
+{\tt NXT\_JOINTA} & PortA on the Lego Mindstorms NXT. \\
+{\tt NXT\_JOINTB} & PortB on the Lego Mindstorms NXT. \\
+{\tt NXT\_JOINTC} & PortC on the Lego Mindstorms NXT. \\
 \hline
 \end{longtable}
 
@@ -317,10 +441,10 @@ and the sensors, which are presented in the following tables.
 {\tt NXT\_SENSORPORT4}&PORT4 on the Lego Mindstorms NXT.\\
 \hline
 \end{longtable}
-For the motors, you need to specify the speed ratios, direction of rotating or the
-angle for moving. However, the sensors have more complicated arguments, which are
-the types of sensors and the modes of sensors. The tables below show the types and
-the modes of sensors.
+For the motors, you need to specify the speed or speed ratios, direction of 
+rotation or the angle for moving. However, the sensors have more complicated 
+arguments, which are the types of sensors and the modes of sensors. The tables 
+below show the types and the modes of sensors.
 
 \subsubsection*{Sensor types}
 \begin{longtable}{p{5.5cm}p{10cm}}
@@ -350,7 +474,7 @@ the modes of sensors.
 Before using NXT sensors, the type of the sensor has to been specified. There
 are many different kind of sensors, but in our package so far, we only support 
 touch sensor, light sensor, sound sensor, color sensor, and ultrasonic sensor. 
-Also, each sensor has relavant mode, which need to be specified before using.
+Also, each sensor has a data mode, which needs to be specified before using.
 
 \subsubsection*{Sensor modes}
 \begin{longtable}{p{6cm}p{9.5cm}}
@@ -361,18 +485,18 @@ Also, each sensor has relavant mode, which need to be specified before using.
     full scale reading for configured sensor type.\\
     \hline
 \end{longtable}
-In our ChNXT package, we only support three modes for sensors mentioned before.
-For ultrasonic sensor and color sensor, we use raw mode. For touch sensor, we 
+In our ChNXT package, we only support three modes for the sensors. For ultrasonic 
+sensor and color sensor, we use raw mode. For touch sensor, we 
 use boolean mode, which has only two value of 0 and 1 to indicate true or false. 
-Also, for light sensor, sound sensor and color sensor as light sensor, we use
-the percentage of full scaled reading mode.\\
+For the light sensor, sound sensor and color sensor, we use the percentage of 
+full scaled reading mode.\\
 
-For the future, we will support more kind of sensors and relavant sensor modes.
+In the future, we will support more kinds of sensors and relavant sensor modes.
 In the next section, we will start to control an NXT brick with Ch code.
 
 \subsection{\label{sec:basic_demo}A Basic Ch NXT Program}
-The first demo presents a minimal program which connects to a Lego Mindstorms NXT 
-and moves joints 2 and 3.
+The first demo presents a simple program which connects to a Lego Mindstorms NXT 
+and moves joints B and C.
 
 \subsubsection*{Source Code}
 %%%%%%%%%%%%%%%%%%%%%% Begin of start.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -381,20 +505,19 @@ and moves joints 2 and 3.
     {demos/basic/start.ch}
 %%%%%%%%%%%%%%%%%%%%% End of start.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsubsection*{Header files}
-The beginning of every program will include related header files. Each header file 
-imports functions used for a number of tasks, such as displaying message on the 
+\subsubsection*{Explanation}
+The beginning of every program will include necessary header files. Each header file 
+imports functions used for a number of tasks, such as displaying messages on the 
 screen or controlling the Lego Mindstorms NXT. The header file {\tt nxt.h}, which 
 contains all {\tt ChNXT} class and other related functions for controlling the 
 NXT, should be included in each Ch NXT program.
 \begin{lstlisting}
 #include <nxt.h>
 \end{lstlisting}
-
-\subsubsection*{Initialization}
-The following line initializes a new variable named nxt which represents the remote Lego Mindstorm NXT which
-we wish to control. The special variable is actually an instance of the ChNXT class, which contains its own
-set of functions called "methods", "menber functions", or simply "functions".
+The following line initializes a new variable named nxt which represents the remote 
+Lego Mindstorm NXT which we wish to control. The special variable is actually an 
+instance of the ChNXT class, which contains its own set of functions called ``methods'', 
+``menber functions'', or simply ``functions''.
 \begin{lstlisting}
 ChNXT nxt;
 \end{lstlisting}
@@ -402,28 +525,32 @@ The next line,
 \begin{lstlisting}
 nxt.connect();
 \end{lstlisting}
-will connect our computer to the remote NXT, which is related to the new variable {\tt nxt}.\\
+will connect our computer to the remote NXT, which is related to the new variable 
+{\tt nxt}.\\
 
-Another way to get connected with the NXT is using the function {\tt connectWithAddress()}, and the usesage
-is as following:
+Another way to get connected with the NXT is using the function {\tt connectWithAddress()}, 
+and the usesage is as following:
 \begin{lstlisting}
 nxt.connectWithAddress("11:22:33:44:55:66");
 \end{lstlisting}
-The string {\tt "11:22:33:44:55:66"} represents the Bluetooth address of the Lego Mindstorms NXT you wish 
-to connect. Detailed documentation for {\tt connect()} and {\tt connectWithAddress()} are presented in 
-Appendix~\ref{sec:chnxt_api} on page~\pageref{sec:chnxt_api}. The next line,
+The string {\tt "11:22:33:44:55:66"} represents the Bluetooth address of the Lego 
+Mindstorms NXT you wish to connect. Detailed documentation for {\tt connect()} 
+and {\tt connectWithAddress()} are presented in Appendix~\ref{sec:chnxt_api} on 
+page~\pageref{sec:chnxt_api}. The next line,
 \begin{lstlisting}
 nxt.moveToZero();
 \end{lstlisting}
-uses the function {\tt moveToZero()} which is a member function of class {\tt ChNXT}. The function causes
-all joints of the connected NXT move to zero position, which means the absolute angle will be all zero.\\
+uses the function {\tt moveToZero()} which is a member function of class {\tt ChNXT}. 
+The function causes all joints of the connected NXT move to zero position, which 
+means the absolute angle will be all zero.\\
 
 The next line of code will cause all joints of the connected NXT rotate 360 degrees.
 \begin{lstlisting}
 nxt.move(360, 360, 360);
 \end{lstlisting}
-The member function {\tt move()} expects input angles in degrees. If you want to use angles in radians, the 
-conversion need to be done via the function {\tt rad2deg()}. The function is implemented in Ch with code
+The member function {\tt move()} expects input angles in degrees. If you want to 
+use angles in radians, the conversion need to be done via the function {\tt rad2deg()}. 
+The function is implemented in Ch with the code
 \begin{lstlisting}
 #include <math.h> /* For M_PI */
 double rad2deg(double radians){
@@ -432,27 +559,25 @@ double rad2deg(double radians){
     return degrees;
 }
 \end{lstlisting}
-If desired, values in radians may also be converted to degrees using the counterpart function, {\tt deg2rad()}.
-Detailed information for function {\tt rad2deg()} and function {\tt deg2rad()} can be found in Appendix 
-\ref{sec:ultility_functions} on page \pageref{sec:ultility_functions}.\\
+If desired, values in radians may also be converted to degrees using the 
+counterpart function, {\tt deg2rad()}. Detailed information for function 
+{\tt rad2deg()} and function {\tt deg2rad()} can be found in Appendix~
+\ref{sec:ultility_functions} on Page~\pageref{sec:ultility_functions}.\\
 
 \subsection{\label{sec:setzero_demo}Setting the Zero Positions for NXT Joints}
-In the last section, we introduced a very basic demo of Ch NXT programs. In this section, another simple demo
-will be presented to illustrated how to set absolute zero positions for joints.
+In the last section, we introduced a very basic demo of Ch NXT programs. In this 
+section, another simple demo will be presented to illustrated how to set absolute 
+zero positions for joints.
 
 \subsubsection*{Source Code}
+%% Begin program %%
 \lstinputlisting
     [caption={{\tt setZero.ch} Source Code},label=prog_setZero.ch]
     {demos/basic/setZero.ch}
-\begin{comment}
-\begin{Program}[H]
-    {\small\verbatiminput{demos/basic/setZero.ch}}
-    \caption{{\tt setZero.ch} Source Code\label{prog_setZero.ch}}
-\end{Program}
-\end{comment}
+%%% End Program %%%
 
 \subsubsection*{Explanation}
-The first several lines of the code,\\
+The first several lines of the code,
 \begin{lstlisting}
 #include <nxt.h>
 
@@ -461,15 +586,17 @@ ChNXT nxt;
 /* Connect to the NXT */
 nxt.connect();
 \end{lstlisting}
-initializes the program, declares the variable and connects to the remote device. The next line,
+initializes the program, declares the variable and connects to the remote device. 
+The next line,
 \begin{lstlisting}
 /* Set new zero positions */
-nxt.setJointToZero(NXT_JOINT1);
+nxt.setJointToZero(NXT_JOINTA);
 \end{lstlisting}
-sets {\tt NXT\_JOINT1} to the new zero position. In order to set new zero positions, user should 
-move the desired position before calling the function {\tt setJointToZero()}. The function {\tt setJointToZero()} 
-can only set zero position for one joint. The argument it takes is the target joint. Another function called 
-{\tt setToZero()}, which takes no arguments, can set new zero positions for all joints. The next line,
+sets {\tt NXT\_JOINTA} to the new zero position. In order to set new zero positions, user 
+should move the desired position before calling the function {\tt setJointToZero()}. The 
+function {\tt setJointToZero()} can only set zero position for one joint. The argument 
+it takes is the target joint. Another function called {\tt setToZero()}, which takes no 
+arguments, can set new zero positions for all joints. The next line,
 \begin{lstlisting}
 /* Move to zero */
 nxt.moveToZero();
@@ -485,16 +612,22 @@ disconnects from the NXT.
 \end{comment}
 
 \subsection{\label{sec:speed_demo}Controlling the Speed of NXT Joints}
-Now that we have already discussed how to include related header files, define variables for the program, 
-get connected with/disconnect from the NXT and also set zero positions NXT joints. In this section, we will 
-present a demo program, {\tt setSpeedRatios.ch}, to illustrate how to set speed ratios for the joints of NXT.
+Another simple Ch program, {\tt setSpeedRatios.ch}, illustrates how to set speed
+ratios for the NXT's joints.
+\begin{comment}
+Now that we have already discussed how to include related header files, define 
+variables for the program, get connected with/disconnect from the NXT and also 
+set zero positions NXT joints. In this section, we will present a demo program, 
+{\tt setSpeedRatios.ch}, to illustrate how to set speed ratios for the joints 
+of NXT.
+\end{comment}
 
 \subsubsection*{Source Code}
 %% begin program %%
 \lstinputlisting
     [caption={{\tt setSpeedRatios.ch} Source Code},label=prog_setSpeedRatios.ch]
     {demos/basic/setSpeedRatios.ch}
-%% end program %%
+%%% end program %%%
 
 \subsubsection*{Explanation}
 The fisrt several lines,
@@ -509,20 +642,22 @@ initializes the program, variable, and connect to the NXT. The next three lines,
 \begin{lstlisting}
 /* set speed ratios */
 nxt.setJointSpeedRatios(0, 0.4, 0.4);
-nxt.setJointSpeedRatio(NXT_JOINT1, 0.5);
+nxt.setJointSpeedRatio(NXT_JOINTA, 0.5);
 \end{lstlisting}
-sets the speed ratios setting for all joints on the NXT. The function {\tt setJointSpeedRatios()} sets 
-the speed ratio for {\tt NXT\_JOINT1} as 0 and sets the speed ratios for {\tt NXT\_JOINT2} and 
-{\tt NXT\_JOINT3} as 0.4. The function {\tt setJointSpeedRatio()}, which can only set speed ratio
-for one joint, sets the speed ratio for {\tt NXT\_JOINT1} as 0.5.\\
+sets the speed ratios setting for all joints on the NXT. The function 
+{\tt setJointSpeedRatios()} sets the speed ratio for {\tt NXT\_JOINTA} as 0 and 
+sets the speed ratios for {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} as 0.4. The 
+function {\tt setJointSpeedRatio()}, which can only set speed ratio for one joint, 
+sets the speed ratio for {\tt NXT\_JOINTA} as 0.5.\\
 
 The next line,
 \begin{lstlisting}
 /* make NXT joints move */
 nxt.move(360, 360, 360)
 \end{lstlisting}
-makes three joints of NXT move at setted speed ratios. The usage of the function {\tt move()} is just 
-as the demo discussed in section~\ref{sec:basic_demo} on page \pageref{sec:basic_demo}.
+makes three joints of NXT move at setted speed ratios. The usage of the function 
+{\tt move()} is just as the demo discussed in Section~\ref{sec:basic_demo} on 
+Page~\pageref{sec:basic_demo}.
 \begin{comment}
 The last part of the code,
 
@@ -534,18 +669,19 @@ disconnects from the NXT.\\
 \end{comment}
 
 \subsection{\label{sec:move_demo}Making NXT Joints Move}
-Now that we have already discussed connect/disconnect and set speed ratios for joints, this section will presents a full
-series of moving functions.
+Now that we have already discussed connect/disconnect and set speed ratios for 
+joints, this section will presents some of the moving functions.
 
 \subsubsection{A Demo Program for Movement Functions}
-In this section, a simple demo program will be presented to illustrate the series functions of moving NXT joints.
+In this section, a simple demo program will be presented to illustrate the series 
+functions of moving NXT joints.
 
 \subsubsection*{Source Code}
 %% begin program %%
 \lstinputlisting
     [caption={{\tt move.ch} Source Code},label=prog_move.ch]
     {demos/basic/move.ch}
-%% end program %%
+%%% end program %%%
 
 \subsubsection*{Explanation}
 The first part of code,
@@ -572,24 +708,26 @@ four lines,
 \begin{comment}
     \begin{lstlisting}
 /* rotate a joint continuously */
-nxt.moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
 delay(5);
-nxt.stopOneJoint(NXT_JOINT1);
+nxt.stopOneJoint(NXT_JOINTA);
 \end{lstlisting}
-rotates {\tt NXT\_JOINT1} continuously until a stop function is called. The stop function here we used is 
-{\tt stopOneJoint()}, which can only stop the specified joint.Other two stop functions are {\tt stopTwoJoints()} 
-and {\tt stopAllJoints()}, which stops two joints and all joints respectively. The next four lines,
+rotates {\tt NXT\_JOINTA} continuously until a stop function is called. The stop 
+function here we used is {\tt stopOneJoint()}, which can only stop the specified 
+joint. Other two stop functions are {\tt stopTwoJoints()} and {\tt stopAllJoints()}, 
+which stops two joints and all joints respectively. The next four lines,
 \end{comment}
 % end comment
 \begin{lstlisting}
 /* move a joint by user specified angle */
-nxt.moveJoint(NXT_JOINT1, 360);
+nxt.moveJoint(NXT_JOINTA, 360);
 
 /* move a joint to absolute angle */
-nxt.moveJointTo(NXT_JOINT1, 360);
+nxt.moveJointTo(NXT_JOINTA, 360);
 \end{lstlisting}
-includes two functions {\tt moveJoint()} and {\tt moveJointTo()}, which makes one joint move a specified angle
-relatively and absolutely, respectively. Similarly, the next four lines,
+includes two functions {\tt moveJoint()} and {\tt moveJointTo()}, which makes 
+one joint move a specified angle relatively and absolutely, respectively. 
+Similarly, the next four lines,
 \begin{lstlisting}
 /* move all joints by specified angles */
 nxt.move(180, 360, 360);
@@ -609,12 +747,12 @@ disconnects from an NXT device as all demos discribed in previous sections.
 \end{comment}
 
 \subsubsection{\label{sec:block_nonblock}Blocking and Non-Blocking Functions}
-The movement functions described in previous demo are all blocking ones. Once 
-the blocking movement functions are called, the functions will hang, or 
-"blocking", until all the joints have stopped moving. However, the movement 
-functions also have "non-blocking" version, which means the function returns 
+The movement functions described in previous demo are all blocking functions. 
+Once the blocking movement functions are called, the functions will hang, or 
+``block'', until all the joints have stopped moving. However, the movement 
+functions also have ``non-blocking'' version, which means the function returns 
 immediately and the function {\tt moveWait()} can be used to wait for the 
-movement stopping. {\tt NB} at the end of non-blocking functions indicates 
+movement to stopping. {\tt NB} at the end of non-blocking functions indicates 
 that the functions are non-blocking version, such as {\tt moveNB()}. A simple 
 example will be presented in the following.\\
 
@@ -636,42 +774,46 @@ ChNXT nxt;
 /* Connect to the NXT */
 nxt.connect();
 \end{lstlisting}
-just like all NXT programs, initializes the program and connects to the NXT. Then the next part,
+just like all NXT programs, initializes the program and connects to the NXT. 
+Then the next part,
 \end{comment}
 \begin{lstlisting}
 /* Non-blocking Function */
-nxt.moveJointNB(NXT_JOINT1, 360);
+nxt.moveJointNB(NXT_JOINTA, 360);
 printf("This message will be printed \
-        on the screen when joint1 is moving.\n");
+        on the screen when jointA is moving.\n");
 nxt.moveWait();
 \end{lstlisting}
-uses the non-blocking function {\tt moveJointNB()}. The function {\tt printf()} will
-print a message onto the screen during the joint1 is moving. However, the blocking part below,
+uses the non-blocking function {\tt moveJointNB()}. The function {\tt printf()} 
+will print a message onto the screen while the jointA is moving. However, the 
+blocking part below,
 \begin{lstlisting}
 /* Blocking Function */
 nxt.moveJoint(NXT_JOING1, 360);
 printf("This message will be printed on \
-        the screen after joint1 stopped moving.\n");
+        the screen after jointA stopped moving.\n");
 \end{lstlisting}
-will print out the message after the function {\tt moveJoint()} finished, which means the
-joint1 stops moving. Most moving functions have both blocking and non-blocking version. However,
-there are still some exceptions. The function {\tt moveJointContinuousNB()} and function
-{\tt moveContinuousNB()} have only non-blocking version and the function {\tt moveContinuousTime()}
-only has blocking version. In Table~\ref{tab:block_nonblock}, we list all blocking functions and their 
+will print out the message after the function {\tt moveJoint()} finishes, which 
+means after jointA stops moving. Most moving functions have both blocking and 
+non-blocking versions. However, there are still some exceptions. The function 
+{\tt moveJointContinuousNB()} and function {\tt moveContinuousNB()} have only 
+non-blocking version and the function {\tt moveContinuousTime()} is only blocking. 
+In Table~\ref{tab:block_nonblock}, we list all blocking functions and their 
 corresponding non-blocking functions.
 \input{table_block_nonblock.tex}
-Also, detailed information for both blocking and non-blocking versions of movement functions can be found in Appendix~
-\ref{sec:chnxt_api} on page~\pageref{sec:chnxt_api}.
+Also, detailed information for both blocking and non-blocking versions of movement 
+functions can be found in Appendix~\ref{sec:chnxt_api} on Page~\pageref{sec:chnxt_api}.
 
 \subsection{Retrieving a Joint Angle}
-This demo presents how to get a joint current angle in a Ch NXT program. The angle is the absolute postion in degrees.
+This demo presents how to get a current joint angle in a Ch NXT program. The 
+angle is the absolute postion in degrees.
 
 \subsubsection*{Source Code}
 %% begin program %%
 \lstinputlisting
 [caption={{\tt getJointAngle.ch} Source Code},label=prog_getJointAngle.ch]
 {demos/basic/getJointAngle.ch}
-%% end program %%
+%%% end program %%%
 
 \subsubsection*{Explanation}
 \begin{comment}
@@ -690,29 +832,29 @@ lines of the code,
 \begin{lstlisting}
 /* Get the joint angle of the first joint */
 double angle;
-nxt.getJointAngle(NXT_JOINT1, angle)
+nxt.getJointAngle(NXT_JOINTA, angle);
 \end{lstlisting}
-retrieve the current angle of joint 1. {\tt NXT\_JOINT1} is an enumerated 
+retrieve the current angle of joint 1. {\tt NXT\_JOINTA} is an enumerated 
 value defined in the header file {\tt nxt.h}. Detailed information for all 
 enumerated values defined in {\tt nxt.h} can be found in 
 Appendix~\ref{sec:datatypes} on page~\pageref{sec:datatypes}. Finally, the 
 last part of the program,
 \begin{lstlisting}
 /* Print out the joint angle */
-printf("The current joint angle for joint 1 is %lf degrees.\n", angle)
+printf("The current joint angle for joint 1 is %lf degrees.\n", angle);
 \end{lstlisting}
 prints the value of the variable onto the screen.
 
 \subsection{\label{setSensor_demo}Setting Sensors for NXT}
 We have finished discussing the connection and movement functions in previous 
-sections. In this section, we will start to discuss how to use sensors of NXT. 
-The following demo code will present how to setup a sensor for NXT and how to 
-get values collected by the sensor from the NXT.
+sections. In this section, we will start to discuss how to use the sensors of 
+the NXT. The following demo code will present how to setup a sensor for the NXT 
+and how to get values collected by the sensor from the NXT.
 
 \subsubsection{Use Touch Sensor and Ultrasonic Sensor
 \label{sec:sensor_touch_ultra}}
 In this section, a demo program will be presented to demonstrate how to use
-touch sensors and ultrasonic sensors with NXT bricks by using Ch code.
+touch sensors and ultrasonic sensors with the NXT bricks by using Ch code.
 
 \subsubsection*{Source Code}
 %% begin program %%
@@ -752,9 +894,10 @@ status2 = nxt.setSensor(NXT_SENSORPORT4,
 setups two sensors for the connected NXT. The function we used to setup sensors 
 is {\tt setSensor()}, which takes three arguments. The first argument represents 
 the port number on the NXT, which is in type {\tt nxtSensorPort\_t}. The second 
-argument the function takes is the type of a sensor, which is in type {\tt nxtSensorType\_t}. 
-The last argument is the working mode of a sensor, which is in type {\tt nxtSensorMode\_t}. 
-Detailed information for the three variable types can be found in Appendix~\ref{sec:datatypes}. 
+argument the function takes is the type of a sensor, which is in type 
+{\tt nxtSensorType\_t}. The last argument is the working mode of a sensor, which 
+is in type {\tt nxtSensorMode\_t}. Detailed information for the three variable 
+types can be found in Appendix~\ref{sec:datatypes} on Page~\ref{sec:datatypes}. 
 The next several lines,
 \begin{lstlisting}
 /* Check connection status sensors connection */
@@ -770,7 +913,7 @@ if(status2) {
 \end{lstlisting}
 check the status of each sensor to see if they were setup correctly. If it fails 
 to setup sensors, the program will exit automatically. The function {\tt setSensor()} 
-returns 0 means success. The next part of code,
+returns 0 when run successfully. The next part of code,
 \begin{lstlisting}
 /* get values collected by sensors from NXT */
 nxt.getSensor(NXT_SENSORPORT1, touchValue);
@@ -785,39 +928,40 @@ value gotten from the NXT. The last part,
 printf("Touch sensor: %d\n", touchValue);
 printf("Ultrasonic sensor: %d\n", ultraValue);
 \end{lstlisting}
-displays the values gotten from the NXT onto the screen.
+displays the values gotten from the NXT onto the screen. Since the touch sensor
+sets as boolean mode, there only two values. One is 1, which means true or touched,
+while the other is 0, which means false or untouched. The value of the ultrasonic
+sensor ranges from 0 to 80 with units of centimeter.
 
 \subsubsection{How to use other sensors\label{sec:sensor_other}}
-Besides touch sensors and ultrasonic sensors discussed in previous section, the 
-Ch package also supports several other sensors, which are light sensors, sound
-sensors, color sensors. In this section, we will introduce the usage of those
+Besides the touch sensors and ultrasonic sensors discussed in the previous section,
+the Ch package also supports several other sensors, such as light sensors, sound 
+sensors, and color sensors. In this section, we will introduce the usage of those 
 sensors.
 
 \subsubsection*{Light Sensors and Sound Sensors}
 For the light sensor and the sound sensor, we use the same functions as we used
 in last section, which are {\tt setSensor()} and {\tt getSensor()}. The function
-{\tt setSensor} is used for setup a sensor and the function {\tt getSensor()} is
-used for getting the value of the sensor from the NXT. However, when setup a 
-sensor as light or sound sensor, the mode of the sensor should be percentage of 
-full scaled, which is {\tt NXT\_SENSORTYPE\_PCTFULLSCALEDMODE}. Therefore, the
-values of light and sound sensors should range from 0 to 100 percent. \\
+{\tt setSensor} is used to setup a sensor and the function {\tt getSensor()} is
+used for getting the value of the sensor from the NXT. However, when setting up 
+a sensor as a light or sound sensor, the mode of the sensor should be percentage 
+of full scaled, which is {\tt NXT\_SENSORTYPE\_PCTFULLSCALEDMODE}. Therefore, 
+the values of light and sound sensors should range from 0 to 100 percent. \\
 
-Furthermore, there is a LED on the light sensor. So you can decide if turn on 
-the LED or not by their sensor types, which are {\tt NXT\_SENSORTYPE\_LIGHT\_ACTIVE} 
-and {\tt NXT\_SENSORTYPE\_LIGHT\_INACTIVE} indicating turn on the LED and turn 
-off the LED, respectively. Also, the sound sensor has two sensor types too. 
-They are {\tt NXT\_SENSORTYPE\_SOUND\_DB} and {\tt NXT\_SENSORTYPE\_SOUND\_DBA}. 
-The {\tt DB} in both types is "Decibel", which is the unit for measuring sound 
-level. The {\tt A} after {\tt DB} in the second type means "adjusted", which 
-indicates that the value is more precise.\\
+Furthermore, there is a LED on the light sensor. The user can decide to turn on 
+the LED or not by their sensor types, which are {\tt NXT\_SENSORTYPE\_LIGHT\_ACTIVE}
+and {\tt NXT\_SENSORTYPE\_LIGHT\_INACTIVE}, which indicats the LED should be used. 
+Also, the sound sensor has two sensor types too. They are {\tt NXT\_SENSORTYPE\_SOUND\_DB} 
+and {\tt NXT\_SENSORTYPE\_SOUND\_DBA}. The {\tt DB} in both types is ``Decibel'', 
+which is the unit for measuring sound level. The {\tt A} after {\tt DB} in the 
+second type means ``adjusted'', which indicates that the value is more precise.\\
 
 \subsubsection*{Color Sensor}
-The color sensor of the Lego Mindstorms has two modes. It can use as a color sensor 
+The color sensor of the Lego Mindstorms has two modes. It can be used as a color sensor 
 to detect different colors and it also can be used as a light sensor. When the color 
-sensor is used as a light sensor, it just is exactly the same as the light sensor we 
-mentioned in last paragraph. However, it has three colors of LEDs rather than one LED 
-in simple light sensors. Therefore, you can choose red, blue, green or no light and 
-they have respective name, which are {\tt NXT\_SENSORTYPE\_COLORRED}, 
+sensor is used as a light sensor, it works the same as the light sensor. However, 
+it has three colors of LEDs rather than one LED in simple light sensors. Therefore, 
+you can choose red, blue, green or no light. The options are {\tt NXT\_SENSORTYPE\_COLORRED}, 
 {\tt NXT\_SENSORTYPE\_COLORBLUE}, {\tt NXT\_SENSORTYPE\_COLORGREEN} and 
 {\tt NXT\_SENSORTYPE\_COLORNONE}.
 \begin{lstlisting}
@@ -833,7 +977,7 @@ nxt.setSensor(NXT_SENSORPORT1, NXT_SENSORTYPE_COLORBLUE,
 nxt.setSensor(NXT_SENSORPORT1, NXT_SENSORTYPE_COLORNONE,
     NXT_SENSORMODE_PCTFULLSCALEDMODE);
 \end{lstlisting}
-There is another type name called {\tt NXT\_SENSORTYPE\_COLORFULL}, which will 
+There is another option type called {\tt NXT\_SENSORTYPE\_COLORFULL}, which will 
 be used to setup the color sensor to detect different colors. In this case, the 
 sensor mode should be {\tt NXT\_SENSORMODE\_RAWMODE}, which is the same as the 
 ultrasonic sensor.
@@ -849,7 +993,6 @@ ultrasonic sensor.
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
 The NXT comes with three actuator output ports. The actuators available are the 
 NXT motors. Normaly, you can only control the speed and direction of the connected 
 motors. For a two wheeled NXT vehicle, there are two ways that the NXT vehicle can 
@@ -888,7 +1031,8 @@ Essential header files for the NXT includes:
 \begin{lstlisting}
 #include <nxt.h>
 \end{lstlisting}
-The {\tt nxt.h} is the essential header file for Ch NXT control functions and variables.  
+The {\tt nxt.h} is the essential header file for Ch NXT control functions and 
+variables.  
 
 \subsubsection{Connect the NXT and Checking Connection Status}
 The NXT status, sensor/encoder data, and input/output protocols are stored in a 
@@ -923,7 +1067,7 @@ be used when no {\tt main()} function is present.
 
 %\begin{verbatim}
 %    /* setup speed for a single joint */
-%    nxt.setJointSpeed(NXT_JOINT1, 50);
+%    nxt.setJointSpeed(NXT_JOINTA, 50);
 %
 %    /* setup speed for all joints */
 %    nxt.setJointSpeedRatios(20, 40, 40);
@@ -939,7 +1083,7 @@ the NXT vehicle forward by using the {\tt vehicleRollForward()}. After using the
 Figure~\ref{fig_NXT_forward} shows the NXT vehicle moving forward by actuating 
 both wheels forward with the same speed ratio, which is how the function 
 {\tt vehicleRollForward()} works. By default, the ports for the two wheels on the 
-NXT are {\tt NXT\_JOINT2} and {\tt NXT\_JOINT3}.
+NXT are {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -1016,7 +1160,7 @@ opposite direction.
 \end{figure}
 %%%%% END OF FIGURE %%%%%
 To make the NXT rotate in place, we can use the functions {\tt vehicleRotateLeft()} 
-and {\tt vehicleRotateRight()}. An example of how to use the functions are shown 
+and {\tt vehicleRota}{\tt teRight()}. An example of how to use the functions are shown 
 below:
 \begin{lstlisting}
 /* set speed ratio */
@@ -1050,19 +1194,19 @@ of the motors are limited, and can only ranged from 0 to 1 a speed ratio. For
 the direction, the data type {\tt nxtJointState\_t} is defined. In the data type, 
 there are two values indicate the move directions. One is call {\tt NXT\_FORWARD},
 which means the positive direction and the other is called {\tt NXT\_BACKWARD} 
-means the negative direction. The function is end with {\tt NB}, which means the 
-function is non-blocking one. Therefore, you will need to use the {\tt delay()} 
-function to leave the motors on for the desired amount of the time. Otherwise, 
-the program will go to the next statements directly. Due to the setup of the NXT 
-vehicle, forward motion can be achieved by turning the motors on to the same speed 
-ratio. For example:
+means the negative direction. The {\tt NB} indicates that the function is 
+non-blocking. Therefore, you will need to use the {\tt delay()} function to leave 
+the motors on for the desired amount of the time. Otherwise, the program will go 
+to the next statements directly. Due to the setup of the NXT vehicle, forward 
+motion can be achieved by turning the motors on at the same speed ratio. For 
+example:
 \begin{lstlisting}
 /* set speed ratio */
 nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
 
 /* Move foward */
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 
 /* Pause program for 5 seconds */
 delay(5);
@@ -1078,13 +1222,13 @@ moves the NXT forward and backward each with 360 degrees for its wheels.
 %%%%%%%%%%%% End of forwardBackward.ch %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%% Turning Using Single Motor Control %%%%%%%%%%%%
 \subsubsection{Turning Using Single Motor Control}
-Turning and rotation movements can also be achieved using the {\tt moveJointContinuousNB()}
-functions. As previously discussed, to turn our NXT vehicle, one motor must be 
-rotating at a faster speed then the other, or the motors must be spinning in the 
-opposite direction. For the following discussion, Figures \ref{fig_NXT_360LR} 
-maybe useful.\\
+Turning and rotation movements can also be achieved using the 
+{\tt moveJointContinuousNB()} functions. As previously discussed, to turn our 
+NXT vehicle, one motor must be rotating at a faster speed then the other, or 
+the motors must be spinning in the opposite direction. For the following 
+discussion, Figures~\ref{fig_NXT_360LR} maybe useful.\\
 
-To turn the NXT vehicle left, the right wheel must be moving faster in forward 
+To turn the NXT vehicle left, the right wheel must be moving faster in the forward 
 direction then the left wheel. If you want to move forward and turn left, let 
 the left wheel move at 0.7 of the speed that the right wheel is set to. To 
 implement it with the single motor control functions, you would do the following:
@@ -1093,8 +1237,8 @@ implement it with the single motor control functions, you would do the following
 nxt.setJointSpeedRatios(0, speedRatio, 0.7*speedRatio);
 
 /* Move foward-left */
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 
 /* Pause program for a while */
 delay(5);
@@ -1108,8 +1252,8 @@ wheel. An example is shown below:
 nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
 
 /* Rotate left in place */
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
 
 /* Pause program for a while */
 delay(5);
@@ -1129,8 +1273,8 @@ such as 1.2.  The resulting code would look like:
 nxt.setJointSpeedRatios(0, 1.2*speedRatio, speedRatio);
 
 /* Move foward-left */
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 
 /* Pause program for a while */
 delay(5);
@@ -1138,12 +1282,12 @@ delay(5);
 While this would work for slower motor speeds, a bug would occur if the NXT 
 vehicle speed was set too high. Can you spot why? As previously discussed, the 
 valid motor speed ratio for NXT motors are between 0 to 1. If the speed variable 
-is set to 1, the command to control the left motor (NXT\_JOINT3) will function 
-correctly. The right motor (NXT\_JOINT2) will recieve a command telling it to 
+is set to 1, the command to control the left motor (NXT\_JOINTC) will function 
+correctly. The right motor (NXT\_JOINTB) will recieve a command telling it to 
 set the motor speed to 1.2 x 1 = 1.2. This is an invalid motor command, but if 
 the speed ratio is set to greater than 1, the maximun speed ratio of 1 will be
 used. Similarly, if you try to set a speed ratio less than zero, the minimum 
-speed ratio of zero will be used.\\
+speed ratio of zero will be used.
 
 \subsubsection{Manual Real Time Control Program}
 Manual real time control program allows you to control your NXT vehicle with 
@@ -1165,7 +1309,7 @@ In Figure~\ref{fig_NXT_GUI}, the user interface of the NXT vehicle RTC program
 display all the possible key that the user can use. In addition, the user 
 interface also indicate the functionality of the key that is being pressed. When 
 a specific key is pressed during the execution of the NXT vehicle RTC program, 
-the program uses a \verb+if-else if-else+ statement to performs a fragment of 
+the program uses a {\bf if-else} statement to performs a fragment of 
 code that send commands to the NXT. For example:\\
 \begin{itemize}
 \item The key {\tt "w"} is to control the NXT to move forward.
@@ -1182,11 +1326,11 @@ code that send commands to the NXT. For example:\\
 In the robot control code block, a {\bf while} loop is implemented to allow the 
 user to control the NXT continuously until the program is terminated. Within the 
 {\bf while} loop, the program grabs the user's input and decide what to do with 
-it using the {\bf if-else if-else} statements. The whole NXT vehicle RTC program 
+it using the {\bf if-else} statements. The whole NXT vehicle RTC program 
 is shown in Program~\ref{prog_vehicle_rtc.ch}. Please make sure your NXT vehicle 
-are configured according to Figure~\ref{fig_NXT_vehport} to run Program~\ref{prog_vehicle_rtc.ch}. 
-In the rest of this section, we are going to explain the whole program in detail.
-
+are configured according to Figure~\ref{fig_NXT_vehport} to run Program~
+\ref{prog_vehicle_rtc.ch}. In the rest of this section, we are going to explain 
+the whole program in detail.
 %%%%%%%%%%%%%%%% Begin of vehicle_rtc.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \lstinputlisting
 [caption={{\tt vehicle\_rtc.ch} Source Code},label=prog_vehicle_rtc.ch]
@@ -1270,25 +1414,27 @@ printf("\n    \|/               [1] Set Speed Ratio to 0.25");
 printf("\n[a]<-|->[d]           [2] Set Speed Ratio to 0.50");
 printf("\n     v                [3] Set Speed Ratio to 0.75");
 printf("\n    [s]               [4] Set Speed Ratio to 1\n");
-printf("Please Enter command:");
+printf("\Please Enter command:");
 \end{lstlisting}
 
 \subsubsection*{Real time control}
-After completing the initiation of the code, which include adding header files, declaring variables,
-checking connection, and displaying the user interface, the real time control of the NXT begins with 
-the robot control code block. In the robot control code block, a {\bf while} loop is implemented to allow 
-the user to control the NXT continuously until the program is terminated. Within the {\bf while} loop, the 
-program grabs an input from the user, and then decide what to do with the input using the 
-{\tt if-else if-else} statement. A flowchart for the NXT RTC control program is shown in 
-Figure~\ref{fig_RTC_controlloop}.\\
+After completing the initiation of the code, which include adding header files, 
+declaring variables, checking connection, and displaying the user interface, 
+the real time control of the NXT begins with the robot control code block. In 
+the robot control code block, a {\bf while} loop is implemented to allow the 
+user to control the NXT continuously until the program is terminated. Within 
+the {\bf while} loop, the program grabs an input from the user, and then decide 
+what to do with the input using the {\tt if-else} statement. A flowchart 
+for the NXT RTC control program is shown in Figure~\ref{fig_RTC_controlloop}.\\
 \begin{figure}[h]
   \begin{center}
     \includegraphics[height=2.4in]{figure/mindstorm/RTC_controlloop.png}
-    \caption{A flowchart for the NXT vehicle RTC Control Program.\label{fig_RTC_controlloop}}
+    \caption{A flowchart for the NXT vehicle RTC Control Program.
+    \label{fig_RTC_controlloop}}
   \end{center}
 \end{figure}
-The program fragment below shows the beginning and the end of the {\bf while} loop for 
-Program~\ref{prog_vehicle_rtc.ch}:
+The program fragment below shows the beginning and the end of the {\bf while} 
+loop for Program~\ref{prog_vehicle_rtc.ch}:
 \begin{lstlisting}
 while (quit != 1 ) {
     key = _getch();
@@ -1308,126 +1454,125 @@ variable is set to 1, which allows the program to exit out of the {\bf while} lo
 
 Inside the first line of the {\bf while} loop, the program use the {\tt \_getch()} 
 command to obtain a userinput and store the user input to the variable {\tt key}. 
-After obtaining the user's input in a variable, the program use a {\tt if-else if-else} 
+After obtaining the user's input in a variable, the program use a {\tt if-else} 
 statement to check which key was pressed. Depending on what key was pressed, the 
 program will run a fragment of code that sends commands to the NXT.
 
 \subsubsection*{Directional commands}
-The movements are controlled using the 'w', 's', 'a', and 'd' format. As shown 
+The movements are controlled using the `w', `s', `a', and `d' format. As shown 
 in Figure~\ref{fig_NXT_GUI}, the user interface used arrows to indicate the 
 movement direction and associate each direction with a specific key. The 
-available buttons for movements are 'w', 's', 'a', 'd', 'q', 'e', and 'x'.\\
-
-%%% case 'w' %%%
-When the key 'w' has been pressed, the {\tt if-else if-else} statement will run 
-the codes for the case 'w'. The program fragment for case 'w' is shown below:
+available buttons for movements are `w', `s', `a', `d', `q', `e', and `x'.\\
+%%% case `w' %%%
+When the key `w' has been pressed, the {\tt if-else} statement will run 
+the codes for the case `w'. The program fragment for case `w' is shown below:
 \begin{lstlisting}
 if(key == 'w'){//up
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
     movemode = 'w';
 }
 \end{lstlisting}
-In case 'w', the program will run joints \verb+NXT_JOINT2+ and \verb+NXT_JOINT3+ forward at
-the velocity \verb+speedRatio+. Next, 'w' key is stored in the variable \verb+movemode+, which will 
-be used to indicate the current mode for NXT vehicle. Basically, the case 'w' will move the 
-NXT vehicle forward at velocity \verb+speedRatio+.
-\\ \\
-%%% case 's' %%%
-When the key 's' has been pressed, the \verb+if-else if-else+ statement will run the codes 
-for the case 's'. The program fragment for case 's' is shown below:
+In case `w', the program will run joints {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} 
+forward at the velocity {\tt speedRatio}. Next, `w' key is stored in the variable 
+{\tt movemode}, which will be used to indicate the current mode for NXT vehicle. 
+Basically, the case `w' will move the NXT vehicle forward at velocity {\tt speedRatio}.\\
+
+%%% case `s' %%%
+When the key `s' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `s'. The program fragment for case `s' is shown below:
 \begin{lstlisting}
 else if(key == 's'){//down
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
     movemode = 's';
 }
 \end{lstlisting}
-In case 's', the program will run the joints \verb+NXT_JOINT2+ and \verb+NXT_JOINT3+ backward 
-at the velocity \verb+speedRatio+. Next, 's' key is stored in the variable \verb+movemode+, 
-which will be used to indicate the current mode for NXT vehicle. Basically, the case 's' will 
-move the NXT vehicle backward with velocity \verb+speedRatio+.\\ 
-\newline
-%%% case 'a' %%%
-When the key 'a' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'a'.
-The program fragment for case 'a' is shown below:
+In case `s', the program will run the joints {\tt NXT\_JOINTB} and 
+{\tt NXT\_JOINTC} backward at the velocity {\tt speedRatio}. Next, `s' key is 
+stored in the variable {\tt movemode}, which will be used to indicate the 
+current mode for NXT vehicle. Basically, the case `s' will move the NXT vehicle 
+backward with velocity {\tt speedRatio}.\\ 
+%%% case `a' %%%
+When the key `a' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `a'. The program fragment for case `a' is shown below:
 \begin{lstlisting}
 else if(key == 'a'){//left
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
     movemode = 'a';
 }
 \end{lstlisting}
-In case 'a', the program will actuate joint \verb+NXT_JOINT2+ forward at velocity \verb+speedRatio+ 
-and actuate joint \verb+NXT_JOINT3+ backward at velocity \verb+speedRatio+. Next, 'a' key is stored in 
-the variable \verb+movemode+, which will be used to indicate the current mode for NXT vehicle.\\ 
-\newline
-%%% case 'd' %%%
-When the key 'd' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'd'.
-The program fragment for case 'd' is shown below:
+In case `a', the program will actuate joint {\tt NXT\_JOINTB} forward at velocity 
+{\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} backward at velocity 
+{\tt speedRatio}. Next, `a' key is stored in the variable {\tt movemode}, which 
+will be used to indicate the current mode for NXT vehicle.\\ 
+%%% case `d' %%%
+When the key `d' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `d'. The program fragment for case `d' is shown below:
 \begin{lstlisting}
 else if(key == 'd'){//right
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
     movemode = 'd';
 }
 \end{lstlisting}
-In case 'd', the program will actuate joint \verb+NXT_JOINT2+ backward at velocity \verb+speedRatio+ 
-and actuate joint \verb+NXT_JOINT3+ forward at velocity \verb+speedRatio+. Next, 'd' key is stored in
-the variable \verb+movemode+, which will be used to indicate the current mode for NXT vehicle.\\ 
-\newline
-%%% case 'q' %%%    
-When the key 'q' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'q'.
-The program fragment for case 'q' is shown below:
+In case `d', the program will actuate joint {\tt NXT\_JOINTB} backward at 
+velocity {\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} forward at velocity 
+{\tt speedRatio}. Next, `d' key is stored in the variable {\tt movemode}, which 
+will be used to indicate the current mode for NXT vehicle.\\ 
+%%% case `q' %%%    
+When the key `q' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `q'. The program fragment for case `q' is shown below:
 \begin{lstlisting}
 else if(key == 'q'){//forward-left
     nxt.setJointSpeedRatios(0, speedRatio, 0.7*speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
     movemode = 'q';
 }
 \end{lstlisting}
-In case 'q', the program will actuate joint \verb+NXT_JOINT2+ forward at velocity \verb+speedRatio+ 
-and actuate joint \verb+NXT_JOINT3+ forward at velocity 0.7*\verb+speedRatio+. Next, 'q' key is 
-stored in the variable \verb+movemode+, which will be used to indicate the current mode for NXT 
-vehicle.\\ 
-\newline
-%%% case 'e' %%%
-When the key 'e' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'e'.
-The program fragment for case 'e' is shown below:
+In case `q', the program will actuate joint {\tt NXT\_JOINTB} forward at velocity 
+{\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} forward at velocity 0.7*
+{\tt speedRatio}. Next, `q' key is stored in the variable {\tt movemode}, which 
+will be used to indicate the current mode for NXT vehicle.\\ 
+%%% case `e' %%%
+When the key `e' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `e'. The program fragment for case `e' is shown below:
 \begin{lstlisting}
 else if(key == 'e'){//forward-right
     nxt.setJointSpeedRatios(0, 0.7*speedRatio, speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
     movemode = 'e';
 }
 \end{lstlisting}
-In case 'e', the program will actuate joint \verb+NXT_JOINT2+ forward at velocity 
-0.7*\verb+speedRatio+ and actuate joint \verb+NXT_JOINT3+ forward at velocity 
-\verb+speedRatio+. Next, 'e' key is stored in the variable \verb+movemode+, which will 
-be used to indicate the current mode for NXT vehicle.\\ 
-\newline
-%%% case 'x' %%%
-When the key 'x' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'x'.
-The program fragment for case 'x' is shown below:
+In case `e', the program will actuate joint {\tt NXT\_JOINTB} forward at velocity 
+0.7*{\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} forward at velocity 
+{\tt speedRatio}. Next, `e' key is stored in the variable {\tt movemode}, which 
+will be used to indicate the current mode for NXT vehicle.\\ 
+%%% case `x' %%%
+When the key `x' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `x'. The program fragment for case `x' is shown below:
 \begin{lstlisting}
 else if(key == 'x'){//stop
-    nxt.stopOneJoint(NXT_JOINT2);
-    nxt.stopOneJoint(NXT_JOINT3);
+    nxt.stopOneJoint(NXT_JOINTB);
+    nxt.stopOneJoint(NXT_JOINTC);
     movemode = 'x';
 }
 \end{lstlisting}
-In case 'x', the program will set the motor in \verb+NXT_JOINT2+ and \verb+NXT_JOINT3+ to zero 
-velocity, and then set the motor to off idle mode. Next, 'x' key is stored in the variable 
-\verb+movemode+, which will be used to indicate the current mode for NXT vehicle.
-Basically, the case 'x' stops the motor and keep it turned off until another key is pressed.
+In case `x', the program will set the motor in {\tt NXT\_JOINTB} and 
+{\tt NXT\_JOINTC} to zero velocity, and then set the motor to off idle mode. 
+Next, `x' key is stored in the variable {\tt movemode}, which will be used to 
+indicate the current mode for NXT vehicle. Basically, the case `x' stops the 
+motor and keep it turned off until another key is pressed.
 
 \subsubsection*{Speed control}
-The speed of the motor is controlled by the number key '1', '2', '3', and '4'.
-In Figure \ref{fig_NXT_GUI}, the user interface shows that each key has a specific speed ratio.
-For example, key '1' indicates 0.25 speed ratio, and key '2' indicate 0.50 speed ratio.
-As shown below, each of the key has its fragment of code.
+The speed of the motor is controlled by the number key `1', `2', `3', and `4'.
+In Figure~\ref{fig_NXT_GUI}, the user interface shows that each key has a 
+specific speed ratio. For example, key `1' indicates 0.25 speed ratio, and key 
+`2' indicate 0.50 speed ratio. As shown below, each of the key has its fragment 
+of code.
 \begin{lstlisting}
 else if(key == '1'){
     speedRatio = 0.25;
@@ -1443,25 +1588,29 @@ else if(key == '1'){
     ungetch(movemode);
 }
 \end{lstlisting}
-For each of the case, the fragment of code changes the variable \verb+speedRatio+ and performs an \verb+ungetch()+ command.
-The \verb+ungetch()+ command allows the program run the mode that it was previously saved in the variable \verb+movemode+
-before the speed keys are pressed. Basically, the speed keys allow the program to change the speed of the NXT motor without 
-changing the movement mode that it was in.
+For each of the case, the fragment of code changes the variable {\tt speedRatio} 
+and performs an {\tt ungetch()} command. The {\tt ungetch()} command allows the 
+program run the mode that it was previously saved in the variable {\tt movemode}
+before the speed keys are pressed. Basically, the speed keys allow the program 
+to change the speed of the NXT motor without changing the movement mode that it 
+was in.
 
 \subsubsection*{Functions for other keys}
-As mentioned before, the {\bf while} loop allows the program to keep asking the user's input until the variable
-\verb+quit+ is set to 1. To quit the {\bf while} loop, we must have a special case that sets the variable \verb+quit+ to 1.
-When the key 'r' is pressed, the \verb+if-else if-else+ statement will perform a fragment of code for case 'r'.
-The program fragment for case 'r' is shown below:
+As mentioned before, the {\bf while} loop allows the program to keep asking the 
+user's input until the variable {\tt quit} is set to 1. To quit the {\bf while} 
+loop, we must have a special case that sets the variable {\tt quit} to 1. When 
+the key `r' is pressed, the {\bf if-else} statement will perform a 
+fragment of code for case `r'. The program fragment for case `r' is shown below:
 \begin{lstlisting}
 else if(key == 'r'){//quit
     printf("\nExiting program.\n");
     quit = 1;
 }
 \end{lstlisting}
-When the \verb+'r'+ key is pressed, the program will print out the statement 'exiting program' and set \verb+quit+
-variable is set to 1, which allows the program to exit out of the {\bf while} loop.\\
-\newline
+When the {\tt 'r'} key is pressed, the program will print out the statement 
+`exiting program' and set {\tt quit} variable is set to 1, which allows the 
+program to exit out of the {\bf while} loop.\\
+
 For the keys that is not specified to any cases, a default case is used for the 
 time when the user input a wrong key. The program fragment for the default case 
 is shown below:
@@ -1470,31 +1619,31 @@ else{
     printf("\nInvalid Input!\n");
 }
 \end{lstlisting}
-
-This fragment prints 'Invalid Input!' to the user to indicate the key they just pressed is an invalid input.
-
+This fragment prints `Invalid Input!' to the user to indicate the key they just 
+pressed is an invalid input.
 \begin{comment}
 \subsubsection*{Disconnecting your NXT}
-After the {\bf while} loop, the NXT vehicle RTC program ends with the four lines shown below.
+After the {\bf while} loop, the NXT vehicle RTC program ends with the four lines 
+shown below.
 \begin{lstlisting}
 /* Disconnect from NXT */
 nxt.disconnect();
 \end{lstlisting}
 These lines of code stop the NXT motors, disconnect the NXT from the computer.
 \end{comment}
-
 %%%%%%%%%% end of NXT RTC %%%%%%%%%%
 %%%%%%%%%%% End of Controlling NXT Vehicle %%%%%%%%%%
 
 %%%%%%%%%%% Using NXT Sensors %%%%%%%%%%
 \subsection{Using NXT Sensors}
-Sensors convert a physical quantity and convert it to signals which can be read by the NXT or the computer. 
-Sensors allow the communication between the outside environment to the NXT. The NXT is equipped with four 
-sensor input ports and you can equip each port with a variety of different sensors. In this section, we are 
-going to discuss about how to use the touch sensor and the ultrasonic sensor. In these discussion, two 
-demonstration programs will be presented. Please make sure your NXT vehicle are configured according to 
-Figurer~\ref{fig_NXT_sensport} to run these demonstration programs.
-
+Sensors convert a physical quantity and convert it to signals which can be read 
+by the NXT or the computer. Sensors allow the communication between the outside 
+environment to the NXT. The NXT is equipped with four sensor input ports and you 
+can equip each port with a variety of different sensors. In this section, we are 
+going to discuss about how to use the touch sensor and the ultrasonic sensor. In 
+these discussion, two demonstration programs will be presented. Please make sure 
+your NXT vehicle are configured according to Figurer~\ref{fig_NXT_sensport} to 
+run these demonstration programs.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -1505,12 +1654,14 @@ Figurer~\ref{fig_NXT_sensport} to run these demonstration programs.
 %%%%% END OF FIGURE %%%%%
 
 \subsubsection{Using your touch sensor}
-After you have connected the NXT to your PC, you will need to set up the sensor if you would like to include 
-sensors in an NXT program. For example, if you want to add components like light sensor, ultrasonic sensor, 
-and/or touch sensor, you will need to set up their connection using the \verb+setSensor()+ function. 
-The \verb+setSensor()+ function will return 1 if no connection is established, so you can terminate the 
-program if a sensor connection is not established. An example connection check for adding the Touch and 
-Ulstrasonic sensors to the NXT vehicle is as follow:
+After you have connected the NXT to your PC, you will need to set up the sensors 
+if you would like to use in the NXT program. For example, if you want to add 
+components like the light sensor, ultrasonic sensor, and/or touch sensor, you 
+will need to set up their connection using the {\tt setSensor()} function. The 
+{\tt setSensor()} function will return 1 if no connection is established, so you 
+can terminate the program if a sensor connection is not established. An example 
+connection check for adding the Touch and Ulstrasonic sensors to the NXT vehicle 
+is as follow:
 \begin{lstlisting}
 ChNXT nxt;
 
@@ -1520,7 +1671,7 @@ if (nxt.connect()){
 }
 
 /* Setup sensors and check sensor connection */
-int status1=2, status2=2;
+int status1 = 2, status2 = 2;
 
 /* Save status of NXT_SENSORPORT1, and NXT_SENSORPORT4 */
 status1 = nxt.setSensor(NXT_SENSORPORT1, 
@@ -1575,30 +1726,31 @@ if (status){
 \end{lstlisting}
 In this fragment, the program use the {\tt setSensor()} command to set the touch 
 sensor to {\tt NXT\_SENSORPORT1}. The connection status between the NXT and the 
-sensor is then returned in the variable called {\tt status}. Next, the if statement 
-check if the connection to the sensor is good. If the variable status is equal to 1, 
-which means no sensor connection, the program will exit and the rest of the codes 
-will not be executed.
+sensor is then returned in the variable called {\tt status}. Next, the {\bf if} 
+statement check if the connection to the sensor is good. If the variable status 
+is equal to 1, which means no sensor connection, the program will exit and the 
+rest of the codes will not be executed.
  
 \subsubsection*{Using while loop}
-A {\bf while} loop is a common method that is used for sensor data gathering. For every iteration of the {\bf while} loop, 
-the program checks the data gathered by the touch sensor. After gathering the data, the program decide what to 
-do with the data. A flowchart of the {\bf while} loop of the touch sensor demo program is shown in Figure 
-\ref{fig_NXT_touchflow}\\
-
+A {\bf while} loop is a common method that is used for sensor data gathering. 
+For every iteration of the {\bf while} loop, the program checks the data 
+gathered by the touch sensor. After gathering the data, the program decide what 
+to do with the data. A flowchart of the {\bf while} loop of the touch sensor 
+demo program is shown in Figure~\ref{fig_NXT_touchflow}\\
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[h]
   \begin{center}
     \includegraphics[height=2.4in]{figure/mindstorm/NXT_touchflow.png}
-    \caption{A flowchart of the {\bf while} loop in Program~\ref{prog_touchsensor.ch} \label{fig_NXT_touchflow}}
+    \caption{A flowchart of the {\bf while} loop in Program~\ref{prog_touchsensor.ch}
+    \label{fig_NXT_touchflow}}
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
-In Program~\ref{prog_touchsensor.ch}, the {\bf while} loop checks for the data of the touch sensor. 
-If the touch sensor is triggered, the data of the touch sensor will be set to 1 by the NXT. Then 
-the program will move the NXT backward and disconnect the NXT. The {\bf while} loop of the touch sensor 
-demonstration program is described below:
+In Program~\ref{prog_touchsensor.ch}, the {\bf while} loop checks for the data 
+of the touch sensor. If the touch sensor is triggered, the data of the touch 
+sensor will be set to 1 by the NXT. Then the program will move the NXT backward 
+and disconnect the NXT. The {\bf while} loop of the touch sensor demonstration 
+program is described below:
 \begin{lstlisting}
 while(1){
     /* Get touch sensor data and save into a variable*/
@@ -1607,28 +1759,31 @@ while(1){
     /* If touch sensor is triggered */
     if (touchValue == 1){
         /* Move backward */
-        nxt.moveJointContinuousNB(NXT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINT3, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
+        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
         delay(2);
         /* quit the while loop */
         break;
     }
 }
 \end{lstlisting}
-In this {\bf while} loop, the program uses the \verb+getSensor()+ command to get the data from \verb+NXT_SENSORPORT1+, 
-which is the port for the touch sensor according to Figure \ref{fig_NXT_sensport}. Next, the program checks 
-the touch sensor if it is pressed with the if statement. If the touch sensor has been triggered, the codes 
-in the if statement will run. The codes inside the if statement is the same command for moving the NXT 
-backward. After moving the NXT backward, the command break allows the program to exit out of the {\bf while} loop.
-This {\bf while} loop will never exit until the touch sensor is triggered and the break command is used.
+In this {\bf while} loop, the program uses the {\tt getSensor()} command to get 
+the data from {\tt NXT\_SENSORPORT1}, which is the port for the touch sensor 
+according to Figure~\ref{fig_NXT_sensport}. Next, the program checks the touch 
+sensor if it is pressed with the {\bf if} statement. If the touch sensor has been 
+triggered, the codes in the {\bf if} statement will run. The codes inside the 
+{\bf if} statement is the same command for moving the NXT backward. After moving 
+the NXT backward, the command break allows the program to exit out of the 
+{\bf while} loop. This {\bf while} loop will never exit until the touch sensor 
+is triggered and the break command is used.
 
 \subsubsection{Using your ultrasonic sensor \label{sec:use_ultrasonic}}
-In order to demonstrate the use of the ultrasonic sensor, consider the ultrasonic sensor demo in 
-Program~\ref{prog_ultrasonicsensor.ch}. NOTE: If your robot gets stuck, put your hands in 
-front of the ultrasonic sensor to quit the loop.
+In order to demonstrate the use of the ultrasonic sensor, consider the ultrasonic 
+sensor demo in Program~\ref{prog_ultrasonicsensor.ch}. NOTE: If your robot gets 
+stuck, put your hands in front of the ultrasonic sensor to quit the loop.
 
 \subsubsection*{Source Code}
-%%%%%%%%%%%%%%%%%%%%% Begin of ultrasonicsensor.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Begin of ultrasonicsensor.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \lstinputlisting
 [caption={{\tt ultrasonicsensor.ch} Source Code},label=prog_ultrasonicsensor.ch]
 {demos/vehicle/ultrasonicsensor.ch}
@@ -1651,21 +1806,24 @@ if (status){
     exit(-1);
 }
 \end{lstlisting}
-In this program fragment, the \verb+setSensor()+ command sets the ultrasonic sensor to \verb+NXT_SENSORPORT4+.
-Next, it checks the return value of the sensor connection status. The program will quit if the return value 
-is 1, meaning there is no connection between the sensor and the NXT.
+In this program fragment, the {\tt setSensor()} command sets the ultrasonic 
+sensor to {\tt NXT\_SENSORPORT4}. Next, it checks the return value of the sensor 
+connection status. The program will quit if the return value is 1, meaning there 
+is no connection between the sensor and the NXT.
 
 \subsubsection*{Contents in the while loop}
-In Program~\ref{prog_ultrasonicsensor.ch}, the while loop uses the ultrasonic sensor to detect distances 
-between the NXT and the obstacles in front of the NXT. The ultrasonic sensor will detect distances and the 
-program code reacts to the data by slowing down or speeding up. The flowchart of the {\bf while} loop of 
-Program~\ref{prog_ultrasonicsensor.ch} is shown in Figure \ref{fig_NXT_ultraflow}.
-
+In Program~\ref{prog_ultrasonicsensor.ch}, the while loop uses the ultrasonic 
+sensor to detect distances between the NXT and the obstacles in front of the 
+NXT. The ultrasonic sensor will detect distances and the program code reacts 
+to the data by slowing down or speeding up. The flowchart of the {\bf while} 
+loop of Program~\ref{prog_ultrasonicsensor.ch} is shown in 
+Figure~\ref{fig_NXT_ultraflow}.\\
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[h]
   \begin{center}
     \includegraphics[height=2.4in]{figure/mindstorm/NXT_ultraflow.png}
-    \caption{Flow Diagram of the while loop in Program~\ref{prog_touchsensor.ch} \label{fig_NXT_ultraflow}}
+    \caption{Flow Diagram of the while loop in Program~\ref{prog_touchsensor.ch} 
+    \label{fig_NXT_ultraflow}}
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
@@ -1699,8 +1857,8 @@ while(1){
     }
     /* Move forward (constantly) */
     nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 }
 \end{lstlisting}
 Similar to Program~\ref{prog_touchsensor.ch}, the {\bf while} loop in Program
@@ -1713,15 +1871,15 @@ to do depending on the distance data from ultrasonic sensor.
     to an obstacle, the program tells the vehicle to reverse, and then break 
     out of the {\bf while} loop.
 \item If the sensor value is above 20 and below 60, which means the vehicle 
-    is close to an obstacle, the program set the speed raio variable to 0.25.
+    is close to an obstacle, the program sets the speed raio variable to 0.25.
 \item If the sensor value is above 60 and below 100, which means the vehicle 
-    is not close to an obstacle, the program set the speed ratio variable to 
+    is not close to an obstacle, the program sets the speed ratio variable to 
     0.50.
 \item If the sensor value is above 100 and below 200, which means there is 
-    nothing in front of the vehicle, the program set the speed ratio variable 
+    nothing in front of the vehicle, the program sets the speed ratio variable 
     to 0.75.
 \item If the sensor value is other value that is not mentioned above, the 
-    program set the speed variable to 0.75.
+    program sets the speed variable to 0.75.
 \end{itemize}
 After the {\bf if-else} statement block, the program sets the robot to move 
 forward with velocity set at the speed variable. Then the program returns back 
@@ -1733,11 +1891,11 @@ sensor again.
 In the previous sections, we thoroughly covered the manual real time control 
 program, which allows you to remote control your NXT vehicle with your keyboard.
 In this section, we will talk about the autonomous control program for the NXT 
-vehicle. In an autonomous control program, the robot, which is the NXT, must be 
-able to move around by itself without human commands or interventions. In order 
-to achieve such task, the NXT must be able to detect obstacles using its sensors 
-and steer away from the obstacle using its actuators. A typical autonomous control 
-scheme is to sense, plan, and act, which is shown in Figure \ref{fig_NXT_SPA}.
+vehicle. In an autonomous control program, the robot must be able to move around 
+by itself without human commands or interventions. In order to achieve such task, 
+the NXT must be able to detect obstacles using its sensors and steer away from 
+the obstacle using its actuators. A typical autonomous control scheme is to 
+sense, plan, and act, which is shown in Figure~\ref{fig_NXT_SPA}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[h]
   \begin{center}
@@ -1746,7 +1904,6 @@ scheme is to sense, plan, and act, which is shown in Figure \ref{fig_NXT_SPA}.
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
 \begin{itemize}
 \item Sense is to gather data from the robot's surrounding.
 \item Plan is to plan the interaction between the robot and its surrounding using 
@@ -1763,26 +1920,29 @@ The computer will decide what to do depending on the sensor data. The autonomous
 control program for the NXT vehicle is described in Program~\ref{prog_vehicle_auto.ch}.
 
 \subsubsection*{Source Code}
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin of vehicle_auto.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Begin of vehicle_auto.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \lstinputlisting
 [caption={{\tt vehicle\_auto.ch} Source Code},label=prog_vehicle_auto.ch]
 {demos/vehicle/vehicle_auto.ch}
-%%%%%%%%%%%%%%%%%%%%%%%%%%% End of vehicle_auto.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% End of vehicle_auto.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In Program~\ref{prog_vehicle_auto.ch}, the sensors that is used are the touch 
 sensor and the ultra sonic sensor. These sensors are located in the front of 
 the vehicle so that when the vehicle encounters an obstacle, the program will
 control the robot to avoid or steer away from it. A diagram of the vehicle and 
 its sensor and actuators of the program is shown in Figure~\ref{fig_NXT_sensport}. 
-Please make sure your NXT vehicle are configured according to to Figure~\ref{fig_NXT_sensport} 
-to run Program~\ref{prog_vehicle_auto.ch}.
+Please make sure your NXT vehicle are configured according to to 
+Figure~\ref{fig_NXT_sensport} to run Program~\ref{prog_vehicle_auto.ch}.
 
 \subsubsection*{Exiting the while loop}
-In the autonomous program, there must be codes that allow the user to quit the autonomous program.
-Otherwise, the robot will roam forever until the batteries run out or until a deliberate shut down of the program.
-In the beginning of the {\bf while} loop, the program checks for the user's input. 
-If the user's input is 'q' to quit, then the program will break out of the {\bf while} loop and safely disconnects the NXT.
-If the user's input is not 'q' or if the user did not input anything, the program will continue to the next section of
-the {\bf while} loop. The program fragment for exiting the autonomous program is shown below.
+In the autonomous program, there must be codes that allow the user to quit the 
+autonomous program. Otherwise, the robot will roam forever until the batteries 
+run out or until a deliberate shut down of the program. In the beginning of the 
+{\bf while} loop, the program checks for the user's input. If the user's input 
+is `q' to quit, then the program will break out of the {\bf while} loop and 
+safely disconnects the NXT. If the user's input is not `q' or if the user did 
+not input anything, the program will continue to the next section of the 
+{\bf while} loop. The program fragment for exiting the autonomous program is 
+shown below.
 \begin{lstlisting}
 /* check user input 'q' to quit */
 if(kbhit()){
@@ -1792,24 +1952,24 @@ if(kbhit()){
     }
 }
 \end{lstlisting}
-In this program fragment, an if statement is used to check if a keyboard key has been hit.
-Next, if a keyboard key has been hit, another if statement checks if the input is 'q'.
-If both conditions are satisfied, the break statement will break out of the {\bf while} 
-loop of the program.
+In this program fragment, an if statement is used to check if a keyboard key has 
+been hit. Next, if a keyboard key has been hit, another if statement checks if 
+the input is `q'. If both conditions are satisfied, the break statement will break 
+out of the {\bf while} loop of the program.
 
 \subsubsection*{Touch sensor}
-The next section of the {\bf while} loop uses the touch sensor to control the NXT vehicle.
-When the NXT contact some obstacle in the front, the touch sensor will be triggered.
-The autonomous program will notice that the touch sensor is triggered and command the 
-NXT to steer away from the obstacle. The program fragment of the touch sensor is shown 
-below.
+The next section of the {\bf while} loop uses the touch sensor to control the 
+NXT vehicle. When the NXT comes into contact with some obstacle in the front, 
+the touch sensor will be triggered. The autonomous program will notice that the 
+touch sensor is triggered and command the NXT to steer away from the obstacle. 
+The program fragment of the touch sensor is shown below.
 \begin{lstlisting}
 /* get touch sensor. If pressed reverse and turn left */
 nxt.getSensor(NXT_SENSORPORT1, touchValue);
 if (touchValue == 1){
     nxt.vehicleRollBackward(180);
     nxt.vehicleRotateLeft(360);
-    }
+}
 \end{lstlisting}
 In the first line of this fragment, the NXT gathers data from {\tt NXT\_SENSORPORT1}, 
 which is the port for the touch sensor. Next, it checks the value for the touch 
@@ -1876,8 +2036,8 @@ The program fragment for running forward is shown below.
 \begin{lstlisting}
 /* Turn motors on (drive forward) */
 nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
 \end{lstlisting}
 This program fragment commands the vehicle to move forward continuously by setting both motors 
 rotating positively at the variable {\tt speedRatio}.
@@ -1887,7 +2047,7 @@ rotating positively at the variable {\tt speedRatio}.
 %%% Begin of Controlling Non-vehicle NXT robots %%%%%%
 \newpage
 \section{Controlling Non-Vehicle NXT Robots}
-Previously, the focus has been on controlling vehicle NXT designs. Ch Mindstorms NXT Control 
+Previously, the focus has been on controlling a vehicle NXT design. Ch Mindstorms NXT Control 
 Package can also be used to control alternate NXT robot configurations. The following sections 
 demonstrates Ch code that controls the Lego Machine NXT Robot and the Lego Humanoid Robot. These 
 examples should give you a sufficient background using Ch to program the NXT to create codes 
@@ -1916,13 +2076,15 @@ of the NXT machine is shown in Figure~\ref{fig_NXT_machineMOD}.
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-As shown in Figure~\ref{fig_NXT_machineMOD}, one of its motor is responsible for moving its arm 
-left and right. Another motor is responsible for moving its arm up and down. The last motor is 
-responsible for controlling its claws open and close. There are two sensors mounted on the claw, 
-they are the light sensor and the touch sensor. The NXT machine uses the light sensor to sense the 
-color of the object it is handling. The NXT uses the touch sensor to sense if it has successfully 
-grabbed an object. Please use the sensor/motor port configuration shown in Figure~\ref{fig_NXT_mach_port} 
-for the Ch NXT machine demos programs described in later in this section.
+As shown in Figure~\ref{fig_NXT_machineMOD}, one of its motor is responsible for 
+moving its arm left and right. Another motor is responsible for moving its arm 
+up and down. The last motor is responsible for controlling its claws open and 
+close. There are two sensors mounted on the claw, they are the light sensor and 
+the touch sensor. The NXT machine uses the light sensor to sense the color of the 
+object it is handling. The NXT uses the touch sensor to sense if it has successfully 
+grabbed an object. Please use the sensor/motor port configuration shown in 
+Figure~\ref{fig_NXT_mach_port} for the Ch NXT machine demos programs described in 
+later in this section.
 \begin{figure}[H]
   \begin{center}
     \includegraphics[height=3in]{figure/mindstorm/NXT_mach_port.png}
@@ -1932,40 +2094,45 @@ for the Ch NXT machine demos programs described in later in this section.
 
 \newpage
 \subsubsection{Manual Real Time Control Program}
-In this section the manual real time control for the NXT machine will be introduced and described.
-The manual RTC for the NXT machine allows the user to control the NXT machine manually via the keyboard.
-The user interface of the RTC program for the NXT machine is shown in Figure \ref{fig_mach_UI}
-\begin{figure}[h]
+In this section the manual real time control for the NXT machine will be 
+introduced and described. The manual RTC for the NXT machine allows the user to 
+control the NXT machine manually via the keyboard. The user interface of the RTC 
+program for the NXT machine is shown in Figure \ref{fig_mach_UI}
+\begin{figure}[H]
   \begin{center}
     \includegraphics[height=3in]{figure/mindstorm/mach_UI.png}
     \caption{NXT vehicle RTC User Interface \label{fig_mach_UI}}
   \end{center}
 \end{figure}
-The user interface and the user commands for the NXT machine RTC program is a bit different compared to the
-NXT vehicle RTC program. Instead of controlling the direction by pressing one key, the user will be required 
-to press a key for direction or command, and then enter a number to set the angle or speed. When a specific 
-key is pressed during the execution of the NXT machine RTC program, the program uses a \verb+if-else if-else+ 
-statement to performs a fragment of code that send commands to the NXT to move in a direction or perform a task.
-If a directional key or aset speed key has been pressed, program will ask for an user input for a number to set 
-the arm to move at an angle or set the speed. If a discrete task key is pressed, like open or close claw, the 
-program will not ask for an user input for a number. The list below is the list of commands and a short 
-description of each commands:
+The user interface and the user commands for the NXT machine RTC program is a 
+bit different compared to the NXT vehicle RTC program. Instead of controlling 
+the direction by pressing one key, the user will be required to press a key for 
+a direction or command, and then enter a number to set the angle or speed. When 
+a specific key is pressed during the execution of the NXT machine RTC program, 
+the program uses an {\tt if-else} statement to perform a fragment of code that 
+sends commands to the NXT to move in a direction or perform a task. If a 
+directional key or a set speed key has been pressed, the program will ask the
+user to input a number to set the arm to move at the specified angle or speed. 
+If a discrete task key is pressed, like open or close claw, the program will 
+not ask for a user input for a number. The list below is the list of commands 
+and a short description of each commands:
 \begin{itemize}
-\item The key \verb+"w"+ is to control the NXT arm to move up.
-\item The key \verb+"s"+ is to control the NXT arm to move down.
-\item The key \verb+"a"+ is to control the NXT arm to turn left.
-\item The key \verb+"d"+ is to control the NXT arm to turn right.
-\item The key \verb+"q"+ is to control the NXT claw to open.
-\item The key \verb+"e"+ is to control the NXT claw to close.
-\item The key \verb+"x"+ is to stop the NXT motors.
-\item The key \verb+"r"+ is to exit the manual RTC program.
-\item The key \verb+"f"+ is to set the NXT motor speed.
+\item The key {\tt "w"} is to control the NXT arm to move up.
+\item The key {\tt "s"} is to control the NXT arm to move down.
+\item The key {\tt "a"} is to control the NXT arm to turn left.
+\item The key {\tt "d"} is to control the NXT arm to turn right.
+\item The key {\tt "q"} is to control the NXT claw to open.
+\item The key {\tt "e"} is to control the NXT claw to close.
+\item The key {\tt "x"} is to stop the NXT motors.
+\item The key {\tt "r"} is to exit the manual RTC program.
+\item The key {\tt "f"} is to set the NXT motor speed.
 \end{itemize}
-The NXT machine RTC program is described in Program~\ref{prog_machine_rtc.ch}. In the rest of this section, 
-we are going to explain important parts of the manual rtc program in detail.
+The NXT machine RTC program is described in Program~\ref{prog_machine_rtc.ch}. 
+In the rest of this section, we are going to explain important parts of the 
+manual rtc program in detail.
 
 \subsubsection*{Source Code}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin of machine_rtc.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Begin of machine_rtc.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \lstinputlisting
 [caption={{\tt machine\_rtc.ch} Source Code},label=prog_machine_rtc.ch]
 {demos/machine/machine_rtc.ch}
@@ -1975,22 +2142,21 @@ we are going to explain important parts of the manual rtc program in detail.
 The initialization and the termination of the NXT machine RTC program is very 
 similar to the NXT vehicle RTC program. The biggest difference between the two 
 programs is in the {\bf while} loop of the program. In this section, we will 
-focus on how the {\tt while()} loop of the NXT machine RTC program work 
+focus on how the {\bf while()} loop of the NXT machine RTC program work 
 internally.
 
 \subsubsection*{While loop}
 Similar to the {\bf while} loop of the NXT vehicle RTC program, the {\bf while} 
 loop of the NXT machine RTC program scans for the variable quit to see if it is 
-set to 1. If the 'r' key has been pressed, the variable quit will be set to 1 
-and the {\bf while} loop will terminate and the machine RTC program will be 
-terminated. In the {\bf while} loop, the user will be required to enter different 
-types of command. Some commands are directional command, where the user needs to 
-enter a number after the command. Some commands are discrete command, where the 
-user does not need to enter another number. Instead of simply scanning for a key, 
-the {\bf while} loop has an additional if statement that scans for which key was 
-pressed. If the key is a directional key, the program ask for the user to input an 
-angle using the {\tt scanf()} command. The fragment of the {\bf while} loop is 
-shown below:
+set to 1. If the `r' key has been pressed, the variable quit will be set to 1 
+and the {\bf while} loop and the machine RTC program will be terminated. In the 
+{\bf while} loop, the user will be required to enter different types of command. 
+Some commands are directional command, where the user needs to enter a number 
+after the command. Some commands are discrete command, where the user does not 
+need to enter another number. Instead of simply scanning for a key, the {\bf while} 
+loop has an additional if statement that scans for which key was pressed. If the 
+key is a directional key, the program ask for the user to input an angle using 
+the {\tt scanf()} command. The fragment of the {\bf while} loop is shown below:
 \begin{lstlisting}
 while (quit != 1 ) {
     printf("\nEnter command: ");
@@ -2010,63 +2176,59 @@ while (quit != 1 ) {
 }
 \end{lstlisting}
 Depending on what key was pressed, the program will run a fragment of code that 
-sends commands to the NXT using the {\bf if-else if-else} command.
+sends commands to the NXT using the {\bf if-else} command.
 
 \subsubsection*{Directional commands}
-The directional movements are controlled using the 'w', 's', 'a', and 'd' keys.
+The directional movements are controlled using the `w', `s', `a', and `d' keys.
 In Figure \ref{fig_mach_UI}, the user interface used arrows to indicate the 
 movement direction and associate each direction with a specific key.\\
-
-%%% case 'a' %%%
-When the key 'a' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 'a'. The program fragment for case 'a' is shown below:
+%%% case `a' %%%
+When the key `a' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `a'. The program fragment for case `a' is shown below:
 \begin{lstlisting}
 if(key == 'a'){
-    nxt.moveJoint(NXT_JOINT3, angle / gearratio);
+    nxt.moveJoint(NXT_JOINTC, angle / gearratio);
 }
 \end{lstlisting}
-In case 'a', the program will run the joint {\tt NXT\_JOINT3} at velocity 
-{\tt speedRatio}, and to an \verb+angle+ divided by the gear ratio that the user 
-has entered. Basically, for case 'a' the program will rotate the NXT machine arm 
+In case `a', the program will run the joint {\tt NXT\_JOINTC} at velocity 
+{\tt speedRatio}, and to an {\tt angle} divided by the gear ratio that the user 
+has entered. Basically, for case `a' the program will rotate the NXT machine arm 
 left to an adjusted angle that the user has entered.\\
-
-%%% case 'd' %%%
-When the key 'd' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 'd'. The program fragment for case 'd' is shown below:
+%%% case `d' %%%
+When the key `d' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `d'. The program fragment for case `d' is shown below:
 \begin{lstlisting}
 else if(key == 'd'){
-    nxt.moveJoint(NXT_JOINT3, -angle / gearratio);
+    nxt.moveJoint(NXT_JOINTC, -angle / gearratio);
 }
 \end{lstlisting}
-In case 'd', the program will run the joint {\tt NXT\_JOINT3} at velocity 
-{\tt -speedRatio}, and to an \verb+angle+ divided by the gear ratio that the user 
-has entered. Basically, for case 'd' the program will rotate the NXT machine arm 
+In case `d', the program will run the joint {\tt NXT\_JOINTC} at velocity 
+{\tt -speedRatio}, and to an {\tt angle} divided by the gear ratio that the user 
+has entered. Basically, for case `d' the program will rotate the NXT machine arm 
 right to an adjusted angle that the user has entered.\\
-
-%%% case 'w' %%%
-When the key 'w' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 'w'. The program fragment for case 'w' is shown below:
+%%% case `w' %%%
+When the key `w' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `w'. The program fragment for case `w' is shown below:
 \begin{lstlisting}
 else if(key == 'w'){
-    nxt.moveJoint(NXT_JOINT2, angle);
+    nxt.moveJoint(NXT_JOINTB, angle);
 }
 \end{lstlisting}
-In case 'w', the program will run the joint {\tt NXT\_JOINT2} at velocity 
+In case `w', the program will run the joint {\tt NXT\_JOINTB} at velocity 
 {\tt speedRatio}, and to a prescribed {\tt angle} that the user has entered. 
-Basically, for case 'w' the program will move the NXT machine arm upward to a 
+Basically, for case `w' the program will move the NXT machine arm upward to a 
 prescribed angle that the user entered to an angle at a set speed ratio.\\
-
-%%% case 's' %%%
-When the key 's' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 's'. The program fragment for case 's' is shown below:
+%%% case `s' %%%
+When the key `s' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `s'. The program fragment for case `s' is shown below:
 \begin{lstlisting}
 else if(key == 's'){
-    nxt.moveJoint(NXT_JOINT2, -angle);
+    nxt.moveJoint(NXT_JOINTB, -angle);
 }
 \end{lstlisting}
-In case 's', the program will run the joint {\tt NXT\_JOINT2} at velocity 
-{\tt -speedRatio}, and to a prescribed \verb+angle+ that the user has entered. 
-Basically, for case 'w' the program will move the NXT machine arm downward to 
+In case `s', the program will run the joint {\tt NXT\_JOINTB} at velocity 
+{\tt -speedRatio}, and to a prescribed {\tt angle} that the user has entered. 
+Basically, for case `s' the program will move the NXT machine arm downward to 
 a prescribed angle that the user entered to an angle at a set speed ratio.\\
 
 \subsubsection*{Discrete commands}
@@ -2074,65 +2236,62 @@ The discrete commands are commands that performs a specific task that can either
 be on or off. For example, open or close the claw, turn on or off the motors, or 
 quit the program. For this program, the discrete commands does not require another 
 parameter, so the user does not need to input another number for using these 
-commands. These commands are accessed by entering the 'q', 'e', 'x', 'r' keys.\\
-
-%%% case 'q' %%%
-When the key 'q' has been pressed, the \verb+if-else if-else+ statement will run 
-the codes for the case 'q'. The program fragment for case 'q' is shown below:
+commands. These commands are accessed by entering the `q', `e', `x', `r' keys.\\
+%%% case `q' %%%
+When the key `q' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `q'. The program fragment for case `q' is shown below:
 \begin{lstlisting}
 else if(key == 'q'){
-    nxt.moveJointContinuousNB(NXT_JOINT1, NXT_BACKWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
     delay(1);
-    nxt.stopOneJoint(NXT_JOINT1);
+    nxt.stopOneJoint(NXT_JOINTA);
 }
 \end{lstlisting}
-In case 'q', the program will run the joint {\tt NXT\_JOINT1} at velocity 
-{\tt speedRatio} for 1 seconds. Next, the program will hold the position of the 
-joint at that spot, thus keeping the machine claw open. Basically, for case 'q' 
-the program will open the machine claw.\\
+In case `q', the program will open the machine claw. First, the program will run 
+the joint {\tt NXT\_JOINTA} at velocity {\tt speedRatio} for 1 seconds. Next, 
+the program will hold the position of the joint at that spot, thus keeping the 
+machine claw open. \\
+%%% case `e' %%%
+In case `e', the program will close the machine claw. The program will run the 
+joint {\tt NXT\_JOINTA} at velocity {\tt speedRatio} for 1 seconds. Next, the 
+program will hold the position of the motor at that spot, thus keeping the 
+machine claw close.\\
 
-%%% case 'e' %%%
-When the key 'e' has been pressed, the {\tt if-else if-else} statement will run 
-the codes for the case 'e'. The program fragment for case 'e' is shown below:
+When the key `e' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `e'. The program fragment for case `e' is shown below:
 \begin{lstlisting}
 else if(key == 'e'){
-    nxt.moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
     delay(1);
-    nxt.stopOneJoint(NXT_JOINT1);
+    nxt.stopOneJoint(NXT_JOINTA);
 }
 \end{lstlisting}
-In case 'e', the program will run the joint {\tt NXT\_JOINT1} at velocity 
-{\tt speedRatio} for 1 seconds. Next, the program will hold the position of the 
-motor at that spot, thus keeping the machine claw close. Basically, for case 'e' 
-the program will close the machine claw.\\
-
-%%% case 'x' %%%
-When the key 'x' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 'x'. The program fragment for case 'x' is shown below:
+%%% case `x' %%%
+In case `x', the program will stop all the motors, and turn the mode to off. 
+When the key `x' has been pressed, the {\bf if-else} statement will run the 
+codes for the case `x'. The program fragment for case `x' is shown below:
 \begin{lstlisting}
 else if(key == 'x'){
     nxt.stopAllJoints();
 }
 \end{lstlisting}
-In case 'x', the program will stop all the motors, and turn the mode to off.\\
-
-%%% case 'r' %%%
-When the key 'r' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 'r'. The program fragment for case 'r' is shown below:
+%%% case `r' %%%
+In case `r', the program will print the string ``Quit.'' and set the variable 
+{\tt quit} to 1. By setting the variable {\tt quit} to 1, the {\bf while} loop 
+will be terminated, thus quitting the program. When the key `r' has been pressed, 
+the {\bf if-else} statement will run the codes for the case `r'. The program 
+fragment for case `r' is shown below:
 \begin{lstlisting}
 else if(key == 'r'){
     printf("\nQuit.");
     quit = 1;
 }
 \end{lstlisting}
-In case 'x', the program will print the string "Quit." and set the variable 
-{\tt quit} to 1. By setting the variable {\tt quit} to 1, the {\bf while} loop 
-will be terminated, thus quitting the program.
 
 \subsubsection*{Speed ratio setup}
 To set the speed ratio of the movement of the arm, the user can enter the key 
-'f' and enter the speed ratio. The speed ratio of joints are in the range of 0 
-to 1. The program fragment of case 'f' is shown below:
+`f' and enter the speed ratio. The speed ratio of joints are in the range of 0 
+to 1. The program fragment of case `f' is shown below:
 \begin{lstlisting}
 else if(key == 'f'){
     printf("   Enter the speed ratio (0 to 1):");
@@ -2152,7 +2311,7 @@ task is described below:
 delay(0.2);
 nxt.getSensor(NXT_SENSORPORT1, touchValue);
 if (touchValue == 1){
-    printf("    The Ball was grabbed ");
+    printf("    The Ball was grabbed");
     nxt.getSensor(NXT_SENSORPORT3, colorValue);
     if (colorValue < 50){
         printf("and the color is red\n");
@@ -2170,20 +2329,20 @@ its claw. If the sensor value for the touch sensor is 1, the touch sensor is
 triggered and the NXT detected that the claw has grabbed an object. \\
 
 When the touch sensor is trigged, the program will continue in the {\bf if} statement, 
-and the program will prints out that "The Ball was grabbed" in the screen and it get 
+and the program will prints out that ``The Ball was grabbed'' in the screen and it get 
 the sensor value stored in {\tt NXT\_SENSORPORT3}, which is the light sensor. Next, the 
 program will determine the color of the ball using the light sensor value. If the light 
 sensor value is less than 50, the NXT will detect that the ball that was grabbed is 
-red and program will print out "and the color is red". If the light sensor value is 
+red and program will print out ``and the color is red''. If the light sensor value is 
 greater than 50, the NXT will detect that the ball that was grabbed is blue and program 
-will print out "and the color is blue". \\
+will print out ``and the color is blue''. \\
 
 \subsubsection{Autonomous Control Program}
 In this section, the autonomous control program for the NXT machine will be introduced.
 This autonomous program uses the NXT machine arm to scan it's surrounding. It performs 
-this task by rotating its arm by an angle step and collect distance data with an 
+this task by rotating its arm by an angle step and collecting distance data with an 
 ultrasonic sensor as it is rotating. At the end of the program, the collected data will be 
-stored in a data file called 'output.csv', and a polar diagram of the data will be display 
+stored in a data file called `output.csv', and a polar diagram of the data will be display 
 for the user. The NXT machine automatic control program is presented in Program~
 \ref{prog_machine_auto.ch}. In the rest of this section, we are going to explain important 
 parts of the automatic control program in detail.
@@ -2224,10 +2383,10 @@ in degrees of angle.\\
 Another feature this program has is the usage information printout described in 
 the program fragment below.
 \begin{lstlisting}
-printf("\n%d Data points will be collected with a"
-        "step size of %d.",numpoints,anglestep);
+printf("\n%d Data points will be collected with a",
+        "step size of %d.", numpoints, anglestep);
 
-printf("\nPlease ensure that the arm can rotate"
+printf("\nPlease ensure that the arm can rotat",
         "%d degrees from its current position.",(numpoints*anglestep));
 
 printf("\nPress any key to continue. Press q at any time to quit.");
@@ -2238,18 +2397,18 @@ if(getch()=='q'){
     exit(-1);
 }
 \end{lstlisting}
-In this program fragment, the program will print out how many data point will be 
-collected with the angle step size. Next, it will calculate and print out the full 
-rotation angle of the robot arm and ask the user to ensure that the arm can rotate 
-that amount of angle. Lastly, the program asks the user to continue or quit the 
-program.
+In this program fragment, the program will print out how many data point will 
+be collected with the angle step size. Next, it will calculate and print out 
+the full rotation angle of the robot arm and ask the user to ensure that the 
+arm can rotate that amount. Lastly, the program asks the user to 
+continue or quit the program.
 
 \subsubsection*{For loop}
 The {\bf for} loop is the main part of the autonomous program for the NXT machine.
 The {\bf for} loop uses a series of if-else statements to perform data collection 
 and arm movement. There are three sections for this {\bf for} loop. The first 
 section is to collect, store, and print ultrasonic data and angle rotation data. 
-The second section scans for user input to see if the user has pressed 'q' to quit 
+The second section scans for user input to see if the user has pressed `q' to quit 
 the program. The last section is to rotate the arm by an angle step. The program 
 fragment below is the {\bf for} loop for the autonomous program for the NXT machine.
 \begin{lstlisting}
@@ -2274,29 +2433,25 @@ for(i=0;i<numpoints;i++){
 
     /* rotate arm by anglestep (rotate motor 
        anglestep/gear ratio)*/
-    nxt.moveJoint(NXT_JOINT3, anglestep/gearratio);
+    nxt.moveJoint(NXT_JOINTC, anglestep/gearratio);
     delay(1);
 }
 \end{lstlisting}
-The first section of the {\bf for} loop begins at the line after the first 
-comment and ends at the line before the second comment. The first section begins 
-by getting the ultrasonic sensor data and store it in an array. If the program 
-is able to retrieve the data, the program will also get the data from the tachometer 
-and convert it to angle. The calculated angle will be stored in another array. Next, 
-the program will print the sample number, distance detected by ultrasonic sensor, 
-and angle rotated by the motor. If the program is unable to retrieve the data, 
-the program will print error.\\ 
+The first section begins by getting the ultrasonic sensor data and storing it in 
+an array. If the program is able to retrieve the data, the program will also 
+get the data from the tachometer and convert it to angle. The calculated angle 
+will be stored in another array. Next, the program will print the sample number, 
+distance detected by ultrasonic sensor, and angle rotated by the motor. If the 
+program is unable to retrieve the data, the program will print an error message.\\ 
 
-The second section of the {\bf for} loop begins at the line after the second comment 
-and ends at the line before the third comment. In this section, the program checks 
-if a key has been hit by the user, if no key has been hit, this section is skipped. 
-If a key has been hit and it happened to be the 'q' key, the program will print 
-'Quitting program' and the program will be aborted.\\
+In the next section, the program checks if a key has been hit by the user, if 
+no key has been hit, this section is skipped. If a key has been hit and it 
+happened to be the `q' key, the program will print `Quitting program' and the 
+program will be aborted.\\
 
-The third section of the {\bf for} loop begins at the line after the third comment 
-and ends at the end of the {\bf for} loop. In this section, the program controls 
-the motor to rotate at a given angle using the {\tt moveJoint()} command. Lastly, 
-the program pauses for 1 second by using the {\tt delay()} command.
+In the third section, the program controls the motor to rotate at a given angle 
+using the {\tt moveJoint()} command. Lastly, the program pauses for 1 second by 
+using the {\tt delay()} command.
 
 \subsubsection*{Plotting data}
 In addition to creating and storing a data file, the program also plots a polar 
@@ -2339,50 +2494,50 @@ a plot as the following.
     \caption{NXT Humanoid \label{fig_NXT_humanoid}}
   \end{center}
 \end{figure}
-
-The third form of the NXT mindstorm is a humanoid robot as shown in Figure \ref{fig_NXT_humanoid}
-The NXT humanoid uses two of its motors to perform the walking motion. Also, the NXT humanoid uses 
-its last motor to control the rotation of its head. The NXT humanoid is equipped with four sensors, 
-a sound sensor on its right hand, a touch sensor on its left hand, a light sensor in the back, and 
-an ultrasonic sensor on its head. In the next section, the real time control program for the NXT 
-humanoid will be discussed. Please configure your NXT sensors and motors according to Figure 
-\ref{fig_NXT_human_port}
-
+The third form of the NXT mindstorm is a humanoid robot as shown in 
+Figure~\ref{fig_NXT_humanoid}. The NXT humanoid uses two of its motors to 
+perform the walking motion. Also, the NXT humanoid uses its last motor to 
+control the rotation of its head. The NXT humanoid is equipped with four 
+sensors, a sound sensor on its right hand, a touch sensor on its left hand, a 
+light sensor in the back, and an ultrasonic sensor on its head. In the next 
+section, the real time control program for the NXT humanoid will be discussed. 
+Please configure your NXT sensors and motors according to Figure~\ref{fig_NXT_human_port}.
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[height=2.5in]{figure/mindstorm/NXT_human_port.png}
-    \caption{Sensor/Motor configuration of the NXT Humanoid\label{fig_NXT_human_port}}
+    \caption{Sensor/Motor configuration of the NXT Humanoid
+    \label{fig_NXT_human_port}}
   \end{center}
 \end{figure}
 
 \newpage
 \subsubsection{Manual Real Time Control Program}
-The real time control program of the NXT humanoid is similar to the real time control program of the NXT vehicle.
-The RTC program of the NXT humanoid allows the user to control the robot's leg movement and head rotation using the
-keyboard. In addition, the RTC program allow the user to print out data that has been collected by the NXT sensor.
-Figure \ref{fig_human_UI} shows the user interface of the NXT humanoid.
-
+The real time control program of the NXT humanoid is similar to the real time 
+control program of the NXT vehicle. The RTC program of the NXT humanoid allows 
+the user to control the robot's leg movement and head rotation using the 
+keyboard. In addition, the RTC program allow the user to print out data that 
+has been collected by the NXT sensor. Figure~\ref{fig_human_UI} shows the user 
+interface of the NXT humanoid.
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[height=3in]{figure/mindstorm/human_UI.png}
     \caption{NXT Humanoid RTC User Interface \label{fig_human_UI}}
   \end{center}
 \end{figure}
-
 The list below is the list of commands:
 \begin{itemize}
-\item The key \verb+"w"+ is to control the NXT humanoid to walk forward.
-\item The key \verb+"s"+ is to control the NXT humanoid to stop.
-\item The key \verb+"a"+ is to control the NXT humanoid head to turn left.
-\item The key \verb+"d"+ is to control the NXT humanoid head to turn right.
-\item The key \verb+"q"+ is to print out sensor data.
-\item The key \verb+"x"+ is to stop all of the NXT motors.
-\item The key \verb+"r"+ is to exit the RTC program.
-\item The number key is to set the NXT motor speed.
+    \item The key {\tt "w"}is to control the NXT humanoid to walk forward.
+\item The key {\tt "s"} is to control the NXT humanoid to stop.
+\item The key {\tt "a"} is to control the NXT humanoid head to turn left.
+\item The key {\tt "d"} is to control the NXT humanoid head to turn right.
+\item The key {\tt "q"} is to print out sensor data.
+\item The key {\tt "x"} is to stop all of the NXT motors.
+\item The key {\tt "r"} is to exit the RTC program.
+\item The number keys are used to set the NXT motor speed.
 \end{itemize}
-
-The NXT humanoid real time control program is described in Program~\ref{prog_humanoid_rtc.ch}. 
-In the rest of this section, we are going to explain important parts of the manual RTC program in detail.
+The NXT humanoid real time control program is described in 
+Program~\ref{prog_humanoid_rtc.ch}. In the rest of this section, we are going 
+to explain important parts of the manual RTC program in detail.
 
 \subsubsection*{Source Code}
 %%%%% Program~\ref{prog_humanoid_rtc.ch} %%%%%
@@ -2393,102 +2548,100 @@ In the rest of this section, we are going to explain important parts of the manu
 %%%%% END OF FIGURE %%%%%
 
 \subsubsection*{How does it work?}
-The the main difference between the RTC program for the NXT humanoid and the NXT vehicle is the content 
-in the switch cases. Other than the switch cases, the {\bf while} loop of the RTC program is the same as the 
-previous RTC program. When the key 'r' has been pressed, the \verb+if-else if-else+ statement will run the codes 
-for the case 'r'. In the case 'r', the variable quit will be to 1, which will allow the program to exit 
-the {\bf while} loop, thus quitting the program.\\
-\newline
+The the main difference between the RTC program for the NXT humanoid and the 
+NXT vehicle is the content in the switch cases. Other than the switch cases, 
+the {\bf while} loop of the RTC program is the same as the previous RTC 
+program. When the key `r' has been pressed, the {\bf if-else} 
+statement will run the codes for the case `r'. In the case `r', the variable 
+quit will be to 1, which will allow the program to exit the {\bf while} loop, 
+thus quitting the program.\\
+%%% case `w' %%%
+In case `w', the program will run joints {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} 
+at velocity {\tt speedRatio}. For case `w', the program will control the NXT 
+humanoid to walk forward at a specified speed ratio.\\
 
-%%% case 'w' %%%
-When the key 'w' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'w'.
-The program fragment for case 'w' is shown below:
+When the key `w' has been pressed, the {\bf if-else} statement will 
+run the codes for the case `w'. The program fragment for case `w' is shown 
+below:
 \begin{lstlisting}
 if(key == 'w')//up
-    nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
+    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
     movemode='w';
     break;
 \end{lstlisting}
-In case 'w', the program will run joints \verb+NXT_JOINT2+ and \verb+NXT_JOINT3+ at velocity \verb+speedRatio+. 
-Basically, for case 'w' the program will control the NXT humanoid to walk forward at a speed ratio.\\
-\newline
+%%% case `s' %%%
+In case `s', the program will stop joints {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} 
+and turn them to off. For case `s', the program will stop the NXT humanoid from 
+walking forward.\\
 
-%%% case 's' %%%
-When the key 's' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 's'.
-The program fragment for case 's' is shown below:
+When the key `s' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `s'. The program fragment for case `s' is shown below:
 \begin{lstlisting}
 else if(key == 's'){//down
-    nxt.stopOneJoint(NXT_JOINT2);
-    nxt.stopOneJoint(NXT_JOINT3);
+    nxt.stopOneJoint(NXT_JOINTB);
+    nxt.stopOneJoint(NXT_JOINTC);
     movemode='s';
 }
 \end{lstlisting}
-In case 's', the program will stop joints \verb+NXT_JOINT2+ and \verb+NXT_JOINT3+ and turn them to off.
-Basically, for case 's' the program will stop the NXT humanoid from walking forward.\\
-\newline
+%%% case `a' %%%
+In case `a', the program will run joints {\tt NXT\_JOINTA} at a speed ratio of 
+0.3. For case `a', the program will rotate the NXT humanoid head left.\\
 
-%%% case 'a' %%%
-When the key 'a' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'a'.
-The program fragment for case 'a' is shown below:
+When the key `a' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `a'. The program fragment for case `a' is shown below:
 \begin{lstlisting}
 else if(key == 'a'){//left
-    nxt.setJointSpeedRatio(NXT_JOINT1, 0.3);
-    nxt.moveJointContinuousNB(NXT_JOINT1, NXT_BACKWARD);
+    nxt.setJointSpeedRatio(NXT_JOINTA, 0.3);
+    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
 }
 \end{lstlisting}
-In case 'a', the program will run joints \verb+NXT_JOINT1+ at a speed ratio of 0.3.
-Basically, for case 'a' the program will rotate the NXT humanoid head left.\\
-\newline
+%%% case `d' %%%
+In case `d', the program will run the joint {\tt NXT\_JOINTA} at a speed ratio 
+of 0.3. For case `d', the program will rotate the NXT humanoid head right.\\
 
-%%% case 'd' %%%
-When the key 'd' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'd'.
-The program fragment for case 'd' is shown below:
+When the key `d' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `d'. The program fragment for case `d' is shown below:
 \begin{lstlisting}
 else if(key == 'd'){//right
-    nxt.setJointSpeedRatio(NXT_JOINT1, 0.3);
-    nxt.moveJointContinuousNB(NXT_JOINT1, NXT_FORWARD);
+    nxt.setJointSpeedRatio(NXT_JOINTA, 0.3);
+    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
 }
 \end{lstlisting}
+%%% case `q' %%%
+In case `q', the program will run the function {\tt printSensor()}, which will 
+get sensor data from each data and print these data out for the user. The details 
+of the {\tt printSensor()} function will be discussed later in this section.\\
 
-In case 'd', the program will run the joint \verb+NXT_JOINT1+ at a speed ratio of 0.3.
-Basically, for case 'd' the program will rotate the NXT humanoid head right.\\
-\newline
-
-%%% case 'q' %%%
-When the key 'q' has been pressed, the \verb+if-else if-else+ statement will run the codes for the case 'q'.
-The program fragment for case 'q' is shown below:
+When the key `q' has been pressed, the {\bf if-else} statement will run 
+the codes for the case `q'. The program fragment for case `q' is shown below:
 \begin{lstlisting}
 else if(key == 'q'){//print sensor
     printSensor();
 }
 \end{lstlisting}
-In case 'q', the program will run the function {\tt printSensor()}, which will 
-get sensor data from each data and print these data out for the user. The details 
-of the {\tt printSensor()} function will be discussed later in this section.\\
-
-%%% case 'x' %%%
-When the key 'x' has been pressed, the {\bf if-else if-else} statement will run 
-the codes for the case 'x'. The program fragment for case 'x' is shown below:
+%%% case `x' %%%
+In case `x', the program will stop all the motors connected to the NXT and set 
+them to off idle mode. When the key `x' has been pressed, the {\bf if-else} 
+statement will run the codes for the case `x'. The program fragment for case `x' 
+is shown below:
 \begin{lstlisting}
 else if(key == 'x'){//stop
-    nxt.stopOneJoint(NXT_JOINT2);
-    nxt.stopOneJoint(NXT_JOINT3);
-    movemode='x';
+    nxt.stopOneJoint(NXT_JOINTB);
+    nxt.stopOneJoint(NXT_JOINTC);
+    movemode = 'x';
 }
 \end{lstlisting}
-In case 'x', the program will stop all the motors connected to the NXT and set 
-them to off idle mode.
 
 \subsubsection*{Printing sensor data}
 The function definition for the function {\tt printSensor} is shown in the program 
 fragment below:
 \begin{lstlisting}
 int printSensor(ChNXT *nxt){
-    int touchValue=0;
-    int ultraValue=0;
-    int soundValue=0;
-    int lightValue=0;
+    int touchValue = 0;
+    int ultraValue = 0;
+    int soundValue = 0;
+    int lightValue = 0;
 
     nxt->getSensor(NXT_SENSORPORT1, touchValue);
     nxt->getSensor(NXT_SENSORPORT2, ultraValue);
@@ -2527,7 +2680,7 @@ In the beginning of this function, the program get sensor data from each sensor
 and store them in its corresponding variable. Next, {\bf if else} statements 
 are used to print the correct statement if the sensor is triggered or not. For 
 example, if the touch sensor is triggered, the sensor data retrieved is equal to
-1, then the program will print 'The touch sensor has been activated'. Next, 
+1, then the program will print `The touch sensor has been activated'. Next, 
 the program will print out the distance collected by the ultrasonic sensor, then 
 the light sensor and lastly the sound sensor. Finally, the function prints the 
 user interface again for the user to read.

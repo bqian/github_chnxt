@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::vehicleMotionWait();
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -28,8 +27,8 @@ This function is used to wait for a motion function to fully complete its cycle.
 
 
 \noindent
-{\bf Example}\\
-\begin{verbatim}
+{\bf Example}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -41,7 +40,7 @@ nxt.vehicleRotateRightNB(360);
 
 /* wait until non-blocking motion stops */
 nxt.vehicleMotionWait();
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

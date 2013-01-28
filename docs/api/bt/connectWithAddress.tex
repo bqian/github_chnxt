@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::connectWithAddress(char usr_addr[18]);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -38,7 +37,7 @@ This function is used to connect to a Mindstorms NXT via Bluetooth. The Bluetoot
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -46,7 +45,7 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     printf("Connection to NXT has failed.");
     exit(0);
 }
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

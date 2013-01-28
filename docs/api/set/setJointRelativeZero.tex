@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
 int ChNXT::setJointRelativeZero(robotJointId_t id);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -38,7 +37,7 @@ This function is used to reset the relative tachometer count for a joint on the 
 
 \noindent
 {\bf Example}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h> 
 
 ChNXT nxt;
@@ -49,7 +48,7 @@ if (!nxt.connectWithAddress("00:16:53:12:e7:80")){
 }
     
 nxt.setJointRelativeZero(ROBOT_JOINT1);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf Output}\\

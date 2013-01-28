@@ -8,11 +8,10 @@
 
 \noindent
 {\bf Synopsis}
-\vspace{-8pt}
-\begin{verbatim}
+\begin{lstlisting}
 #include <nxt.h>
-int ChNXT::getSensor(nxtSensorId_id, double &value);
-\end{verbatim}
+int ChNXT::getSensor(nxtSensorId_t id, double &value);
+\end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
@@ -28,12 +27,10 @@ The function returns 0 on success and non-zero otherwise.\\
 \begin{description}
 \item               
 \begin{tabular}{p{15 mm}p{145 mm}}
-\texttt{id} & The sensor port. This is an enumerated type 
-discussed in Section~\ref{sec:nxtSensorIdPort_t} on page
-\pageref{sec:nxtSensorIdPort_t}.\\
-\texttt{value} & A variable to store the current value of the NXT 
-sensor. The contents of this variable will be overwritten with the 
-sensor's value.  \\
+    {\tt id} & The sensor port. This is an enumerated type discussed in 
+    Section~\ref{sec:nxtSensorPort_t} on Page~\pageref{sec:nxtSensorPort_t}.\\
+    {\tt value} & A variable to store the current value of the NXT sensor. The 
+    contents of this variable will be overwritten with the sensor's value.  \\
 \end{tabular}
 \end{description}
 
@@ -42,8 +39,8 @@ sensor's value.  \\
 This function gets the current sensor's value of a NXT.\\
 
 \noindent
-{\bf Example}\\
-\begin{verbatim}
+{\bf Example}
+\begin{lstlisting}
 #include <nxt.h>
 
 ChNXT nxt;
@@ -57,7 +54,7 @@ nxt.setSensor(NXT_SENSORPORT4, NXT_SENSORTYPE_ULTRASONIC,
 nxt.getSensor(NXT_SENSORPORT4, value);
 
 printf("The value of sensor 4 is: %d\n", value);
-\end{verbatim}
+\end{lstlisting}
 
 \noindent
 {\bf See Also}\\

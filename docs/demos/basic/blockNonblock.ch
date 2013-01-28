@@ -9,12 +9,12 @@ ChNXT nxt;
 nxt.connect();
 
 /* Non-blocking Function */
-nxt.moveJointNB(NXT_JOINT1, 360);
+nxt.moveJointNB(NXT_JOINTA, 360);
 printf("This message will be printed on \
         the screen when joint1 is moving.\n");
 nxt.moveWait();
 
 /* Blocking Function */
-nxt.moveJoint(NXT_JOING1, 360);
+nxt.moveJoint(NXT_JOINTA, 360);
 printf("This message will be printed on \
         the screen after joint1 stopped moving.\n");
