@@ -82,28 +82,28 @@ while (quit != 1){
     }
 
     if(dir == 'a'){             //Arm rotate left.
-        nxt.moveJoint(NXT_JOINTC, angle / gearratio);
+        nxt.moveMotor(NXT_MOTORC, angle / gearratio);
     }else if(dir == 'd'){       //Arm rotate right.
-        nxt.moveJoint(NXT_JOINTC, -angle / gearratio);
+        nxt.moveMotor(NXT_MOTORC, -angle / gearratio);
     }else if(dir == 'w'){
-        nxt.moveJoint(NXT_JOINTB, angle / gearratio);
+        nxt.moveMotor(NXT_MOTORB, angle / gearratio);
     }else if(dir == 's'){       //lowdder arm down
-        nxt.moveJoint(NXT_JOINTB, -angle / gearratio);
+        nxt.moveMotor(NXT_MOTORB, -angle / gearratio);
     }else if(dir == 'q'){       //claw open
-        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_BACKWARD);
         delay(1);
-        nxt.stopOneJoint(NXT_JOINTA);
+        nxt.stopOneMotor(NXT_MOTORA);
     }else if(dir == 'e'){       //claw close
-        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_FORWARD);
         delay(1);
-        nxt.stopOneJoint(NXT_JOINTA);
+        nxt.stopOneMotor(NXT_MOTORA);
     }else if(dir == 'x'){       //stop
-        nxt.stopAllJoints();
+        nxt.stopAllMotors();
     }else if(dir == 'r'){       //quit
         printf("\nQuit.");
             quit = 1;
     }else if(dir == 'f'){
-        nxt.setJointSpeeds(speedRatio, speedRatio, speedRatio);
+        nxt.setMotorSpeeds(speedRatio, speedRatio, speedRatio);
         printf("\nSpeed ratio set to %d.", speedRatio);
     }else
         printf("\n");

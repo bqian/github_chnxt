@@ -1130,6 +1130,44 @@ int ChNXT::motionTurnRight(void){
     return 0;
 }
 
+int ChNXT::moveForward(void){
+    moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
+    return 0;
+}
+
+int ChNXT::moveBackward(void){
+    moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+    moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
+    return 0;
+}
+
+int ChNXT::rotateLeft(void){
+    moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
+    return 0;
+}
+
+int ChNXT::rotateRight(void){
+    moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+    moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
+    return 0;
+}
+
+int ChNXT::turnLeft(void){
+    motorSpeed[NXT_MOTORC] = 0.7*motorSpeed[NXT_MOTORB];
+    moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
+    return 0;
+}
+
+int ChNXT::turnRight(void){
+    motorSpeed[NXT_MOTORB] = 0.7*motorSpeed[NXT_MOTORC];
+    moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
+    return 0;
+}
+
 int ChNXT::stopMotion(void){
     stopOneMotor(NXT_MOTORB);
     stopOneMotor(NXT_MOTORC);

@@ -18,7 +18,7 @@ int ChNXT::moveNB(double degreesA, double degreesB, double degreesC);
 
 \noindent
 {\bf Purpose}\\
-Move all joints of Lego Mindstorms NXT by specified degrees.\\
+Move all motors of Lego Mindstorms NXT by specified degrees.\\
 
 \noindent
 {\bf Return Value}\\
@@ -30,9 +30,9 @@ The function returns 0 on success and non-zero otherwise.\\
 \begin{description}
 \item               
 \begin{tabular}{p{15 mm}p{125 mm}}
-\texttt{angle1} & The amount to move joint A relative to the current position. \\
-\texttt{angle2} & The amount to move joint B relative to the current position. \\
-\texttt{angle3} & The amount to move joint C relative to the current position. \\
+\texttt{angle1} & The amount to move motor A relative to the current position. \\
+\texttt{angle2} & The amount to move motor B relative to the current position. \\
+\texttt{angle3} & The amount to move motor C relative to the current position. \\
 \end{tabular}
 \end{description}
 
@@ -41,12 +41,12 @@ The function returns 0 on success and non-zero otherwise.\\
 \vspace{-12pt}
 \begin{quote}
 {\bf ChNXT::move()}\\
-This function moves all of the joints of a Lego Mindstorms NXT by 
+This function moves all of the motors of a Lego Mindstorms NXT by 
 the specified number of degrees from their current positions. 
 
 \noindent
 {\bf ChNXT::moveNB()}\\
-This function moves all of the joints of a Lego Mindstorms NXT by 
+This function moves all of the motors of a Lego Mindstorms NXT by 
 the specified number of degrees from their current positions. 
 
 The function \texttt{moveNB()} is the non-blocking version of the 
@@ -69,8 +69,8 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     exit(0);
 }
  
-/* setup speed for all three joints */
-nxt.setJointSpeeds(60, 40, 40);
+/* setup speed for all three motors */
+nxt.setMotorSpeeds(60, 40, 40);
 
 /* move by the non-blocking function*/
 nxt.moveNB(360, 360, 360);

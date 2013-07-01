@@ -15,7 +15,7 @@ int ChNXT::moveWait();
 
 \noindent
 {\bf Purpose}\\
-Wait for all joints to stop moving.\\
+Wait for all motors to stop moving.\\
 
 \noindent
 {\bf Return Value}\\
@@ -23,9 +23,9 @@ The function returns 0 on success and non-zero otherwise.\\
 
 \noindent
 {\bf Description}\\
-This function is used to wait for all joint motions to finish. Functions such as
-\texttt{move()} and \texttt{moveTo()} do not wait for a joint to finish
-moving before continuing to allow multiple joints to move at the same time. The
+This function is used to wait for all motor motions to finish. Functions such as
+\texttt{move()} and \texttt{moveTo()} do not wait for a motor to finish
+moving before continuing to allow multiple motors to move at the same time. The
 \texttt{moveWait()} function is used to wait for robotic motions to complete.\\
 
 \noindent
@@ -44,8 +44,8 @@ if (!nxt.connectWithAddress("00:16:53:12:e7:80")){
     exit(-1);
 }
  
-/* setup speed for all three joints */
-nxt.setJointSpeeds(60, 40, 40);
+/* setup speed for all three motors */
+nxt.setMotorSpeeds(60, 40, 40);
 
 /* move by the non-blocking function*/
 nxt.moveNB(360, 360, 360);
@@ -58,6 +58,6 @@ nxt.moveWait();
 
 \noindent
 {\bf See Also}\\
-\texttt{moveJointWait()}
+\texttt{moveMotorWait()}
 
 %\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

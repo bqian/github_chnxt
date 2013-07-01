@@ -1,0 +1,60 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::stopAllMotors()} \index{ChNXT::stopAllMotors()}}\\
+
+\addcontentsline{toc}{subsection}{stopAllMotors()}
+
+\noindent
+{\bf Synopsis}
+\begin{lstlisting}
+#include <nxt.h>
+int ChNXT::stopAllMotors(void);
+\end{lstlisting}
+
+\noindent
+{\bf Purpose}\\
+Stop all motors moving.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+None.\\
+
+\noindent
+{\bf Description}\\
+This function is used to stop all motors on the Mindstorm NXT.\\
+
+\noindent
+{\bf Example}
+\begin{lstlisting}
+#include <nxt.h> 
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(-1);
+}
+    
+/* setup speed for all three motors */
+nxt.setMotorSpeeds(60, 40, 40);
+
+/* move all motors forward */
+nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
+delay(5);
+
+/* stop all motors */
+nxt.stopAllMotors();
+\end{lstlisting}
+
+\noindent
+{\bf See Also}\\
+\texttt{stopOneMotor(), stopTwoMotors()}\\
+%%%%% END OF ChNXT::stopAllMotors %%%%%

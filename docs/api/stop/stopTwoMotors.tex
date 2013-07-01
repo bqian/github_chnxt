@@ -1,0 +1,66 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::stopTwoMotors()} \index{ChNXT::stopTwoMotors()}}\\
+
+\addcontentsline{toc}{subsection}{stopTwoMotors()}
+
+\noindent
+{\bf Synopsis}
+\begin{lstlisting}
+#include <nxt.h>
+int ChNXT::stopTwoMotors(nxtMotorId_t id1, nxtMotorId_t id2);
+\end{lstlisting}
+
+\noindent
+{\bf Purpose}\\
+Stop two motors moving.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item
+\begin{tabular}{ p{20mm}p{135mm} }
+\texttt{id1}       &A motor of the Mindstorm NXT.\\
+\texttt{id2}      &Another motor of the Mindstorm NXT.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to stop two specific motors on the Mindstorm NXT.\\
+
+\noindent
+{\bf Example}
+\begin{lstlisting}
+#include <nxt.h> 
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(-1);
+}
+    
+/* setup speed for all three motors */
+nxt.setMotorSpeeds(60, 40, 40);
+
+/* move motor2 and motor3 forward */
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
+delay(5);
+
+/* stop motor2 and motor3 */
+nxt.stopTwoMotors(NXT_MOTORB, NXT_MOTORC);
+\end{lstlisting}
+
+\noindent
+{\bf See Also}\\
+\texttt{stopOneMotor(), stopAllMotors()}\\
+%%%%% END OF ChNXT::stopOneMotor( ) %%%%%

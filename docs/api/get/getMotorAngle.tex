@@ -1,0 +1,64 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getMotorAngle()}\index{ChNXT::getMotorAngle()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getMotorAngle()}
+
+\noindent
+{\bf Synopsis}
+\begin{lstlisting}
+#include <nxt.h>
+int ChNXT::getMotorAngle(nxtMotorId_t id, double &angle);
+\end{lstlisting}
+
+\noindent
+{\bf Purpose}\\
+Retrieve a robot motor's current angle.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{15 mm}p{145 mm}}
+\texttt{id} & The motor number. This is an enumerated type 
+discussed in Section \ref{sec:nxtMotorId_t} on page
+\pageref{sec:nxtMotorId_t}.\\
+\texttt{angle} & A variable to store the current angle of the robot
+motor. The contents of this variable will be overwritten with a value that
+represents the motor's angle in degrees.  \\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function gets the current motor angle of a NXT's motor. The
+angle returned is in units of degrees and is accurate to roughly $\pm1$
+degrees. The function \texttt{getMotorAngle()} always returns an angle 
+from 0 to $\infty$ degrees.\\
+
+\noindent
+{\bf Example}
+\begin{lstlisting}
+#include <nxt.h>
+
+ChNXT nxt;
+double angle;
+
+nxt.connect();
+
+nxt.getMotorAngle(NXT_MOTORA, angle);
+
+printf("The angle of motorA is: %lf\n", angle);
+\end{lstlisting}
+
+\noindent
+{\bf See Also}\\
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

@@ -1,5 +1,6 @@
 #include <nxt.h>
 #include <dlfcn.h>
+#include <stdarg.h>
 
 ChNXT::ChNXT() {
     void *fptr;
@@ -68,19 +69,6 @@ int ChNXT::connectWithAddress(char *usr_addr, int channel) {
     return retval;
 }
 
-int ChNXT::connectWithBluetoothAddress(char *usr_addr, int channel) {
-    void *fptr;
-    int retval;
-
-    fptr = dlsym(g_chnxt_dlhandle, "connectWithBluetoothAddress_chdl");
-    if(fptr == NULL) {
-        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
-        return -1;
-    }
-    dlrunfun(fptr, &retval, connectWithBluetoothAddress, this, usr_addr, channel);
-    return retval;
-}
-
 int ChNXT::disconnect() {
     void *fptr;
     int retval;
@@ -94,11 +82,11 @@ int ChNXT::disconnect() {
     return retval;
 }
 
-int ChNXT::getJointAngle(nxtJointId_t id, double &angle) {
+int ChNXT::getMotorAngle(nxtMotorId_t id, double &angle) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "getJointAngle_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "getMotorAngle_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
@@ -107,11 +95,37 @@ int ChNXT::getJointAngle(nxtJointId_t id, double &angle) {
     return retval;
 }
 
-int ChNXT::getJointSpeedRatio(nxtJointId_t id, double &ratio) {
+int ChNXT::getMotorSpeed(nxtMotorId_t id, int &speed) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "getJointSpeedRatio_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "getMotorSpeed_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, NULL, this, id, &speed);
+    return retval;
+}
+
+int ChNXT::getMotorSpeeds(int &speed1, int &speed2, int &speed3) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "getMotorSpeeds_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, NULL, this, &speed1, &speed2, &speed3);
+    return retval;
+}
+
+int ChNXT::getMotorSpeedRatio(nxtMotorId_t id, double &ratio) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "getMotorSpeedRatio_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
@@ -120,11 +134,11 @@ int ChNXT::getJointSpeedRatio(nxtJointId_t id, double &ratio) {
     return retval;
 }
 
-int ChNXT::getJointSpeedRatios(double &ratio1, double &ratio2, double &ratio3) {
+int ChNXT::getMotorSpeedRatios(double &ratio1, double &ratio2, double &ratio3) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "getJointSpeedRatios_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "getMotorSpeedRatios_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
@@ -133,11 +147,11 @@ int ChNXT::getJointSpeedRatios(double &ratio1, double &ratio2, double &ratio3) {
     return retval;
 }
 
-int ChNXT::getJointState(nxtJointId_t id, int &status) {
+int ChNXT::getMotorState(nxtMotorId_t id, int &status) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "getJointState_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "getMotorState_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
@@ -145,20 +159,6 @@ int ChNXT::getJointState(nxtJointId_t id, int &status) {
     dlrunfun(fptr, &retval, NULL, this, id, &status);
     return retval;
 }
-
-/*
-   int ChNXT::getJointStates() {
-   void *fptr;
-   int retval;
-
-   fptr = dlsym(g_chnxt_dlhandle, "getJointStates_chdl");
-   if(fptr == NULL) {
-   fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
-   return -1;
-   }
-   dlrunfun(fptr, &retval, NULL, this, getJointStates);
-   return retval;
-   }*/
 
 int ChNXT::getSensor(nxtSensorId_t id, int &value) {
     void *fptr;
@@ -186,16 +186,16 @@ int ChNXT::isConnected() {
     return retval;
 }
 
-int ChNXT::isJointMoving(nxtJointId_t id) {
+int ChNXT::isMotorMoving(nxtMotorId_t id) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "isJointMoving_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "isMotorMoving_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, isJointMoving, this, id);
+    dlrunfun(fptr, &retval, isMotorMoving, this, id);
     return retval;
 }
 
@@ -225,7 +225,7 @@ int ChNXT::move(double angle1, double angle2, double angle3) {
     return retval;
 }
 
-int ChNXT::moveContinuousNB(nxtJointState_t dir1, nxtJointState_t dir2, nxtJointState_t dir3) {
+int ChNXT::moveContinuousNB(nxtMotorState_t dir1, nxtMotorState_t dir2, nxtMotorState_t dir3) {
     void *fptr;
     int retval;
 
@@ -238,7 +238,7 @@ int ChNXT::moveContinuousNB(nxtJointState_t dir1, nxtJointState_t dir2, nxtJoint
     return retval;
 }
 
-int ChNXT::moveContinuousTime(nxtJointState_t dir1, nxtJointState_t dir2, nxtJointState_t dir, double seconds) {
+int ChNXT::moveContinuousTime(nxtMotorState_t dir1, nxtMotorState_t dir2, nxtMotorState_t dir, double seconds) {
     void *fptr;
     int retval;
 
@@ -250,79 +250,79 @@ int ChNXT::moveContinuousTime(nxtJointState_t dir1, nxtJointState_t dir2, nxtJoi
     dlrunfun(fptr, &retval, moveContinuousTime, this, dir1, dir2, dir, seconds);
     return retval;
 }
-int ChNXT::moveJoint(nxtJointId_t id, double angle) {
+int ChNXT::moveMotor(nxtMotorId_t id, double angle) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "moveJoint_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "moveMotor_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, moveJoint, this, id, angle);
+    dlrunfun(fptr, &retval, moveMotor, this, id, angle);
     return retval;
 }
 
-int ChNXT::moveJointContinuousNB(nxtJointId_t id, nxtJointState_t dir) {
+int ChNXT::moveMotorContinuousNB(nxtMotorId_t id, nxtMotorState_t dir) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "moveJointContinuousNB_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "moveMotorContinuousNB_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, moveJointContinuousNB, this, id, dir);
+    dlrunfun(fptr, &retval, moveMotorContinuousNB, this, id, dir);
     return retval;
 }
 
-int ChNXT::moveJointNB(nxtJointId_t id, double angle) {
+int ChNXT::moveMotorNB(nxtMotorId_t id, double angle) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "moveJointNB_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "moveMotorNB_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, moveJointNB, this, id, angle);
+    dlrunfun(fptr, &retval, moveMotorNB, this, id, angle);
     return retval;
 }
-int ChNXT::moveJointTo(nxtJointId_t id, double angle) {
+int ChNXT::moveMotorTo(nxtMotorId_t id, double angle) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "moveJointTo_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "moveMotorTo_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, moveJointTo, this, id, angle);
+    dlrunfun(fptr, &retval, moveMotorTo, this, id, angle);
     return retval;
 }
 
-int ChNXT::moveJointToNB(nxtJointId_t id, double angle) {
+int ChNXT::moveMotorToNB(nxtMotorId_t id, double angle) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "moveJointToNB_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "moveMotorToNB_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, moveJointToNB, this, id, angle);
+    dlrunfun(fptr, &retval, moveMotorToNB, this, id, angle);
     return retval;
 }
-int ChNXT::moveJointWait(nxtJointId_t id) {
+int ChNXT::moveMotorWait(nxtMotorId_t id) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "moveJointWait_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "moveMotorWait_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, moveJointWait, this, id);
+    dlrunfun(fptr, &retval, moveMotorWait, this, id);
     return retval;
 }
 
@@ -404,68 +404,81 @@ int ChNXT::moveWait() {
     return retval;
 }
 
-int ChNXT::setJointSpeedRatio(nxtJointId_t id, double ratio) {
+int ChNXT::setMotorSpeed(nxtMotorId_t id, int speed) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "setJointSpeedRatio_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "setMotorSpeed_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, setJointSpeedRatio, this, id, ratio);
+    dlrunfun(fptr, &retval, setMotorSpeed, this, id, speed);
     return retval;
 }
 
-int ChNXT::setJointSpeedRatios(double ratio1, double ratio2, double ratio3) {
+int ChNXT::setMotorSpeeds(int speed1, int speed2, int speed3) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "setJointSpeedRatios_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "setMotorSpeeds_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, setJointSpeedRatios, this, ratio1, ratio2, ratio3);
+    dlrunfun(fptr, &retval, setMotorSpeeds, this, speed1, speed2, speed3);
     return retval;
 }
 
-int ChNXT::setJointToZero(nxtJointId_t id) {
+int ChNXT::setMotorSpeedRatio(nxtMotorId_t id, double ratio) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "setJointToZero_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "setMotorSpeedRatio_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, setJointToZero, this, id);
+    dlrunfun(fptr, &retval, setMotorSpeedRatio, this, id, ratio);
     return retval;
 }
 
-int ChNXT::setToZeros(void) {
+int ChNXT::setMotorSpeedRatios(double ratio1, double ratio2, double ratio3) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "setToZeros_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "setMotorSpeedRatios_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, NULL, this, setToZeros);
+    dlrunfun(fptr, &retval, setMotorSpeedRatios, this, ratio1, ratio2, ratio3);
     return retval;
 }
 
-int ChNXT::setJointZeros() {
+int ChNXT::setMotorToZero(nxtMotorId_t id) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "setJointZeros_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "setMotorToZero_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, NULL, this, setJointZeros);
+    dlrunfun(fptr, &retval, setMotorToZero, this, id);
+    return retval;
+}
+
+int ChNXT::setMotorZeros() {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "setMotorZeros_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, NULL, this, setMotorZeros);
     return retval;
 }
 
@@ -482,16 +495,16 @@ int ChNXT::setSensor(nxtSensorId_t id, nxtSensorType_t type, nxtSensorMode_t mod
     return retval;
 }
 
-int ChNXT::stopAllJoints() {
+int ChNXT::stopAllMotors() {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "stopAllJoints_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "stopAllMotors_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, NULL, this, stopAllJoints);
+    dlrunfun(fptr, &retval, NULL, this, stopAllMotors);
     return retval;
 }
 
@@ -508,29 +521,29 @@ int ChNXT::stopMotion() {
     return retval;
 }
 
-int ChNXT::stopOneJoint(nxtJointId_t id) {
+int ChNXT::stopOneMotor(nxtMotorId_t id) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "stopOneJoint_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "stopOneMotor_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, stopOneJoint, this, id);
+    dlrunfun(fptr, &retval, stopOneMotor, this, id);
     return retval;
 }
 
-int ChNXT::stopTwoJoints(nxtJointId_t id1, nxtJointId_t id2) {
+int ChNXT::stopTwoMotors(nxtMotorId_t id1, nxtMotorId_t id2) {
     void *fptr;
     int retval;
 
-    fptr = dlsym(g_chnxt_dlhandle, "stopTwoJoints_chdl");
+    fptr = dlsym(g_chnxt_dlhandle, "stopTwoMotors_chdl");
     if(fptr == NULL) {
         fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
         return -1;
     }
-    dlrunfun(fptr, &retval, stopTwoJoints, this, id1, id2);
+    dlrunfun(fptr, &retval, stopTwoMotors, this, id1, id2);
     return retval;
 }
 
@@ -729,3 +742,42 @@ int ChNXT::vehicleRotateRightNB(double angle) {
     dlrunfun(fptr, &retval, vehicleRotateRightNB, this, angle);
     return retval;
 }
+
+int ChNXT::setTwoWheelRobotSpeed(double speed, double radius){
+	void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "setTwoWheelRobotSpeed_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, setTwoWheelRobotSpeed, this, speed, radius);
+    return retval;
+}
+
+/* int ChNXT::testBluetoothCom(void) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "testBluetoothCom_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, testBluetoothCom, this);
+    return retval;
+}*/
+
+/*int ChNXT::isMotorReady(nxtMotorId_t id) {
+    void *fptr;
+    int retval;
+
+    fptr = dlsym(g_chnxt_dlhandle, "isMotorReady_chdl");
+    if(fptr == NULL) {
+        fprintf(_stderr, "Error: %s(): dlsym(): %s\n", __func__,  dlerror());
+        return -1;
+    }
+    dlrunfun(fptr, &retval, isMotorReady, this, id);
+    return retval;
+}*/

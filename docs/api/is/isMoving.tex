@@ -15,12 +15,12 @@ int ChNXT::isMoving(void);
 
 \noindent
 {\bf Purpose}\\
-Check to see if a Lego Mindstorms NXT is currently moving any of its joints.\\
+Check to see if a Lego Mindstorms NXT is currently moving any of its motors.\\
 
 \noindent
 {\bf Return Value}\\
-This function returns 0 if none of the joints are being driven or 
-if an error has occured, or 1 if any joint is being driven.\\
+This function returns 0 if none of the motors are being driven or 
+if an error has occured, or 1 if any motor is being driven.\\
 
 \noindent
 {\bf Parameters}\\
@@ -28,7 +28,7 @@ None.\\
 
 \noindent
 {\bf Description}\\
-This function is used to determine if a robot is currently moving any of its joints.\\
+This function is used to determine if a robot is currently moving any of its motors.\\
 
 \noindent
 {\bf Example}
@@ -39,15 +39,15 @@ ChNXT nxt;
 int moveStatus;
 
 nxt.connect();
-moveStatus = isMoving(NXT_JOINTA);
+moveStatus = isMoving(NXT_MOTORA);
 
 if(moveStatus)
-    printf("JointA is moving!\n");
+    printf("MotorA is moving!\n");
 else
-    printf("JointA is not moving!\n");
+    printf("MotorA is not moving!\n");
 \end{lstlisting}
 
 \noindent
 {\bf See Also}\\
-\texttt{getJointState()}\\
+\texttt{getMotorState()}\\
 %%%%% END OF ChNXT::connect %%%%%

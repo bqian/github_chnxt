@@ -10,14 +10,14 @@
 {\bf Synopsis}
 \begin{lstlisting}
 #include <nxt.h>
-int ChNXT::moveContinuousNB(nxtJointState_t dirA, 
-                            nxtJointState_t dirB, 
-                            nxtJointState_t dirC); 
+int ChNXT::moveContinuousNB(nxtMotorState_t dirA, 
+                            nxtMotorState_t dirB, 
+                            nxtMotorState_t dirC); 
 \end{lstlisting}
 
 \noindent
 {\bf Purpose}\\
-Move the joints of a robot continuously in the specified directions.\\
+Move the motors of a robot continuously in the specified directions.\\
 
 \noindent
 {\bf Return Value}\\
@@ -25,19 +25,19 @@ The function returns 0 on success and non-zero otherwise.\\
 
 \noindent
 {\bf Parameters}\\
-Each parameter specifies the direction the joint should move. The types
+Each parameter specifies the direction the motor should move. The types
 are enumerated in \texttt{mobot.h} and have the following values:\\
-\input{jointStateTable}
+\input{motorStateTable}
 \noindent
 More documentation about these types may be found at Section
-\ref{sec:nxtJointState_t} on page
-\pageref{sec:nxtJointState_t}.
+\ref{sec:nxtMotorState_t} on page
+\pageref{sec:nxtMotorState_t}.
 
 \noindent
 {\bf Description}\\
-This function causes joints of a robot to begin moving at the 
-previously set speed. The joints will continue moving until the 
-joint hits a joint limit, or the joint is stopped by setting the 
+This function causes motors of a robot to begin moving at the 
+previously set speed. The motors will continue moving until the 
+motor hits a motor limit, or the motor is stopped by setting the 
 speed to zero. This function is a non-blocking function.\\
 
 \noindent
@@ -52,10 +52,10 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     exit(0);
 }
  
-/* setup speed for all three joints */
-nxt.setJointSpeeds(60, 40, 40);
+/* setup speed for all three motors */
+nxt.setMotorSpeeds(60, 40, 40);
 
-/* move all joints on the Mindstorm NXT */
+/* move all motors on the Mindstorm NXT */
 nxt.moveContinuousNB(NXT_FORWARD, NXT_FORWARD, NXT_FORWARD);
 \end{lstlisting}
 

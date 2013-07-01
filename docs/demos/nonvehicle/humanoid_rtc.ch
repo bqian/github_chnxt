@@ -53,24 +53,24 @@ printf("Please Enter command:");
 
 /* Control loop. Interprets user command and does action*/
 while (quit != 1){
-    nxt.setJointSpeedRatios(0.3, speedRatio, speedRatio);
+    nxt.setMotorSpeedRatios(0.3, speedRatio, speedRatio);
     key = _getch();
     if(key == 'w'){//up
-        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
         movemode = 'w';
     }else if(key =='s'){ //down
-        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
         movemode = 's';
     }else if(key == 'd'){//right
-        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_FORWARD);
     }else if(key == 'a'){//left
-        nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_BACKWARD);
     }else if(key == 'q'){//print sensor
         printSensor(&nxt);
     }else if(key == 'x'){//stop
-        nxt.stopAllJoints();
+        nxt.stopAllMotors();
         movemode = 'x';
     }else if(key == 'r'){//quit
         printf("\nExiting program.\nPress any key to exit.");

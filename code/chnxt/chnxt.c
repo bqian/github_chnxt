@@ -106,7 +106,7 @@ int ChNXT::getJointSpeedRatio(nxtJointId_t id, double *ratio) {
     return retval;
 }
 
-int getJointSpeedRatios(double *ratio1, double *ratio2, double *ratio3) {
+int ChNXT::getJointSpeedRatios(double *ratio1, double *ratio2, double *ratio3) {
     void *fptr;
     int retval;
 
@@ -133,6 +133,5 @@ int getJointSpeedRatios(double *ratio1, double *ratio2, double *ratio3) {
 }*/
 
 
-nt setTwoWheelRobotSpeed(double speed, double radius){
-
+int ChNXT::setTwoWheelRobotSpeed(double speed, double radius){
 }

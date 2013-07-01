@@ -18,7 +18,7 @@ int ChNXT::moveToZeroNB();
 
 \noindent
 {\bf Purpose}\\
-Move all joints of Lego Mindstorms NXT to their absolute zero position. \\
+Move all motors of Lego Mindstorms NXT to their absolute zero position. \\
 
 \noindent
 {\bf Return Value}\\
@@ -33,11 +33,11 @@ None.\\
 \vspace{-12pt}
 \begin{quote}
 {\bf ChNXT::moveToZero()}\\
-This function moves all of the joints of a NXT to their zero 
+This function moves all of the motors of a NXT to their zero 
 position.
 
 {\bf ChNXT::moveToZeroNB()}\\
-This function moves all of the joints of a NXT to their zero 
+This function moves all of the motors of a NXT to their zero 
 position.
 
 The function \texttt{moveToZeroNB()} is the non-blocking version 
@@ -60,8 +60,8 @@ if (nxt.connectWithAddress("00:16:53:12:e7:80")){
     exit(-1);
 }
  
-/* setup speed for all three joints */
-nxt.setJointSpeeds(60, 40, 40);
+/* setup speed for all three motors */
+nxt.setMotorSpeeds(60, 40, 40);
 
 /* move to zero by the non-blocking function*/
 nxt.moveToZeroNB();

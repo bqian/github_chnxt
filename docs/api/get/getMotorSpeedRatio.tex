@@ -1,0 +1,65 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getMotorSpeedRatio()}\index{ChNXT::getMotorSpeedRatio()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getMotorSpeedRatio()}
+
+\noindent
+{\bf Synopsis}
+\begin{lstlisting}
+#include <nxt.h>
+int ChNXT::getMotorSpeedRatio(nxtMotorId_t id, double &ratio);
+\end{lstlisting}
+
+\noindent
+{\bf Purpose}\\
+Get the speed ratio settings of a motor on the Lego Mindstorms NXT.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{id} & Retrieve the speed ratio setting of this motor. This is an 
+enumerated type discussed in Section \ref{sec:nxtMotorId_t} on page
+\pageref{sec:nxtMotorId_t}.\\
+\texttt{ratio} & A variable of type double. The value of this variable will
+be overwritten with the current speed ratio setting of the motor.
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to find the speed ratio setting of a motor. The speed
+ratio setting of a motor is the percentage of the maximum motor speed, and the
+value ranges from 0 to 1. In other words, if the ratio is set to 0.5, the motor 
+will turn at 50\% of its maximum angular velocity while moving continuously
+or moving to a new goal position.\\
+
+\noindent
+{\bf Example}
+\begin{lstlisting}
+#include <nxt.h>
+
+ChNXT nxt;
+double ratio;
+
+nxt.connect();
+
+nxt.getMotorSpeedRatio(NXT_MOTORA, ratio);
+
+printf("The speed ratio of motorA is: %lf\n", ratio);
+\end{lstlisting}
+
+\noindent
+{\bf See Also}\\
+\texttt{setMotorSpeedRatio(), getMotorSpeedRatio()}
+
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

@@ -8,16 +8,16 @@ Minstorms NXT.\\
 \subsection{\label{sec:datatypes}Data Types Used in ChNXT Class}
 The data types defined in the header file {\tt nxt.h} are described in this 
 appendix. These data types are used by the NXT library to represent certain values, 
-such as joint id's and motor directions.\\
+such as motor id's and motor directions.\\
 
 \noindent
 \begin{longtable}{p{3.5cm}p{12cm}} 
     \hline
     Data Type& Description \\
     \hline 
-    {\tt nxtJointId\_t} & An enumerated value that indicates a 
-    nxt joints. \\
-    {\tt nxtJointState\_t} & The current state of a nxt joint. \\
+    {\tt nxtMotorId\_t} & An enumerated value that indicates a 
+    nxt motors. \\
+    {\tt nxtMotorState\_t} & The current state of a nxt motor. \\
     {\tt nxtSensorId\_t} & An enumerate value that indicates a 
     nxt's sensors. \\
     {\tt nxtSensorType\_t} & An enumerate value that indicates 
@@ -27,44 +27,44 @@ such as joint id's and motor directions.\\
     \hline
 \end{longtable}
 
-\subsubsection{\label{sec:nxtJointId_t}{\tt nxtJointId\_t}}
-This data type is an enumerated type used to identify a joint on 
+\subsubsection{\label{sec:nxtMotorId_t}{\tt nxtMotorId\_t}}
+This data type is an enumerated type used to identify a motor on 
 the Lego Mindstorms NXT. Valid values for this type are:
 \begin{lstlisting}
-typedef enum nxt_joints_e {
-  NXT_JOINTA = 0,
-  NXT_JOINTB = 1,
-  NXT_JOINTC = 2,
-} nxtJointId_t;
+typedef enum nxt_motors_e {
+  NXT_MOTORA = 0,
+  NXT_MOTORB = 1,
+  NXT_MOTORC = 2,
+} nxtMotorId_t;
 \end{lstlisting}
-\index{nxt\_joints\_t}
-\index{NXT\_JOINTA}
-\index{NXT\_JOINTB}
-\index{NXT\_JOINTC}
+\index{nxt\_motors\_t}
+\index{NXT\_MOTORA}
+\index{NXT\_MOTORB}
+\index{NXT\_MOTORC}
 
 \noindent
 \begin{longtable}{p{3.5cm}p{12cm}} 
     \hline 
     Value & Description \\
     \hline 
-    {\tt NXT\_JOINTA} & PortA on the Lego Mindstorms NXT. \\
-    {\tt NXT\_JOINTB} & PortB on the Lego Mindstorms NXT. \\
-    {\tt NXT\_JOINTC} & PortC on the Lego Mindstorms NXT. \\
+    {\tt NXT\_MOTORA} & PortA on the Lego Mindstorms NXT. \\
+    {\tt NXT\_MOTORB} & PortB on the Lego Mindstorms NXT. \\
+    {\tt NXT\_MOTORC} & PortC on the Lego Mindstorms NXT. \\
     \hline
 \end{longtable}
 
-\subsubsection{\label{sec:nxtJointState_t}{\tt nxtJointState\_t}}
+\subsubsection{\label{sec:nxtMotorState_t}{\tt nxtMotorState\_t}}
 This datatype is an enumerated type used to designate the current 
-movement state of a joint. The values may be retrieved from the 
-robot with the {\tt getJointState()} function and may be set 
+movement state of a motor. The values may be retrieved from the 
+robot with the {\tt getMotorState()} function and may be set 
 with the {\tt moveContinuous()} family of functions. Valid values are:
 \begin{lstlisting}
-typedef enum nxt_joint_state_e {
+typedef enum nxt_motor_state_e {
     NXT_FORWARD   = 1,
     NXT_BACKWARD  = -1,
-} nxtJointState_t;
+} nxtMotorState_t;
 \end{lstlisting}
-\index{nxtJointState\_t}
+\index{nxtMotorState\_t}
 \index{NXT\_FORWARD}
 \index{NXT\_BACKWARD}
 
@@ -73,8 +73,8 @@ typedef enum nxt_joint_state_e {
     \hline
     Value & Description \\
     \hline
-    {\tt NXT\_FORWARD} & This value indicates that the joint is currently moving forward.  \\
-{\tt NXT\_BACKWARD}& This value indicates that the joint is currently moving backward. \\
+    {\tt NXT\_FORWARD} & This value indicates that the motor is currently moving forward.  \\
+{\tt NXT\_BACKWARD}& This value indicates that the motor is currently moving backward. \\
     \hline
 \end{longtable}
 
@@ -250,7 +250,7 @@ bluetooth (Read bluetooth address from users' input).\\
 Function & Description\\
 \hline
 {\tt isConnected()}    &Check the connection to a robot.\\
-{\tt isMoving()}       &Check if any joints are currently in motion.\\
+{\tt isMoving()}       &Check if any motors are currently in motion.\\
 \hline
 \end{longtable}
 %\end{table}
@@ -267,38 +267,38 @@ Function & Description\\
 \end{longtable}
 %\end{table}
 
-%%%%%%%%%%%%%%% functions for joints %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%% functions for motors %%%%%%%%%%%%%%
 %\begin{table}[H]
 \begin{longtable}{p{6cm}p{10cm}}
-\caption{Functions for Joints}\\
+\caption{Functions for Motors}\\
 \hline
 %\begin{tabular}{ p{6cm}p{10cm} }\hline
 Functions & Description\\
 \hline
-{\tt setJointZero()}         &Set the tachometer to zero for a single joint.\\
-{\tt setToZero()}            &Set the tachometer to zero for all joints.\\
-{\tt setJointSpeedRatio()}   &Set up a single joint speed.\\
-{\tt setJointSpeedRatios()}  &Set up all joints' speed.\\
-{\tt moveJointContinuousNB()}&Make a single joint move continuously.\\
-{\tt moveJoint()}            &Make a single joint move a user-specified angle.\\
-{\tt moveJointNB()}          &Identical to {\tt moveJoint()} but non-blocking.\\
-{\tt moveJointTo()}          &Make a single joint move to an absolute angle.\\
-{\tt moveJointToNB()}        &Identical to {\tt moveJointTo()} but non-blocking.\\
-{\tt move()}                 &Make all joints move a user-specified angles.\\
+{\tt setMotorZero()}         &Set the tachometer to zero for a single motor.\\
+{\tt setToZero()}            &Set the tachometer to zero for all motors.\\
+{\tt setMotorSpeedRatio()}   &Set up a single motor speed.\\
+{\tt setMotorSpeedRatios()}  &Set up all motors' speed.\\
+{\tt moveMotorContinuousNB()}&Make a single motor move continuously.\\
+{\tt moveMotor()}            &Make a single motor move a user-specified angle.\\
+{\tt moveMotorNB()}          &Identical to {\tt moveMotor()} but non-blocking.\\
+{\tt moveMotorTo()}          &Make a single motor move to an absolute angle.\\
+{\tt moveMotorToNB()}        &Identical to {\tt moveMotorTo()} but non-blocking.\\
+{\tt move()}                 &Make all motors move a user-specified angles.\\
 {\tt moveNB()}               &Identical to {\tt move()} but non-blocking.\\
-{\tt moveTo()}               &Make all joints move to absolute angles.\\
+{\tt moveTo()}               &Make all motors move to absolute angles.\\
 {\tt moveToNB()}             &Identical to {\tt moveTo()} but non-blocking.\\
-{\tt moveToZero()}           &Make all joints move to absolute zero positions.\\
+{\tt moveToZero()}           &Make all motors move to absolute zero positions.\\
 {\tt moveToZeroNB()}         &Identical to {\tt moveToZero()} but non-blocking.\\
-{\tt moveContinuousNB()}     &Make all joints move continuously.\\
-{\tt moveContinuousTime()}   &Make all joints move continuously for a certain amount of time.\\
+{\tt moveContinuousNB()}     &Make all motors move continuously.\\
+{\tt moveContinuousTime()}   &Make all motors move continuously for a certain amount of time.\\
 {\tt moveWait()}             &Wait untill all motors have stopped moving.\\
-{\tt getJointAngle()}        &Get tachometer counts from NXT.\\
-{\tt getJointSpeedRatio()}   &Get a motor's speed ratio from NXT.\\
-{\tt getJointSpeedRatios()}  &Get all motors' speed ratios from NXT.\\
-{\tt stopOneJoint()}         &Make a single joint stop moving.\\
-{\tt stopTwoJoints()}        &Make two joints stop moving.\\
-{\tt stopAllJoints()}        &Make all joints stop moving.\\
+{\tt getMotorAngle()}        &Get tachometer counts from NXT.\\
+{\tt getMotorSpeedRatio()}   &Get a motor's speed ratio from NXT.\\
+{\tt getMotorSpeedRatios()}  &Get all motors' speed ratios from NXT.\\
+{\tt stopOneMotor()}         &Make a single motor stop moving.\\
+{\tt stopTwoMotors()}        &Make two motors stop moving.\\
+{\tt stopAllMotors()}        &Make all motors stop moving.\\
 \hline
 \end{longtable}
 %\end{tabular}

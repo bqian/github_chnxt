@@ -5,13 +5,13 @@ PKGDIR = $(PACKAGE)-$(VERSION)/$(PACKAGE)
 target: libnxt.dl
 
 libnxt.dl: nxt.obj chnxt_chdl.obj
-	ch dllink libnxt.dl nxt.obj chnxt_chdl.obj ws2_32.lib irprops.lib
+	ch dllink libnxt.dl cplusplus nxt.obj chnxt_chdl.obj WS2_32.lib irprops.lib
 
 nxt.obj: ../nxt.cpp ../nxt.h
-	ch dlcomp libnxt.dl ../nxt.cpp -I../
+	ch dlcomp libnxt.dl cplusplus ../nxt.cpp -I../
 
 chnxt_chdl.obj: chnxt_chdl.cpp ../nxt.h
-	ch dlcomp libnxt.dl chnxt_chdl.cpp -I../
+	ch dlcomp libnxt.dl cplusplus chnxt_chdl.cpp -I../
 
 install: 
 	ch pkginstall.ch $(PACKAGE)

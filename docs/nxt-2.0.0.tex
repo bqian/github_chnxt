@@ -70,19 +70,19 @@
 
 %% Begin title page %%
 \begin{titlepage}
-\begin{center}
-\vspace*{2cm}
-{\Huge\sf\bf Ch NXT Package User's Guide}\\
-\vspace*{2cm}
-{\bf Version 2.0.0}\\
-\vspace*{2cm}
-\includegraphics[width = 5in]{figure/mindstorm/NXT_humanoid.png}
-\vspace*{2cm}
-\newline
-Integration Engineering Laboratory\\
-University of California, Davis\\
-Augest 31, 2012\\
-\end{center}
+    \begin{center}
+        \vspace*{2cm}
+        {\Huge\sf\bf Ch NXT Package User's Guide}\\
+        \vspace*{2cm}
+        {\bf Version 2.0.0}\\
+        \vspace*{2cm}
+        \includegraphics[width = 5in]{figure/mindstorm/NXT_humanoid.png}
+        \vspace*{2cm}
+        \newline
+        Integration Engineering Laboratory\\
+        University of California, Davis\\
+        Augest 31, 2012\\
+    \end{center}
 \end{titlepage}
 %% End title page %%
 %% use roman page numbering %%
@@ -262,8 +262,8 @@ connect to a NXT device by clicking on the ``Connect $\rightarrow$ Connect to Ro
 menu item. Then the first NXT on the bluetooth address list will be connected 
 and please make sure the NXT is turned on, otherwise the connection will fail. 
 After connected, the Bluetooth connection status on the main dialog will turn
-green as Figure~\ref{fig:bt_connection_status} shows. Besides, the joints angles
-and joints speed ratios will show on the main dialog too.
+green as Figure~\ref{fig:bt_connection_status} shows. Besides, the motors angles
+and motors speed ratios will show on the main dialog too.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -312,7 +312,7 @@ all the features of the controller.
 \subsection{Introduction \label{sec:gui_introduction}}
 The GUI controller consists of six parts. The first part is the main diagram on
 the left top of the controller. The second part is including the ``Reset To Zer''o
-button and the ``Move To Zero'' button, and also the speed and joint set side bars.
+button and the ``Move To Zero'' button, and also the speed and motor set side bars.
 The next four parts contains general control, vehicle control, machine control 
 and humanoid control.
 
@@ -326,33 +326,33 @@ remove the previous record of position and set the current position as the zero
 position. The ``Move To Zero'' will make the motor rotate back to the zero point
 wherever you set before. 
 
-%\subsection{The speed and joint setting slide bars\label{sec:gui_speedjoint}}
+%\subsection{The speed and motor setting slide bars\label{sec:gui_speedmotor}}
 \subsection{The Slide Bars\label{sec:gui_speedjoint}}
-The slide bars are used to set the speed ratios and positions of the joints. The
-sliders for ``Joint Speed Ratio Control'', are three the slide bars for each motor 
+The slide bars are used to set the speed ratios and positions of the motors. The
+sliders for ``Motor Speed Ratio Control'', are three the slide bars for each motor 
 and two text boxes. One is on the top of the slide bar and the other is in buttom 
 of each slide bar. The top text box shows the current speed ratio of the 
-coresponding joint and the slide bar. The text box in the bottom can be used to 
+coresponding motor and the slide bar. The text box in the bottom can be used to 
 set a speed ratio. Clicking the ``Set Speed Ratios'' button below the speed ratio 
-of the joint will set it to the one you typed in. Also, you can type three ratios 
+of the motor will set it to the one you typed in. Also, you can type three ratios 
 and set them concurrently. The speed ratio is from 0 to 1. Similarly, in the 
-``Joint Position Control'' section, it shows the current joint position in top three 
+``Motor Position Control'' section, it shows the current motor position in top three 
 text boxes that users can type the desired positions in the three text boxes in 
-the bottom and click the ``MoveTo'' button to move the joints to the desired position.
+the bottom and click the ``MoveTo'' button to move the motors to the desired position.
 
 \subsection{General Control\label{sec:gui_generalcontrol}}
 In the general control block, there are three sets of buttons to control each of 
-the three joints. There are also four text boxes used to setup sensors and to 
+the three motors. There are also four text boxes used to setup sensors and to 
 view the values of those sensors. The whole block is used for general control of 
 a NXT. The NXT can be controlled in any configuration, such as a vehicle or a 
 humanoid.\\
 
 For the button sets, it is easy to find that the button with the ``up'' icon 
-indicates the positive direction. Once it is clicked the joint will move 
+indicates the positive direction. Once it is clicked the motor will move 
 continuously in the direction. Similarly, the ``down'' button means the negative 
-direction and it will make the joint keep moving in the negative direction. The 
-red ``stop'' button will stop the joints immediately. The numbers on the top of 
-the ``up'' buttons indicates the joints. \\
+direction and it will make the motor keep moving in the negative direction. The 
+red ``stop'' button will stop the motors immediately. The numbers on the top of 
+the ``up'' buttons indicates the motors. \\
 
 For the ``Sensor Control'' section, each drop down list represent one sensor 
 port on the NXT. In the drop-down menu, there is a list of sensor types that 
@@ -367,17 +367,17 @@ are vehicle, machine and humanoid configuration. \\
 In the vehicle part, there are five buttons, which are ``up'', ``down'', ``right'', 
 ``left'' and ``stop'' buttons. These buttons can make the NXT as a vehicle move
 forward and backward, rotate it right and left and also stop it. The default
-joints of two wheels of the vehicle are Port B and Port C on the NXT. To control 
-the third joint, which is jointA on Port A of the NXT, you can use the buttons
+motors of two wheels of the vehicle are Port B and Port C on the NXT. To control 
+the third motor, which is motorA on Port A of the NXT, you can use the buttons
 in the ``General Control'' block.\\
 
-For the machine configuration, we assume that the machine has two joints to mov
+For the machine configuration, we assume that the machine has two motors to mov
 e an arm. One moves the arm back and forth and the other rotates it around the 
-center. The third joint is used for controlling the claw on the arm. As we can 
+center. The third motor is used for controlling the claw on the arm. As we can 
 see, the ``up'' and ``down'' buttons are used to contrl the arm move back and 
 forth. The ``righ'' and ``left'' buttons rotate the arm. There is a subblock 
 called ``Claw'' controlling it to open or close. Also you can use the buttons 
-in the ``General Control'' but please note that the joint for the claw has a 
+in the ``General Control'' but please note that the motor for the claw has a 
 limited motion. You might break it by moving it continuously.\\
 
 The last section is for the humanoid control. There are only three buttons in this
@@ -394,8 +394,8 @@ Page~\pageref{sec:gui_generalcontrol}.
 %%% Begin of Section Getting Started with Ch NXT Package %%%
 \section{Getting Started with Ch NXT Package}
 In this chapter, the basics of controlling an NXT via Ch programing will be discussed. 
-The basics include controlling an NXT joint, setting up an NXT sensor, and also getting 
-information from joints and sensors. The basic structure of a Ch NXT robot program 
+The basics include controlling an NXT motor, setting up an NXT sensor, and also getting 
+information from motors and sensors. The basic structure of a Ch NXT robot program 
 is shown in a flowchart in Figure \ref{fig_NXT_pstruc}.\\
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
@@ -425,9 +425,9 @@ and the sensors, which are presented in the following tables.
 \subsubsection*{Symbols for motors}
 \begin{longtable}{p{3.5cm}p{12cm}}
 \hline 
-{\tt NXT\_JOINTA} & PortA on the Lego Mindstorms NXT. \\
-{\tt NXT\_JOINTB} & PortB on the Lego Mindstorms NXT. \\
-{\tt NXT\_JOINTC} & PortC on the Lego Mindstorms NXT. \\
+{\tt NXT\_MOTORA} & PortA on the Lego Mindstorms NXT. \\
+{\tt NXT\_MOTORB} & PortB on the Lego Mindstorms NXT. \\
+{\tt NXT\_MOTORC} & PortC on the Lego Mindstorms NXT. \\
 \hline
 \end{longtable}
 
@@ -496,7 +496,7 @@ In the next section, we will start to control an NXT brick with Ch code.
 
 \subsection{\label{sec:basic_demo}A Basic Ch NXT Program}
 The first demo presents a simple program which connects to a Lego Mindstorms NXT 
-and moves joints B and C.
+and moves motors B and C.
 
 \subsubsection*{Source Code}
 %%%%%%%%%%%%%%%%%%%%%% Begin of start.ch %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -541,10 +541,10 @@ page~\pageref{sec:chnxt_api}. The next line,
 nxt.moveToZero();
 \end{lstlisting}
 uses the function {\tt moveToZero()} which is a member function of class {\tt ChNXT}. 
-The function causes all joints of the connected NXT move to zero position, which 
+The function causes all motors of the connected NXT move to zero position, which 
 means the absolute angle will be all zero.\\
 
-The next line of code will cause all joints of the connected NXT rotate 360 degrees.
+The next line of code will cause all motors of the connected NXT rotate 360 degrees.
 \begin{lstlisting}
 nxt.move(360, 360, 360);
 \end{lstlisting}
@@ -564,10 +564,10 @@ counterpart function, {\tt deg2rad()}. Detailed information for function
 {\tt rad2deg()} and function {\tt deg2rad()} can be found in Appendix~
 \ref{sec:ultility_functions} on Page~\pageref{sec:ultility_functions}.\\
 
-\subsection{\label{sec:setzero_demo}Setting the Zero Positions for NXT Joints}
+\subsection{\label{sec:setzero_demo}Setting the Zero Positions for NXT Motors}
 In the last section, we introduced a very basic demo of Ch NXT programs. In this 
 section, another simple demo will be presented to illustrated how to set absolute 
-zero positions for joints.
+zero positions for motors.
 
 \subsubsection*{Source Code}
 %% Begin program %%
@@ -590,18 +590,18 @@ initializes the program, declares the variable and connects to the remote device
 The next line,
 \begin{lstlisting}
 /* Set new zero positions */
-nxt.setJointToZero(NXT_JOINTA);
+nxt.setMotorToZero(NXT_MOTORA);
 \end{lstlisting}
-sets {\tt NXT\_JOINTA} to the new zero position. In order to set new zero positions, user 
-should move the desired position before calling the function {\tt setJointToZero()}. The 
-function {\tt setJointToZero()} can only set zero position for one joint. The argument 
-it takes is the target joint. Another function called {\tt setToZero()}, which takes no 
-arguments, can set new zero positions for all joints. The next line,
+sets {\tt NXT\_MOTORA} to the new zero position. In order to set new zero positions, user 
+should move the desired position before calling the function {\tt setMotorToZero()}. The 
+function {\tt setMotorToZero()} can only set zero position for one motor. The argument 
+it takes is the target motor. Another function called {\tt setToZero()}, which takes no 
+arguments, can set new zero positions for all motors. The next line,
 \begin{lstlisting}
 /* Move to zero */
 nxt.moveToZero();
 \end{lstlisting}
-makes all joints move to new zero positions.
+makes all motors move to new zero positions.
 \begin{comment}
 The last part of the code,
 \begin{lstlisting}
@@ -611,14 +611,14 @@ nxt.disconnect();
 disconnects from the NXT.
 \end{comment}
 
-\subsection{\label{sec:speed_demo}Controlling the Speed of NXT Joints}
+\subsection{\label{sec:speed_demo}Controlling the Speed of NXT Motors}
 Another simple Ch program, {\tt setSpeedRatios.ch}, illustrates how to set speed
-ratios for the NXT's joints.
+ratios for the NXT's motors.
 \begin{comment}
 Now that we have already discussed how to include related header files, define 
 variables for the program, get connected with/disconnect from the NXT and also 
-set zero positions NXT joints. In this section, we will present a demo program, 
-{\tt setSpeedRatios.ch}, to illustrate how to set speed ratios for the joints 
+set zero positions NXT motors. In this section, we will present a demo program, 
+{\tt setSpeedRatios.ch}, to illustrate how to set speed ratios for the motors 
 of NXT.
 \end{comment}
 
@@ -641,21 +641,21 @@ nxt.connect();
 initializes the program, variable, and connect to the NXT. The next three lines,
 \begin{lstlisting}
 /* set speed ratios */
-nxt.setJointSpeedRatios(0, 0.4, 0.4);
-nxt.setJointSpeedRatio(NXT_JOINTA, 0.5);
+nxt.setMotorSpeedRatios(0, 0.4, 0.4);
+nxt.setMotorSpeedRatio(NXT_MOTORA, 0.5);
 \end{lstlisting}
-sets the speed ratios setting for all joints on the NXT. The function 
-{\tt setJointSpeedRatios()} sets the speed ratio for {\tt NXT\_JOINTA} as 0 and 
-sets the speed ratios for {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} as 0.4. The 
-function {\tt setJointSpeedRatio()}, which can only set speed ratio for one joint, 
-sets the speed ratio for {\tt NXT\_JOINTA} as 0.5.\\
+sets the speed ratios setting for all motors on the NXT. The function 
+{\tt setMotorSpeedRatios()} sets the speed ratio for {\tt NXT\_MOTORA} as 0 and 
+sets the speed ratios for {\tt NXT\_MOTORB} and {\tt NXT\_MOTORC} as 0.4. The 
+function {\tt setMotorSpeedRatio()}, which can only set speed ratio for one motor, 
+sets the speed ratio for {\tt NXT\_MOTORA} as 0.5.\\
 
 The next line,
 \begin{lstlisting}
-/* make NXT joints move */
+/* make NXT motors move */
 nxt.move(360, 360, 360)
 \end{lstlisting}
-makes three joints of NXT move at setted speed ratios. The usage of the function 
+makes three motors of NXT move at setted speed ratios. The usage of the function 
 {\tt move()} is just as the demo discussed in Section~\ref{sec:basic_demo} on 
 Page~\pageref{sec:basic_demo}.
 \begin{comment}
@@ -668,13 +668,13 @@ nxt.disconnect();
 disconnects from the NXT.\\
 \end{comment}
 
-\subsection{\label{sec:move_demo}Making NXT Joints Move}
+\subsection{\label{sec:move_demo}Making NXT Motors Move}
 Now that we have already discussed connect/disconnect and set speed ratios for 
-joints, this section will presents some of the moving functions.
+motors, this section will presents some of the moving functions.
 
 \subsubsection{A Demo Program for Movement Functions}
 In this section, a simple demo program will be presented to illustrate the series 
-functions of moving NXT joints.
+functions of moving NXT motors.
 
 \subsubsection*{Source Code}
 %% begin program %%
@@ -693,49 +693,49 @@ ChNXT nxt;
 nxt.connect();
 
 /* Set speed ratios */
-nxt.setJointSpeedRatios(0.5, 0.5, 0.5);
+nxt.setMotorSpeedRatios(0.5, 0.5, 0.5);
 \end{lstlisting}
-initializes the program, connects to the NXT and sets speed ratios for joints. 
+initializes the program, connects to the NXT and sets speed ratios for motors. 
 The next couple lines,
 \begin{lstlisting}
-/* move joint to zero position */
+/* move motor to zero position */
 nxt.moveToZero();
 \end{lstlisting}
-moves the joint to the absolute zero positions for all joints. The function 
-{\tt moveToZero()} is used to move joints to absolute zero positions. The next 
+moves the motor to the absolute zero positions for all motors. The function 
+{\tt moveToZero()} is used to move motors to absolute zero positions. The next 
 four lines,
 % begin comment
 \begin{comment}
     \begin{lstlisting}
-/* rotate a joint continuously */
-nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+/* rotate a motor continuously */
+nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_FORWARD);
 delay(5);
-nxt.stopOneJoint(NXT_JOINTA);
+nxt.stopOneMotor(NXT_MOTORA);
 \end{lstlisting}
-rotates {\tt NXT\_JOINTA} continuously until a stop function is called. The stop 
-function here we used is {\tt stopOneJoint()}, which can only stop the specified 
-joint. Other two stop functions are {\tt stopTwoJoints()} and {\tt stopAllJoints()}, 
-which stops two joints and all joints respectively. The next four lines,
+rotates {\tt NXT\_MOTORA} continuously until a stop function is called. The stop 
+function here we used is {\tt stopOneMotor()}, which can only stop the specified 
+motor. Other two stop functions are {\tt stopTwoMotors()} and {\tt stopAllMotors()}, 
+which stops two motors and all motors respectively. The next four lines,
 \end{comment}
 % end comment
 \begin{lstlisting}
-/* move a joint by user specified angle */
-nxt.moveJoint(NXT_JOINTA, 360);
+/* move a motor by user specified angle */
+nxt.moveMotor(NXT_MOTORA, 360);
 
-/* move a joint to absolute angle */
-nxt.moveJointTo(NXT_JOINTA, 360);
+/* move a motor to absolute angle */
+nxt.moveMotorTo(NXT_MOTORA, 360);
 \end{lstlisting}
-includes two functions {\tt moveJoint()} and {\tt moveJointTo()}, which makes 
-one joint move a specified angle relatively and absolutely, respectively. 
+includes two functions {\tt moveMotor()} and {\tt moveMotorTo()}, which makes 
+one motor move a specified angle relatively and absolutely, respectively. 
 Similarly, the next four lines,
 \begin{lstlisting}
-/* move all joints by specified angles */
+/* move all motors by specified angles */
 nxt.move(180, 360, 360);
 
-/* move all joints to absolute angles */
+/* move all motors to absolute angles */
 nxt.moveTo(360, 360, 360);
 \end{lstlisting}
-include functions {\tt move()} and {\tt moveTo()}, which makes all joints 
+include functions {\tt move()} and {\tt moveTo()}, which makes all motors 
 move specified angles relatively and absolutely, respectively.
 \begin{comment}
 The last part,
@@ -749,7 +749,7 @@ disconnects from an NXT device as all demos discribed in previous sections.
 \subsubsection{\label{sec:block_nonblock}Blocking and Non-Blocking Functions}
 The movement functions described in previous demo are all blocking functions. 
 Once the blocking movement functions are called, the functions will hang, or 
-``block'', until all the joints have stopped moving. However, the movement 
+``block'', until all the motors have stopped moving. However, the movement 
 functions also have ``non-blocking'' version, which means the function returns 
 immediately and the function {\tt moveWait()} can be used to wait for the 
 movement to stopping. {\tt NB} at the end of non-blocking functions indicates 
@@ -779,24 +779,24 @@ Then the next part,
 \end{comment}
 \begin{lstlisting}
 /* Non-blocking Function */
-nxt.moveJointNB(NXT_JOINTA, 360);
+nxt.moveMotorNB(NXT_MOTORA, 360);
 printf("This message will be printed \
-        on the screen when jointA is moving.\n");
+        on the screen when motorA is moving.\n");
 nxt.moveWait();
 \end{lstlisting}
-uses the non-blocking function {\tt moveJointNB()}. The function {\tt printf()} 
-will print a message onto the screen while the jointA is moving. However, the 
+uses the non-blocking function {\tt moveMotorNB()}. The function {\tt printf()} 
+will print a message onto the screen while the motorA is moving. However, the 
 blocking part below,
 \begin{lstlisting}
 /* Blocking Function */
-nxt.moveJoint(NXT_JOING1, 360);
+nxt.moveMotor(NXT_MOTORA, 360);
 printf("This message will be printed on \
-        the screen after jointA stopped moving.\n");
+        the screen after motorA stopped moving.\n");
 \end{lstlisting}
-will print out the message after the function {\tt moveJoint()} finishes, which 
-means after jointA stops moving. Most moving functions have both blocking and 
+will print out the message after the function {\tt moveMotor()} finishes, which 
+means after motorA stops moving. Most moving functions have both blocking and 
 non-blocking versions. However, there are still some exceptions. The function 
-{\tt moveJointContinuousNB()} and function {\tt moveContinuousNB()} have only 
+{\tt moveMotorContinuousNB()} and function {\tt moveContinuousNB()} have only 
 non-blocking version and the function {\tt moveContinuousTime()} is only blocking. 
 In Table~\ref{tab:block_nonblock}, we list all blocking functions and their 
 corresponding non-blocking functions.
@@ -804,15 +804,15 @@ corresponding non-blocking functions.
 Also, detailed information for both blocking and non-blocking versions of movement 
 functions can be found in Appendix~\ref{sec:chnxt_api} on Page~\pageref{sec:chnxt_api}.
 
-\subsection{Retrieving a Joint Angle}
-This demo presents how to get a current joint angle in a Ch NXT program. The 
+\subsection{Retrieving a Motor Angle}
+This demo presents how to get a current motor angle in a Ch NXT program. The 
 angle is the absolute postion in degrees.
 
 \subsubsection*{Source Code}
 %% begin program %%
 \lstinputlisting
-[caption={{\tt getJointAngle.ch} Source Code},label=prog_getJointAngle.ch]
-{demos/basic/getJointAngle.ch}
+[caption={{\tt getMotorAngle.ch} Source Code},label=prog_getMotorAngle.ch]
+{demos/basic/getMotorAngle.ch}
 %%% end program %%%
 
 \subsubsection*{Explanation}
@@ -830,18 +830,18 @@ to initialize variable and to connect to the remote NXT device. The next three
 lines of the code,
 \end{comment}
 \begin{lstlisting}
-/* Get the joint angle of the first joint */
+/* Get the motor angle of the first motor */
 double angle;
-nxt.getJointAngle(NXT_JOINTA, angle);
+nxt.getMotorAngle(NXT_MOTORA, angle);
 \end{lstlisting}
-retrieve the current angle of joint 1. {\tt NXT\_JOINTA} is an enumerated 
+retrieve the current angle of motor 1. {\tt NXT\_MOTORA} is an enumerated 
 value defined in the header file {\tt nxt.h}. Detailed information for all 
 enumerated values defined in {\tt nxt.h} can be found in 
 Appendix~\ref{sec:datatypes} on page~\pageref{sec:datatypes}. Finally, the 
 last part of the program,
 \begin{lstlisting}
-/* Print out the joint angle */
-printf("The current joint angle for joint 1 is %lf degrees.\n", angle);
+/* Print out the motor angle */
+printf("The current motor angle for motor 1 is %lf degrees.\n", angle);
 \end{lstlisting}
 prints the value of the variable onto the screen.
 
@@ -1058,19 +1058,19 @@ The {\tt printf()} is included to print out an error message if {\tt nxt.connect
 fails. To end the program if connection fails, the function {\tt exit()} is used. 
 The use of {\tt exit(-1)} is similar to the C function {\tt return 0;}, that can 
 be used when no {\tt main()} function is present.
-%\subsection{Set the Joints' Speed}
+%\subsection{Set the Motors' Speed}
 %After creating a connection with the NXT, you can begin your program to control the NXT. Before make 
-%joints move, the speed of three joints has to be set by using the function \verb+setJointSpeed()+ to 
-%setup a single joint or by using the function \verb+setJointSpeedRatios()+ to setup speed for all three 
-%joints. However, the speed of the motors are limited, and can only be set from 1 to 100. The following 
-%shows how to setup speed for joints of Lego Mindstorms:
+%motors move, the speed of three motors has to be set by using the function \verb+setMotorSpeed()+ to 
+%setup a single motor or by using the function \verb+setMotorSpeedRatios()+ to setup speed for all three 
+%motors. However, the speed of the motors are limited, and can only be set from 1 to 100. The following 
+%shows how to setup speed for motors of Lego Mindstorms:
 
 %\begin{verbatim}
-%    /* setup speed for a single joint */
-%    nxt.setJointSpeed(NXT_JOINTA, 50);
+%    /* setup speed for a single motor */
+%    nxt.setMotorSpeed(NXT_MOTORA, 50);
 %
-%    /* setup speed for all joints */
-%    nxt.setJointSpeedRatios(20, 40, 40);
+%    /* setup speed for all motors */
+%    nxt.setMotorSpeedRatios(20, 40, 40);
 %\end{verbatim}
 
 % END OF SET SPEED %
@@ -1083,7 +1083,7 @@ the NXT vehicle forward by using the {\tt vehicleRollForward()}. After using the
 Figure~\ref{fig_NXT_forward} shows the NXT vehicle moving forward by actuating 
 both wheels forward with the same speed ratio, which is how the function 
 {\tt vehicleRollForward()} works. By default, the ports for the two wheels on the 
-NXT are {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC}.
+NXT are {\tt NXT\_MOTORB} and {\tt NXT\_MOTORC}.
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[H]
   \begin{center}
@@ -1105,11 +1105,11 @@ nxt.vehicleRollForward(360);
 \subsubsection{Ending your program}
 After you finish your program, you must end your program properly by stopping 
 all the motors and disconnect the NXT from your computer. You can stop the 
-motors using the {\tt stopAllJoints()} function, which stops all of the NXT 
+motors using the {\tt stopAllMotors()} function, which stops all of the NXT 
 motors. To disconnect the nxt, use the {\tt disconnect()} function. For example:
 \begin{lstlisting}
 /* Stop the motors */
-nxt.stopAllJoints();
+nxt.stopAllMotors();
     
 /* Disconnect NXT */
 nxt.disconnect();
@@ -1135,7 +1135,7 @@ Using our new function, we can add the following code fragment to our first
 program to make the robot move backwards. The code fragment is shown below:
 \begin{lstlisting}
 /* set speed ratio */
-nxt.setJointSpeedRatios(0, 0.25, 0.25);
+nxt.setMotorSpeedRatios(0, 0.25, 0.25);
 
 /* Move backward */
 nxt.vehicleRollBackward(360);
@@ -1164,7 +1164,7 @@ and {\tt vehicleRota}{\tt teRight()}. An example of how to use the functions are
 below:
 \begin{lstlisting}
 /* set speed ratio */
-nxt.setJointSpeedRatios(0, 0.50, 0.50);
+nxt.setMotorSpeedRatios(0, 0.50, 0.50);
     
 /* rotate left */
 nxt.vehicleRotateLeft(360);
@@ -1172,7 +1172,7 @@ nxt.vehicleRotateLeft(360);
 // or
     
 /* set speed ratio */
-nxt.setJointSpeedRatios(0, 0.50, 0.50);
+nxt.setMotorSpeedRatios(0, 0.50, 0.50);
 
 /* rotate right */
 nxt.vehicleRotateRight(360);
@@ -1188,10 +1188,10 @@ sections shows how to control the individual motors, and how the previously
 presented NXT vehicle actions can be done by controlling the individual motors.
 %%%%%%%%%%%%%%%%%% Motor Control Functions %%%%%%%%%%%%%%%%%
 \subsubsection{Motor Control Functions}
-The function that is used to control the NXT motors is {\tt moveJointContinuousNB()}. 
+The function that is used to control the NXT motors is {\tt moveMotorContinuousNB()}. 
 To use the function, you need the motor port and the move direction. The speed 
 of the motors are limited, and can only ranged from 0 to 1 a speed ratio. For 
-the direction, the data type {\tt nxtJointState\_t} is defined. In the data type, 
+the direction, the data type {\tt nxtMotorState\_t} is defined. In the data type, 
 there are two values indicate the move directions. One is call {\tt NXT\_FORWARD},
 which means the positive direction and the other is called {\tt NXT\_BACKWARD} 
 means the negative direction. The {\tt NB} indicates that the function is 
@@ -1202,11 +1202,11 @@ motion can be achieved by turning the motors on at the same speed ratio. For
 example:
 \begin{lstlisting}
 /* set speed ratio */
-nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
+nxt.setMotorSpeedRatios(0, speedRatio, speedRatio);
 
 /* Move foward */
-nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
 
 /* Pause program for 5 seconds */
 delay(5);
@@ -1223,7 +1223,7 @@ moves the NXT forward and backward each with 360 degrees for its wheels.
 %%%%%%%%%%%% Turning Using Single Motor Control %%%%%%%%%%%%
 \subsubsection{Turning Using Single Motor Control}
 Turning and rotation movements can also be achieved using the 
-{\tt moveJointContinuousNB()} functions. As previously discussed, to turn our 
+{\tt moveMotorContinuousNB()} functions. As previously discussed, to turn our 
 NXT vehicle, one motor must be rotating at a faster speed then the other, or 
 the motors must be spinning in the opposite direction. For the following 
 discussion, Figures~\ref{fig_NXT_360LR} maybe useful.\\
@@ -1234,11 +1234,11 @@ the left wheel move at 0.7 of the speed that the right wheel is set to. To
 implement it with the single motor control functions, you would do the following:
 \begin{lstlisting}
 /* set speed ratio */
-nxt.setJointSpeedRatios(0, speedRatio, 0.7*speedRatio);
+nxt.setMotorSpeedRatios(0, speedRatio, 0.7*speedRatio);
 
 /* Move foward-left */
-nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
 
 /* Pause program for a while */
 delay(5);
@@ -1249,11 +1249,11 @@ works similarly, instead setting the left wheel at the negative speed of the rig
 wheel. An example is shown below:
 \begin{lstlisting}
 /* set speed ratio */
-nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
+nxt.setMotorSpeedRatios(0, speedRatio, speedRatio);
 
 /* Rotate left in place */
-nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
 
 /* Pause program for a while */
 delay(5);
@@ -1270,11 +1270,11 @@ turn, we could increase the speed of the right wheel by multiplying by a constan
 such as 1.2.  The resulting code would look like:
 \begin{lstlisting}
 /* set speed ratios */
-nxt.setJointSpeedRatios(0, 1.2*speedRatio, speedRatio);
+nxt.setMotorSpeedRatios(0, 1.2*speedRatio, speedRatio);
 
 /* Move foward-left */
-nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
 
 /* Pause program for a while */
 delay(5);
@@ -1282,8 +1282,8 @@ delay(5);
 While this would work for slower motor speeds, a bug would occur if the NXT 
 vehicle speed was set too high. Can you spot why? As previously discussed, the 
 valid motor speed ratio for NXT motors are between 0 to 1. If the speed variable 
-is set to 1, the command to control the left motor (NXT\_JOINTC) will function 
-correctly. The right motor (NXT\_JOINTB) will recieve a command telling it to 
+is set to 1, the command to control the left motor (NXT\_MOTORC) will function 
+correctly. The right motor (NXT\_MOTORB) will recieve a command telling it to 
 set the motor speed to 1.2 x 1 = 1.2. This is an invalid motor command, but if 
 the speed ratio is set to greater than 1, the maximun speed ratio of 1 will be
 used. Similarly, if you try to set a speed ratio less than zero, the minimum 
@@ -1468,12 +1468,12 @@ When the key `w' has been pressed, the {\tt if-else} statement will run
 the codes for the case `w'. The program fragment for case `w' is shown below:
 \begin{lstlisting}
 if(key == 'w'){//up
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
     movemode = 'w';
 }
 \end{lstlisting}
-In case `w', the program will run joints {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} 
+In case `w', the program will run motors {\tt NXT\_MOTORB} and {\tt NXT\_MOTORC} 
 forward at the velocity {\tt speedRatio}. Next, `w' key is stored in the variable 
 {\tt movemode}, which will be used to indicate the current mode for NXT vehicle. 
 Basically, the case `w' will move the NXT vehicle forward at velocity {\tt speedRatio}.\\
@@ -1483,13 +1483,13 @@ When the key `s' has been pressed, the {\bf if-else} statement will run
 the codes for the case `s'. The program fragment for case `s' is shown below:
 \begin{lstlisting}
 else if(key == 's'){//down
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
     movemode = 's';
 }
 \end{lstlisting}
-In case `s', the program will run the joints {\tt NXT\_JOINTB} and 
-{\tt NXT\_JOINTC} backward at the velocity {\tt speedRatio}. Next, `s' key is 
+In case `s', the program will run the motors {\tt NXT\_MOTORB} and 
+{\tt NXT\_MOTORC} backward at the velocity {\tt speedRatio}. Next, `s' key is 
 stored in the variable {\tt movemode}, which will be used to indicate the 
 current mode for NXT vehicle. Basically, the case `s' will move the NXT vehicle 
 backward with velocity {\tt speedRatio}.\\ 
@@ -1498,13 +1498,13 @@ When the key `a' has been pressed, the {\bf if-else} statement will run
 the codes for the case `a'. The program fragment for case `a' is shown below:
 \begin{lstlisting}
 else if(key == 'a'){//left
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
     movemode = 'a';
 }
 \end{lstlisting}
-In case `a', the program will actuate joint {\tt NXT\_JOINTB} forward at velocity 
-{\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} backward at velocity 
+In case `a', the program will actuate motor {\tt NXT\_MOTORB} forward at velocity 
+{\tt speedRatio} and actuate motor {\tt NXT\_MOTORC} backward at velocity 
 {\tt speedRatio}. Next, `a' key is stored in the variable {\tt movemode}, which 
 will be used to indicate the current mode for NXT vehicle.\\ 
 %%% case `d' %%%
@@ -1512,13 +1512,13 @@ When the key `d' has been pressed, the {\bf if-else} statement will run
 the codes for the case `d'. The program fragment for case `d' is shown below:
 \begin{lstlisting}
 else if(key == 'd'){//right
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
     movemode = 'd';
 }
 \end{lstlisting}
-In case `d', the program will actuate joint {\tt NXT\_JOINTB} backward at 
-velocity {\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} forward at velocity 
+In case `d', the program will actuate motor {\tt NXT\_MOTORB} backward at 
+velocity {\tt speedRatio} and actuate motor {\tt NXT\_MOTORC} forward at velocity 
 {\tt speedRatio}. Next, `d' key is stored in the variable {\tt movemode}, which 
 will be used to indicate the current mode for NXT vehicle.\\ 
 %%% case `q' %%%    
@@ -1526,14 +1526,14 @@ When the key `q' has been pressed, the {\bf if-else} statement will run
 the codes for the case `q'. The program fragment for case `q' is shown below:
 \begin{lstlisting}
 else if(key == 'q'){//forward-left
-    nxt.setJointSpeedRatios(0, speedRatio, 0.7*speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
+    nxt.setMotorSpeedRatios(0, speedRatio, 0.7*speedRatio);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
     movemode = 'q';
 }
 \end{lstlisting}
-In case `q', the program will actuate joint {\tt NXT\_JOINTB} forward at velocity 
-{\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} forward at velocity 0.7*
+In case `q', the program will actuate motor {\tt NXT\_MOTORB} forward at velocity 
+{\tt speedRatio} and actuate motor {\tt NXT\_MOTORC} forward at velocity 0.7*
 {\tt speedRatio}. Next, `q' key is stored in the variable {\tt movemode}, which 
 will be used to indicate the current mode for NXT vehicle.\\ 
 %%% case `e' %%%
@@ -1541,14 +1541,14 @@ When the key `e' has been pressed, the {\bf if-else} statement will run
 the codes for the case `e'. The program fragment for case `e' is shown below:
 \begin{lstlisting}
 else if(key == 'e'){//forward-right
-    nxt.setJointSpeedRatios(0, 0.7*speedRatio, speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+    nxt.setMotorSpeedRatios(0, 0.7*speedRatio, speedRatio);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
     movemode = 'e';
 }
 \end{lstlisting}
-In case `e', the program will actuate joint {\tt NXT\_JOINTB} forward at velocity 
-0.7*{\tt speedRatio} and actuate joint {\tt NXT\_JOINTC} forward at velocity 
+In case `e', the program will actuate motor {\tt NXT\_MOTORB} forward at velocity 
+0.7*{\tt speedRatio} and actuate motor {\tt NXT\_MOTORC} forward at velocity 
 {\tt speedRatio}. Next, `e' key is stored in the variable {\tt movemode}, which 
 will be used to indicate the current mode for NXT vehicle.\\ 
 %%% case `x' %%%
@@ -1556,13 +1556,13 @@ When the key `x' has been pressed, the {\bf if-else} statement will run
 the codes for the case `x'. The program fragment for case `x' is shown below:
 \begin{lstlisting}
 else if(key == 'x'){//stop
-    nxt.stopOneJoint(NXT_JOINTB);
-    nxt.stopOneJoint(NXT_JOINTC);
+    nxt.stopOneMotor(NXT_MOTORB);
+    nxt.stopOneMotor(NXT_MOTORC);
     movemode = 'x';
 }
 \end{lstlisting}
-In case `x', the program will set the motor in {\tt NXT\_JOINTB} and 
-{\tt NXT\_JOINTC} to zero velocity, and then set the motor to off idle mode. 
+In case `x', the program will set the motor in {\tt NXT\_MOTORB} and 
+{\tt NXT\_MOTORC} to zero velocity, and then set the motor to off idle mode. 
 Next, `x' key is stored in the variable {\tt movemode}, which will be used to 
 indicate the current mode for NXT vehicle. Basically, the case `x' stops the 
 motor and keep it turned off until another key is pressed.
@@ -1759,8 +1759,8 @@ while(1){
     /* If touch sensor is triggered */
     if (touchValue == 1){
         /* Move backward */
-        nxt.moveJointContinuousNB(NXT_JOINTB, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(NXT_JOINTC, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_BACKWARD);
         delay(2);
         /* quit the while loop */
         break;
@@ -1838,7 +1838,7 @@ while(1){
     if (ultrasonicValue < 20){
         speedRatio = 0.25;
         /* Move backward */
-        nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
+        nxt.setMotorSpeedRatios(0, speedRatio, speedRatio);
         nxt.vehicleRollBackward(360);
         /* Quit the while loop */
         break;
@@ -1856,9 +1856,9 @@ while(1){
         speedRatio = 0.75;
     }
     /* Move forward (constantly) */
-    nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+    nxt.setMotorSpeedRatios(0, speedRatio, speedRatio);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
 }
 \end{lstlisting}
 Similar to Program~\ref{prog_touchsensor.ch}, the {\bf while} loop in Program
@@ -2035,9 +2035,9 @@ The autonomous program does not work if the robot is stationary. The last portio
 The program fragment for running forward is shown below.
 \begin{lstlisting}
 /* Turn motors on (drive forward) */
-nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
-nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+nxt.setMotorSpeedRatios(0, speedRatio, speedRatio);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
 \end{lstlisting}
 This program fragment commands the vehicle to move forward continuously by setting both motors 
 rotating positively at the variable {\tt speedRatio}.
@@ -2187,10 +2187,10 @@ When the key `a' has been pressed, the {\bf if-else} statement will run
 the codes for the case `a'. The program fragment for case `a' is shown below:
 \begin{lstlisting}
 if(key == 'a'){
-    nxt.moveJoint(NXT_JOINTC, angle / gearratio);
+    nxt.moveMotor(NXT_MOTORC, angle / gearratio);
 }
 \end{lstlisting}
-In case `a', the program will run the joint {\tt NXT\_JOINTC} at velocity 
+In case `a', the program will run the motor {\tt NXT\_MOTORC} at velocity 
 {\tt speedRatio}, and to an {\tt angle} divided by the gear ratio that the user 
 has entered. Basically, for case `a' the program will rotate the NXT machine arm 
 left to an adjusted angle that the user has entered.\\
@@ -2199,10 +2199,10 @@ When the key `d' has been pressed, the {\bf if-else} statement will run
 the codes for the case `d'. The program fragment for case `d' is shown below:
 \begin{lstlisting}
 else if(key == 'd'){
-    nxt.moveJoint(NXT_JOINTC, -angle / gearratio);
+    nxt.moveMotor(NXT_MOTORC, -angle / gearratio);
 }
 \end{lstlisting}
-In case `d', the program will run the joint {\tt NXT\_JOINTC} at velocity 
+In case `d', the program will run the motor {\tt NXT\_MOTORC} at velocity 
 {\tt -speedRatio}, and to an {\tt angle} divided by the gear ratio that the user 
 has entered. Basically, for case `d' the program will rotate the NXT machine arm 
 right to an adjusted angle that the user has entered.\\
@@ -2211,10 +2211,10 @@ When the key `w' has been pressed, the {\bf if-else} statement will run
 the codes for the case `w'. The program fragment for case `w' is shown below:
 \begin{lstlisting}
 else if(key == 'w'){
-    nxt.moveJoint(NXT_JOINTB, angle);
+    nxt.moveMotor(NXT_MOTORB, angle);
 }
 \end{lstlisting}
-In case `w', the program will run the joint {\tt NXT\_JOINTB} at velocity 
+In case `w', the program will run the motor {\tt NXT\_MOTORB} at velocity 
 {\tt speedRatio}, and to a prescribed {\tt angle} that the user has entered. 
 Basically, for case `w' the program will move the NXT machine arm upward to a 
 prescribed angle that the user entered to an angle at a set speed ratio.\\
@@ -2223,10 +2223,10 @@ When the key `s' has been pressed, the {\bf if-else} statement will run
 the codes for the case `s'. The program fragment for case `s' is shown below:
 \begin{lstlisting}
 else if(key == 's'){
-    nxt.moveJoint(NXT_JOINTB, -angle);
+    nxt.moveMotor(NXT_MOTORB, -angle);
 }
 \end{lstlisting}
-In case `s', the program will run the joint {\tt NXT\_JOINTB} at velocity 
+In case `s', the program will run the motor {\tt NXT\_MOTORB} at velocity 
 {\tt -speedRatio}, and to a prescribed {\tt angle} that the user has entered. 
 Basically, for case `s' the program will move the NXT machine arm downward to 
 a prescribed angle that the user entered to an angle at a set speed ratio.\\
@@ -2242,18 +2242,18 @@ When the key `q' has been pressed, the {\bf if-else} statement will run
 the codes for the case `q'. The program fragment for case `q' is shown below:
 \begin{lstlisting}
 else if(key == 'q'){
-    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_BACKWARD);
     delay(1);
-    nxt.stopOneJoint(NXT_JOINTA);
+    nxt.stopOneMotor(NXT_MOTORA);
 }
 \end{lstlisting}
 In case `q', the program will open the machine claw. First, the program will run 
-the joint {\tt NXT\_JOINTA} at velocity {\tt speedRatio} for 1 seconds. Next, 
-the program will hold the position of the joint at that spot, thus keeping the 
+the motor {\tt NXT\_MOTORA} at velocity {\tt speedRatio} for 1 seconds. Next, 
+the program will hold the position of the motor at that spot, thus keeping the 
 machine claw open. \\
 %%% case `e' %%%
 In case `e', the program will close the machine claw. The program will run the 
-joint {\tt NXT\_JOINTA} at velocity {\tt speedRatio} for 1 seconds. Next, the 
+motor {\tt NXT\_MOTORA} at velocity {\tt speedRatio} for 1 seconds. Next, the 
 program will hold the position of the motor at that spot, thus keeping the 
 machine claw close.\\
 
@@ -2261,9 +2261,9 @@ When the key `e' has been pressed, the {\bf if-else} statement will run
 the codes for the case `e'. The program fragment for case `e' is shown below:
 \begin{lstlisting}
 else if(key == 'e'){
-    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_FORWARD);
     delay(1);
-    nxt.stopOneJoint(NXT_JOINTA);
+    nxt.stopOneMotor(NXT_MOTORA);
 }
 \end{lstlisting}
 %%% case `x' %%%
@@ -2272,7 +2272,7 @@ When the key `x' has been pressed, the {\bf if-else} statement will run the
 codes for the case `x'. The program fragment for case `x' is shown below:
 \begin{lstlisting}
 else if(key == 'x'){
-    nxt.stopAllJoints();
+    nxt.stopAllMotors();
 }
 \end{lstlisting}
 %%% case `r' %%%
@@ -2290,7 +2290,7 @@ else if(key == 'r'){
 
 \subsubsection*{Speed ratio setup}
 To set the speed ratio of the movement of the arm, the user can enter the key 
-`f' and enter the speed ratio. The speed ratio of joints are in the range of 0 
+`f' and enter the speed ratio. The speed ratio of motors are in the range of 0 
 to 1. The program fragment of case `f' is shown below:
 \begin{lstlisting}
 else if(key == 'f'){
@@ -2416,7 +2416,7 @@ for(i=0;i<numpoints;i++){
     /* get sensor data, if success print data, else print error*/
     if((nxt.getSensor(NXT_SENSORPORT4, ultraValue))){
         distance[i]= ultraValue;
-        if (nxt.getJointAngle(NXT_SENSORPORT3, angle[i] == 0)){
+        if (nxt.getMotorAngle(NXT_SENSORPORT3, angle[i] == 0)){
             printf("\nSample: %d,  distance: %d,  Angle: %lf",
                         i, distance[i],angle[i]);
         }
@@ -2433,7 +2433,7 @@ for(i=0;i<numpoints;i++){
 
     /* rotate arm by anglestep (rotate motor 
        anglestep/gear ratio)*/
-    nxt.moveJoint(NXT_JOINTC, anglestep/gearratio);
+    nxt.moveMotor(NXT_MOTORC, anglestep/gearratio);
     delay(1);
 }
 \end{lstlisting}
@@ -2450,7 +2450,7 @@ happened to be the `q' key, the program will print `Quitting program' and the
 program will be aborted.\\
 
 In the third section, the program controls the motor to rotate at a given angle 
-using the {\tt moveJoint()} command. Lastly, the program pauses for 1 second by 
+using the {\tt moveMotor()} command. Lastly, the program pauses for 1 second by 
 using the {\tt delay()} command.
 
 \subsubsection*{Plotting data}
@@ -2556,7 +2556,7 @@ statement will run the codes for the case `r'. In the case `r', the variable
 quit will be to 1, which will allow the program to exit the {\bf while} loop, 
 thus quitting the program.\\
 %%% case `w' %%%
-In case `w', the program will run joints {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} 
+In case `w', the program will run motors {\tt NXT\_MOTORB} and {\tt NXT\_MOTORC} 
 at velocity {\tt speedRatio}. For case `w', the program will control the NXT 
 humanoid to walk forward at a specified speed ratio.\\
 
@@ -2565,13 +2565,13 @@ run the codes for the case `w'. The program fragment for case `w' is shown
 below:
 \begin{lstlisting}
 if(key == 'w')//up
-    nxt.moveJointContinuousNB(NXT_JOINTB, NXT_FORWARD);
-    nxt.moveJointContinuousNB(NXT_JOINTC, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
     movemode='w';
     break;
 \end{lstlisting}
 %%% case `s' %%%
-In case `s', the program will stop joints {\tt NXT\_JOINTB} and {\tt NXT\_JOINTC} 
+In case `s', the program will stop motors {\tt NXT\_MOTORB} and {\tt NXT\_MOTORC} 
 and turn them to off. For case `s', the program will stop the NXT humanoid from 
 walking forward.\\
 
@@ -2579,33 +2579,33 @@ When the key `s' has been pressed, the {\bf if-else} statement will run
 the codes for the case `s'. The program fragment for case `s' is shown below:
 \begin{lstlisting}
 else if(key == 's'){//down
-    nxt.stopOneJoint(NXT_JOINTB);
-    nxt.stopOneJoint(NXT_JOINTC);
+    nxt.stopOneMotor(NXT_MOTORB);
+    nxt.stopOneMotor(NXT_MOTORC);
     movemode='s';
 }
 \end{lstlisting}
 %%% case `a' %%%
-In case `a', the program will run joints {\tt NXT\_JOINTA} at a speed ratio of 
+In case `a', the program will run motors {\tt NXT\_MOTORA} at a speed ratio of 
 0.3. For case `a', the program will rotate the NXT humanoid head left.\\
 
 When the key `a' has been pressed, the {\bf if-else} statement will run 
 the codes for the case `a'. The program fragment for case `a' is shown below:
 \begin{lstlisting}
 else if(key == 'a'){//left
-    nxt.setJointSpeedRatio(NXT_JOINTA, 0.3);
-    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_BACKWARD);
+    nxt.setMotorSpeedRatio(NXT_MOTORA, 0.3);
+    nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_BACKWARD);
 }
 \end{lstlisting}
 %%% case `d' %%%
-In case `d', the program will run the joint {\tt NXT\_JOINTA} at a speed ratio 
+In case `d', the program will run the motor {\tt NXT\_MOTORA} at a speed ratio 
 of 0.3. For case `d', the program will rotate the NXT humanoid head right.\\
 
 When the key `d' has been pressed, the {\bf if-else} statement will run 
 the codes for the case `d'. The program fragment for case `d' is shown below:
 \begin{lstlisting}
 else if(key == 'd'){//right
-    nxt.setJointSpeedRatio(NXT_JOINTA, 0.3);
-    nxt.moveJointContinuousNB(NXT_JOINTA, NXT_FORWARD);
+    nxt.setMotorSpeedRatio(NXT_MOTORA, 0.3);
+    nxt.moveMotorContinuousNB(NXT_MOTORA, NXT_FORWARD);
 }
 \end{lstlisting}
 %%% case `q' %%%
@@ -2627,8 +2627,8 @@ statement will run the codes for the case `x'. The program fragment for case `x'
 is shown below:
 \begin{lstlisting}
 else if(key == 'x'){//stop
-    nxt.stopOneJoint(NXT_JOINTB);
-    nxt.stopOneJoint(NXT_JOINTC);
+    nxt.stopOneMotor(NXT_MOTORB);
+    nxt.stopOneMotor(NXT_MOTORC);
     movemode = 'x';
 }
 \end{lstlisting}

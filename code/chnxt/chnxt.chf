@@ -1,5 +1,6 @@
 #include <nxt.h>
 #include <dlfcn.h>
+#include <stdarg.h>
 
 ChNXT::ChNXT() {
     void *fptr;

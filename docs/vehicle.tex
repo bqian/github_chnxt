@@ -6,7 +6,6 @@ written, with the inclusion of some Ch specific functions and
 header files that are used to connect and control the NXT. The 
 basic structure of a Ch NXT robot program is shown in the flow 
 diagram in Figure \ref{fig_NXT_pstruc} below.\\
-
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[h!]
   \begin{center}
@@ -15,7 +14,6 @@ diagram in Figure \ref{fig_NXT_pstruc} below.\\
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-
 \subsection{Initialization}
 In the beginning of a Ch Mindstorms NXT program or any C program,
 you must include proper header files to run the program properly.
@@ -75,7 +73,7 @@ motors, and how the previously presented NXT vehicle actions can be done by cont
 %%%%%%%%%%%%%%%%%% Motor Control Functions %%%%%%%%%%%%%%%%%
 \subsubsection{Motor Control Functions}
 The function that is used to control the NXT motors is 
-\verb+moveJointContinuousNB()+. To use the function, you need the
+\verb+moveMotorContinuousNB()+. To use the function, you need the
 motor port and the move direction. The speed of the motors are 
 limited, and can only ranged from 0 to 100. For the direction, 1 
 means positive direction and -1 means a negative direction. You 
@@ -85,11 +83,11 @@ vehicle, forward motion can be achieved by turning the motors on
 to the same speed. For example:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, speed, speed);
+    nxt.setMotorSpeeds(0, speed, speed);
 
     /* Move foward */
-    nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-    nxt.moveJointContinuousNB(ROBOT_JOINT3, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, 1);
 
     /* Pause program for a while */
     delay(5);
@@ -97,7 +95,7 @@ to the same speed. For example:
 \noindent
 This will move the NXT vehicle forward at the value the variable speed was set to. To get the 
 NXT vehicle to move in reverse, the same code can be used by changing the sign on speed in the 
-function \verb+setJointSpeeds()+. The following shows the \verb+forwardBackward.ch+ rewritten to use 
+function \verb+setMotorSpeeds()+. The following shows the \verb+forwardBackward.ch+ rewritten to use 
 the individual motor control.
 
 %%%%%%%%%%  program 2 %%%%%%%%%%%%%
@@ -110,7 +108,7 @@ Program 2: Ch program to move the NXT vehicle forward and backward.
 
 %%%%%%%%%%%% Turning Using Single Motor Control %%%%%%%%%%%%
 \subsection{Turning Using Single Motor Control}
-Turning and rotation movements can also be achieved using the \verb+moveJointContinuousNB()+ 
+Turning and rotation movements can also be achieved using the \verb+moveMotorContinuousNB()+ 
 functions. As previously discussed, to turn our NXT vehicle, one motor must be rotating at a faster speed then the other, 
 or the motors must be spinning in the opposite direction. For the following discussion, Figures \ref{fig_NXT_leftright} 
 and \ref{fig_NXT_360LR} maybe useful.\\
@@ -122,11 +120,11 @@ speed that the right wheel is set to. To implement it with the single motor cont
 would do the following:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, speed, 0.7*speed);
+    nxt.setMotorSpeeds(0, speed, 0.7*speed);
 
     /* Move foward-left */
-    nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-    nxt.moveJointContinuousNB(ROBOT_JOINT3, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, 1);
 
     /* Pause program for a while */
     delay(5);
@@ -137,11 +135,11 @@ NXT vehicle response. The function \verb+vehicleRotateLeft()+ works similarly, i
 left wheel at the negative speed of the right wheel. An example is shown below:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, speed, speed);
+    nxt.setMotorSpeeds(0, speed, speed);
 
     /* Rotate left in place */
-    nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-    nxt.moveJointContinuousNB(ROBOT_JOINT3, -1);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, -1);
 
     /* Pause program for a while */
     delay(5);
@@ -159,10 +157,10 @@ decreasing a wheel speed. For example, to implement a left turn, we could increa
 the right wheel by multiplying by a constant, such as 1.2.  The resulting code would look like:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, 1.2*speed, speed);
+    nxt.setMotorSpeeds(0, 1.2*speed, speed);
     /* Move foward-left */
-    nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-    nxt.moveJointContinuousNB(ROBOT_JOINT3, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+    nxt.moveMotorContinuousNB(NXT_MOTORC, 1);
     /* Pause program for a while */
     delay(5);
 \end{verbatim}
@@ -170,7 +168,7 @@ the right wheel by multiplying by a constant, such as 1.2.  The resulting code w
 While this would work for slower motor speeds, a bug would occur if the NXT vehicle speed was 
 set too high. Can you spot why? As previously discussed, the valid motor speeds for the NXT 
 motors are between 0 to 100. If the speed variable is set to 100, the command to control 
-the left motor (ROBOT\_JOINT3) will function correctly.  The right motor (ROBOT\_JOINT2) will recieve
+the left motor (ROBOT\_MOTORC) will function correctly.  The right motor (ROBOT\_MOTORB) will recieve
 a command telling it to set the motor speed to 1.2 x 100 = 120. This is an invalid motor 
 command, and if you tried to run it on the NXT, it will cause the motor to reverse direction, 
 making the NXT vehicle turn right instead of left. It is important to be watchful of these 
@@ -205,32 +203,32 @@ our demonstration programs.\\
   \end{center}
 \end{figure}
 %%%%% END OF FIGURE %%%%%
-%\subsection{Set the Joints' Speed}
+%\subsection{Set the Motors' Speed}
 %After creating a connection with the NXT, you can begin your program to control the NXT. Before make 
-%joints move, the speed of three joints has to be set by using the function \verb+setJointSpeed()+ to 
-%setup a single joint or by using the function \verb+setJointSpeeds()+ to setup speed for all three 
-%joints. However, the speed of the motors are limited, and can only be set from 1 to 100. The following 
-%shows how to setup speed for joints of Lego Mindstorms:
+%motors move, the speed of three motors has to be set by using the function \verb+setMotorSpeed()+ to 
+%setup a single motor or by using the function \verb+setMotorSpeeds()+ to setup speed for all three 
+%motors. However, the speed of the motors are limited, and can only be set from 1 to 100. The following 
+%shows how to setup speed for motors of Lego Mindstorms:
 
 %\begin{verbatim}
-%    /* setup speed for a single joint */
-%    nxt.setJointSpeed(ROBOT_JOINT1, 50);
+%    /* setup speed for a single motor */
+%    nxt.setMotorSpeed(NXT_MOTORA, 50);
 %
-%    /* setup speed for all joints */
-%    nxt.setJointSpeeds(20, 40, 40);
+%    /* setup speed for all motors */
+%    nxt.setMotorSpeeds(20, 40, 40);
 %\end{verbatim}
 
 % END OF SET SPEED %
 %\newline
 %\\
 \subsection{Moving the Robot Forward}
-After setup speed for the joints, you can move the NXT vehicle forward by using the 
+After setup speed for the motors, you can move the NXT vehicle forward by using the 
 \verb+vehicleRollForward()+. After using the \verb+vehicleRollForward()+ function, you might want to 
 allow some time for the motor to run by pausing the program for a few seconds. To pause the program 
 from running for a few seconds, you can use the \verb+delay()+ function (each unit is 1 second, i.e. 
 \verb+delay(1)+ = 1 second pause). Figure \ref{fig_NXT_forward} shows the NXT vehicle moving forward 
 by actuating both wheels forward with the same speed, which is how the function \verb+vehicleRollForward()+ works. 
-By default, the ports for the two wheels on the NXT are ROBOT\_JOINT2 and ROBOT\_JOINT3.\\
+By default, the ports for the two wheels on the NXT are ROBOT\_MOTORB and ROBOT\_MOTORC.\\
 %%%%% START OF FIGURE %%%%%
 \begin{figure}[h]
   \begin{center}
@@ -253,12 +251,12 @@ program:
 
 \subsection{Ending your program}
 After you finish your program, you must end your program properly by stopping all the motors and 
-disconnect the NXT from your computer. You can stop the motors using the \verb+stopAllJoints()+ function
+disconnect the NXT from your computer. You can stop the motors using the \verb+stopAllMotors()+ function
 , which stops all of the NXT motors. To disconnect the nxt, use the \verb+disconnect()+ function. For
 example:
 \begin{verbatim}
     /* Stop the motors */
-    nxt.stopAllJoints();
+    nxt.stopAllMotors();
     
     /* Disconnect NXT */
     nxt.disconnect();
@@ -293,7 +291,7 @@ Using our new function, we can add the following code fragment to our first prog
 move backwards. The code fragment is shown below:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, 25, 25);
+    nxt.setMotorSpeeds(0, 25, 25);
     /* Move backward */
     nxt.vehicleRollBackward();
     delay(5);
@@ -323,7 +321,7 @@ and \verb+vehicleTurnRight()+. Like the previous NXT functions, a speed must be 
 using the function.  An example is shown below:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, 100, 70);
+    nxt.setMotorSpeeds(0, 100, 70);
     /* Turn Left */ 
     nxt.vehicleTurnLeft();
     delay(5);
@@ -331,7 +329,7 @@ using the function.  An example is shown below:
     //or
     
     /* set speed */
-    nxt.setJointSpeeds(0, 70, 100);
+    nxt.setMotorSpeeds(0, 70, 100);
     /* Turn Right */
     nxt.vehicleTurnRight();
     delay(5);
@@ -358,7 +356,7 @@ To make the NXT rotate in place, we can use the functions \verb+vehicleRotateLef
 and \verb+vehicleRotateRight()+.  An example of how to use the functions are shown below:
 \begin{verbatim}
     /* set speed */
-    nxt.setJointSpeeds(0, 50, 50);
+    nxt.setMotorSpeeds(0, 50, 50);
     /* rotate left */
     nxt.vehicleRotateLeft();
     delay(5);
@@ -366,7 +364,7 @@ and \verb+vehicleRotateRight()+.  An example of how to use the functions are sho
     // or
     
     /* set speed */
-    nxt.setJointSpeeds(0, 50, 50);
+    nxt.setMotorSpeeds(0, 50, 50);
     /* rotate right */
     nxt.vehicleRotateRight();
     delay(5);
@@ -547,12 +545,12 @@ When the key 'w' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 'w' is shown below:
 \begin{verbatim} 
     case 'w': //up
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, 1);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, 1);
         movemode = 'w';
         break;
 \end{verbatim}
-In case 'w', the program will run the motor in \verb+ROBOT_JOINT2+ and \verb+ROBOT_JOINT3+ forward at
+In case 'w', the program will run the motor in \verb+NXT_MOTORB+ and \verb+NXT_MOTORC+ forward at
 the velocity \verb+speed+, and then set the motor to run idle mode. Next, 'w' key is stored in the 
 variable \verb+movemode+, which will be used to indicate the current mode for NXT vehicle. Basically,
 the case 'w' will move the NXT vehicle forward with velocity \verb+speed+.
@@ -563,12 +561,12 @@ When the key 's' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 's' is shown below:
 \begin{verbatim} 
     case 's': //down
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, -1);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, -1);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, -1);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, -1);
         movemode = 's';
         break;
 \end{verbatim}
-In case 's', the program will run the motor in \verb+ROBOT_JOINT2+ and \verb+ROBOT_JOINT3+ backward 
+In case 's', the program will run the motor in \verb+NXT_MOTORB+ and \verb+NXT_MOTORC+ backward 
 at the velocity \verb+speed+, and then set the motor to run idle mode. Next, 's' key is stored in the
 variable \verb+movemode+, which will be used to indicate the current mode for NXT vehicle. Basically,
 the case 's' will move the NXT vehicle backward with velocity \verb+speed+.
@@ -579,12 +577,12 @@ When the key 'a' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 'a' is shown below:
 \begin{verbatim} 
     case 'a': //left
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, -1);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, -1);
         movemode = 'a';
 \end{verbatim}
-In case 'a', the program will actuate motor in \verb+ROBOT_JOINT2+ forward at velocity \verb+speed+ 
-and actuate motor in \verb+ROBOT_JOINT3+ backward at velocity \verb+speed+. Next, 'a' key is stored in the variable \verb+movemode+, which will be used to 
+In case 'a', the program will actuate motor in \verb+NXT_MOTORB+ forward at velocity \verb+speed+ 
+and actuate motor in \verb+NXT_MOTORC+ backward at velocity \verb+speed+. Next, 'a' key is stored in the variable \verb+movemode+, which will be used to 
 indicate the current mode for NXT vehicle.
 \\ \\
 %%% case 'd' %%%
@@ -593,13 +591,13 @@ When the key 'd' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 'd' is shown below:
 \begin{verbatim} 
     case 'd': //right
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, -1);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, 1);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, -1);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, 1);
         movemode = 'd';
         break;
 \end{verbatim}
-In case 'd', the program will actuate motor in \verb+ROBOT_JOINT2+ backward at velocity \verb+speed+ 
-and actuate motor in \verb+ROBOT_JOINT3+ forward at velocity \verb+speed+. Next, 'd' key is stored in
+In case 'd', the program will actuate motor in \verb+NXT_MOTORB+ backward at velocity \verb+speed+ 
+and actuate motor in \verb+NXT_MOTORC+ forward at velocity \verb+speed+. Next, 'd' key is stored in
 the variable \verb+movemode+, which will be used to indicate the current mode for NXT vehicle.
 \\ \\
 %%% case 'q' %%%    
@@ -608,14 +606,14 @@ When the key 'q' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 'q' is shown below:
 \begin{verbatim} 
     case 'q': //forward-left
-        nxt.setJointSpeeds(0, speed, 0.7*speed);
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, 1);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, -1);
+        nxt.setMotorSpeeds(0, speed, 0.7*speed);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, 1);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, -1);
         movemode = 'q';
         break;
 \end{verbatim}
-In case 'q', the program will actuate motor in \verb+ROBOT_JOINT2+ forward at velocity \verb+speed+ 
-and actuate motor in \verb+ROBOT_JOINT3+ forward at velocity 0.7*\verb+speed+. Next, 'q' key is 
+In case 'q', the program will actuate motor in \verb+NXT_MOTORB+ forward at velocity \verb+speed+ 
+and actuate motor in \verb+NXT_MOTORC+ forward at velocity 0.7*\verb+speed+. Next, 'q' key is 
 stored in the variable \verb+movemode+, which will be used to indicate the current mode for NXT 
 vehicle.
 \\ \\
@@ -625,14 +623,14 @@ When the key 'e' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 'e' is shown below:
 \begin{verbatim} 
     case 'e': //forward-right
-        nxt.setJointSpeeds(0, 0.7*speed, speed);
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, -1);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, 1);
+        nxt.setMotorSpeeds(0, 0.7*speed, speed);
+        nxt.moveMotorContinuousNB(NXT_MOTORB, -1);
+        nxt.moveMotorContinuousNB(NXT_MOTORC, 1);
         movemode = 'e';
         break;
 \end{verbatim}
-In case 'e', the program will actuate motor in \verb+ROBOT_JOINT2+ forward at velocity 
-0.7*\verb+speed+ and actuate motor in \verb+ROBOT_JOINT3+ forward at velocity \verb+speed+. Next, 'e'
+In case 'e', the program will actuate motor in \verb+NXT_MOTORB+ forward at velocity 
+0.7*\verb+speed+ and actuate motor in \verb+NXT_MOTORC+ forward at velocity \verb+speed+. Next, 'e'
 key is stored in the variable \verb+movemode+, which will be used to indicate the current mode for 
 NXT vehicle.
 \\ \\
@@ -642,12 +640,12 @@ When the key 'x' has been pressed, the \verb+switch()+ function will run the cod
 The program fragment for case 'x' is shown below:
 \begin{verbatim} 
     case 'x': //stop
-        nxt.stopOneJoint(ROBOT_JOINT2);
-        nxt.stopOneJoint(ROBOT_JOINT3);
+        nxt.stopOneMotor(NXT_MOTORB);
+        nxt.stopOneMotor(NXT_MOTORC);
         movemode = 'x';
         break;
 \end{verbatim}
-In case 'x', the program will set the motor in \verb+ROBOT_JOINT2+ and \verb+ROBOT_JOINT3+ to zero 
+In case 'x', the program will set the motor in \verb+NXT_MOTORB+ and \verb+NXT_MOTORC+ to zero 
 velocity, and then set the motor to off idle mode. Next, 'x' key is stored in the variable 
 \verb+movemode+, which will be used to indicate the current mode for NXT vehicle.
 Basically, the case 'x' stops the motor and keep it turned off until another key is pressed.
@@ -825,7 +823,7 @@ disconnect the NXT. The while loop of the touch sensor demonstration program is 
         /* If touch sensor is triggered */
         if (touchValue < 500){
             //Move backward
-            nxt.setJointSpeeds(0, 25, 25);
+            nxt.setMotorSpeeds(0, 25, 25);
             nxt.vehicleRollBackward();
             delay(5);
             break;
@@ -890,7 +888,7 @@ The while loop code block for Program 4 is shown below:
         if (ultrasonicValue < 20){
             speed = 25;
             /* Move backward */
-            nxt.setJointSpeeds(0, speed, speed);
+            nxt.setMotorSpeeds(0, speed, speed);
             nxt.vehicleRollBackward();
             delay(3);
             /* Quit the while loop */
@@ -913,7 +911,7 @@ The while loop code block for Program 4 is shown below:
             speed = 75;
         }
         /* Move forward (constantly) */
-        nxt.setJointSpeeds(0, speed, speed);
+        nxt.setMotorSpeeds(0, speed, speed);
         nxt.vehicleRollForward();
     }
 \end{verbatim}
@@ -1072,7 +1070,7 @@ The last portion of the while loop sets the robot to be running forward if it is
 The program fragment for running forward is shown below.
 \begin{verbatim}
     /* Turn motors on (drive forward) */
-    nxt.setJointSpeeds(0, speed, speed);
+    nxt.setMotorSpeeds(0, speed, speed);
     nxt.vehicleRollForward();
 \end{verbatim}
 This program fragment command the vehicle to move forward continuously by setting both motors rotating positively at

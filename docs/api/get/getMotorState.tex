@@ -1,0 +1,65 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::getMotorState()}\index{ChNXT::getMotorState()}}\\
+%\phantomsection
+\addcontentsline{toc}{subsection}{getMotorState()}
+
+\noindent
+{\bf Synopsis}
+\begin{lstlisting}
+#include <nxt.h>
+int ChNXT::getMotorState(nxtMotorId_t id, nxtMotorState_t &state);
+\end{lstlisting}
+
+\noindent
+{\bf Purpose}\\
+Determine whether a motor is moving or not.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}
+\vspace{-0.1in}
+\begin{description}
+\item               
+\begin{tabular}{p{10 mm}p{145 mm}}
+\texttt{id} & The motor number. This is an enumerated type 
+discussed in Section \ref{sec:nxtMotorId_t} on Page~\pageref{sec:nxtMotorId_t}.\\
+\texttt{state} & An integer variable which will be overwritten with the current 
+state of the motor. This is an enumerated type discussed in 
+Section~\ref{sec:nxtMotorState_t} on Page~\pageref{sec:nxtMotorState_t}.\\
+\end{tabular}
+\end{description}
+
+\noindent
+{\bf Description}\\
+This function is used to determine the current state of a motor. Valid states are listed below.\\
+\\
+\input{motorStateTable}
+
+\noindent
+{\bf Example}
+\begin{lstlisting}
+#include <nxt.h>
+
+ChNXT nxt;
+nxtMotorState_t status;
+
+nxt.connect();
+
+nxt.getMotorState(NXT_MOTORA, status);
+if(status == 0)
+    printf("MotorA is not moving.\n");
+else
+    printf("MotorA is moving.\n");
+\end{lstlisting}
+%\noindent
+
+\noindent
+{\bf See Also}\\
+\texttt{isMoving()}\\
+%\CPlot::\DataThreeD(), \CPlot::\DataFile(), \CPlot::\Plotting(), \plotxy().\\

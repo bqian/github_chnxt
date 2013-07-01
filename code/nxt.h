@@ -183,7 +183,13 @@ class ChNXT {
         int motionRotateRight(void);
         int motionTurnLeft(void);
         int motionTurnRight(void);
-		int setTwoWheelRobotSpeed(double speed, double radius);
+        int moveForward(void);
+        int moveBackward(void);
+        int rotateLeft(void);
+        int rotateRight(void);
+        int turnLeft(void);
+        int turnRight(void);
+        int setTwoWheelRobotSpeed(double speed, double radius);
         /* functions for humanoid configuration */
         int humanoidWalkForwardNB(double angle);
         int humanoidWalkBackwardNB(double angle);

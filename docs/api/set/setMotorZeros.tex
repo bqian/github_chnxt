@@ -1,0 +1,55 @@
+\noindent
+\vspace{5pt}
+\rule{4.5in}{0.015in}\\
+\noindent
+{\LARGE \texttt{ChNXT::setMotorZeros()} \index{ChNXT::setMotorZeros()}}\\
+
+\addcontentsline{toc}{subsection}{setMotorZeros()}
+
+\noindent
+{\bf Synopsis}
+\begin{lstlisting}
+#include <nxt.h>
+int ChNXT::setMotorZeros(void);
+\end{lstlisting}
+
+\noindent
+{\bf Purpose}\\
+Reset the tachometer count for all motors.\\
+
+\noindent
+{\bf Return Value}\\
+The function returns 0 on success and non-zero otherwise.\\
+
+\noindent
+{\bf Parameters}\\
+None.\\
+
+\noindent
+{\bf Description}\\
+This function is used to reset the tachometer count for 
+all motors of the Mindstorms NXT.\\
+
+\noindent
+{\bf Example}
+\begin{lstlisting}
+#include <nxt.h> 
+
+ChNXT nxt;
+
+if (nxt.connectWithAddress("00:16:53:12:e7:80")){
+    printf("Connection to NXT has failed.");
+    exit(-1);
+}
+    
+nxt.setMotorZeros();
+\end{lstlisting}
+
+%\noindent
+%{\bf Output}\\
+%None.\\
+%\\
+\noindent
+{\bf See Also}\\
+\texttt{setMotorZero()}\\
+%%%%% END OF ChNXT::setMotorZeros %%%%%

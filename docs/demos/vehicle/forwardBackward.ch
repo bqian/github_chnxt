@@ -15,7 +15,7 @@ if (nxt.connect() != 0) {
 }
 
 /* set speed via pass the speed ratio*/
-nxt.setJointSpeedRatios(0, speedRatio, speedRatio);
+nxt.setMotorSpeedRatios(0, speedRatio, speedRatio);
 
 /* Move the Robot Forward */
 nxt.vehicleRollForward(360);

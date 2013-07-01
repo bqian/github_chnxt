@@ -30,21 +30,21 @@
 #include "nxt_internal.h"
 #endif /* not _CH_ */
 
-#ifndef NXT_JOINTS_E
-#define NXT_JOINTS_E
-typedef enum nxt_joints_e{
-    NXT_JOINTA = 0, // PORT_A
-    NXT_JOINTB = 1, // PORT_B
-    NXT_JOINTC = 2  // PORT_C
-} nxtJointId_t;
-#endif /* NXT_JOINTS_E */
+#ifndef NXT_MOTORS_E
+#define NXT_MOTORS_E
+typedef enum nxt_motors_e{
+    NXT_MOTORA = 0, // PORT_A
+    NXT_MOTORB = 1, // PORT_B
+    NXT_MOTORC = 2  // PORT_C
+} nxtMotorId_t;
+#endif /* NXT_MOTORS_E */
 
-#ifndef NXT_JOINT_STATE_E
-#define NXT_JOINT_STATE_E
-typedef enum nxt_joint_state_e{
+#ifndef NXT_MOTOR_STATE_E
+#define NXT_MOTOR_STATE_E
+typedef enum nxt_motor_state_e{
     NXT_FORWARD = 1,
     NXT_BACKWARD = -1,
-} nxtJointState_t;
+} nxtMotorState_t;
 #endif
 
 
@@ -104,66 +104,68 @@ class ChNXT {
         /* functions for BTH connection */
         int connect(void);
         int connectWithAddress(char usr_addr[18], int channel);
-        int connectWithBluetoothAddress(char usr_addr[18], int channel);
         int disconnect(void);
-        /* functions for a single joint(motor) */
-        int setJointRelativeZero(nxtJointId_t id);
-        int setJointToZero(nxtJointId_t id);
-        int setJointRelativeZeros(void);
-        int setJointZeros(void);
+        /* functions for a single motor(motor) */
+        int setMotorRelativeZero(nxtMotorId_t id);
+        int setMotorToZero(nxtMotorId_t id);
+        int setMotorRelativeZeros(void);
+        int setMotorZeros(void);
         int resetToZeros(void);
         int setToZeros(void);
-        int moveJointContinuousNB(nxtJointId_t id, 
-                nxtJointState_t dir); 
-        int moveJointNB(nxtJointId_t id, double angle);
-        int moveJointToNB(nxtJointId_t id, double angle);
+        int moveMotorContinuousNB(nxtMotorId_t id, 
+                nxtMotorState_t dir); 
+        int moveMotorNB(nxtMotorId_t id, double angle);
+        int moveMotorToNB(nxtMotorId_t id, double angle);
         int moveNB(double angle1, double angle2, double angle3);
         int moveToNB(double angle1, double angle2, double angle3);
         int moveToZeroNB(void);
-        int moveJoint(nxtJointId_t id, double angle);
-        int moveJointTo(nxtJointId_t id, double angle);
+        int moveMotor(nxtMotorId_t id, double angle);
+        int moveMotorTo(nxtMotorId_t id, double angle);
         int move(double angle1, double angle2, double angle3);
         int moveTo(double angle1, double angle2, double angle3);
         int moveToZero(void);
-        int moveContinuousNB(nxtJointState_t dir1,
-                nxtJointState_t dir2, 
-                nxtJointState_t dir3);
-        int moveContinuousTime(nxtJointState_t dir1,
-                nxtJointState_t dir2, 
-                nxtJointState_t dir, 
+        int moveContinuousNB(nxtMotorState_t dir1,
+                nxtMotorState_t dir2, 
+                nxtMotorState_t dir3);
+        int moveContinuousTime(nxtMotorState_t dir1,
+                nxtMotorState_t dir2, 
+                nxtMotorState_t dir, 
                 double seconds);
-        int moveJointWait(nxtJointId_t id);
+        int moveMotorWait(nxtMotorId_t id);
         int moveWait(void);
         /* functions for checking status */
         int isConnected(void);
         int isMoving(void);
-        int isJointMoving(nxtJointId_t id);
-        double getJointPosition(nxtJointId_t id);
-        int getJointAngle(nxtJointId_t id, double &angle);
-        //int getJointAngle(nxtJointId_t id, int &angle);
-        int getJointSpeedRatio(nxtJointId_t id, double &ratio);
-        int getJointSpeedRatios(double &ratio1, 
+        int isMotorMoving(nxtMotorId_t id);
+        double getMotorPosition(nxtMotorId_t id);
+        int getMotorAngle(nxtMotorId_t id, double &angle);
+        //int getMotorAngle(nxtMotorId_t id, int &angle);
+		int getMotorMaxSpeed(nxtMotorId_t id, int &speed);
+		int getMotorSpeed(nxtMotorId_t id, int &speed);
+		int getMotorSpeeds(int &speed1, int &speed2, int &speed3);
+        int getMotorSpeedRatio(nxtMotorId_t id, double &ratio);
+        int getMotorSpeedRatios(double &ratio1, 
                 double &ratio2,
                 double &ratio3);
-        int getJointState(nxtJointId_t id, int &status);
-        int stopOneJoint(nxtJointId_t id);
-        int stopTwoJoints(nxtJointId_t id1, nxtJointId_t id2);
-        int stopAllJoints(void);
+        int getMotorState(nxtMotorId_t id, int &status);
+        int stopOneMotor(nxtMotorId_t id);
+        int stopTwoMotors(nxtMotorId_t id1, nxtMotorId_t id2);
+        int stopAllMotors(void);
         int stopMotion(void);
         /* functions for sensors */
         int setSensor(nxtSensorId_t id, 
                 nxtSensorType_t type,
                 nxtSensorMode_t mode);
         int getSensor(nxtSensorId_t id, int &value);
-        //int getJointStates(int *status1, int *status2, int *status3);
+        //int getMotorStates(int *status1, int *status2, int *status3);
         /* other functions */
         int printMess(void);
         int playTone(int freq, int duration);
-        /* set joints'(motors') speeds */
-        int setJointSpeed(nxtJointId_t id, int speed);
-        int setJointSpeeds(int speed1, int speed2, int speed3);
-        int setJointSpeedRatio(nxtJointId_t id, double ratio);
-        int setJointSpeedRatios(double ratio1, double ratio2,
+        /* set Motors'(motors') speeds */
+        int setMotorSpeed(nxtMotorId_t id, int speed);
+        int setMotorSpeeds(int speed1, int speed2, int speed3);
+        int setMotorSpeedRatio(nxtMotorId_t id, double ratio);
+        int setMotorSpeedRatios(double ratio1, double ratio2,
                 double ratio3);
         /* functions for viecle configuration */
         int vehicleRollForwardNB(double angle);
@@ -181,6 +183,7 @@ class ChNXT {
         int motionRotateRight(void);
         int motionTurnLeft(void);
         int motionTurnRight(void);
+		int setTwoWheelRobotSpeed(double speed, double radius);
         /* functions for humanoid configuration */
         int humanoidWalkForwardNB(double angle);
         int humanoidWalkBackwardNB(double angle);
@@ -189,7 +192,7 @@ class ChNXT {
         int humanoidMotionWait(void);
         /* print infromation */
         int printDeviceInfo(void);
-        int printJointInfo(nxtJointId_t id);
+        int printMotorInfo(nxtMotorId_t id);
         int printSensorInfo(int port);
         /* testing function */
         int test(void);
@@ -201,12 +204,12 @@ class ChNXT {
         int sendMessage(int length);
         int recvMessage(int length);
         /* functions for actuators */
-        //int setOutputState(nxtJointId_t id,  unsigned char mode,
+        //int setOutputState(nxtMotorId_t id,  unsigned char mode,
         //unsigned char regulationMode, char turnRatio,
         //unsigned char runState, unsigned int tachoLimit, int reply);
-        int getOutputState(nxtJointId_t port);
-        int checkJointRunDirection(nxtJointId_t id, int dir);
-        int checkJointSpeedRatioValidation(double &ratio);
+        int getOutputState(nxtMotorId_t port);
+        int checkMotorRunDirection(nxtMotorId_t id, int dir);
+        int checkMotorSpeedRatioValidation(double &ratio);
         //int getTacho(int port);
         /* functions for sensors */
         int initInput(nxtSensorId_t id);
@@ -225,7 +228,7 @@ class ChNXT {
         //SOCKADDR_BTH sa;
         char configFilePath[512];
         char btAddress[18];
-        char sendMsg[256];
+        unsigned char sendMsg[256];
         char recvMsg[256];
         /* variables for sensors */
         int sensorOn[4];
@@ -239,8 +242,8 @@ class ChNXT {
         int sensorValCalib[4];
         /* variables for actuators */
         int motorOn[3];
-        int jointSpeed[3];
-        double jointSpeedRatio[3];
+        int motorSpeed[3];
+        double motorSpeedRatio[3];
         double motorPosRaw[3];
         double motorPosCum[3];
         int iRunState[3];
@@ -252,6 +255,11 @@ class ChNXT {
         /* other variables */
         int connected;
         int error;
+		int isMotorReady(nxtMotorId_t id);
+		int resetErrorCorrection(nxtMotorId_t id);
+		//int LSWrite(nxtSensorId_t id, int txDataLength, int rxDataLength, char *data);
+		//int LSRead(nxtSensorId_t id); 				//probably need a way to return more
+		//int	LSGetStatus(nxtSensorId_t id);
 #else
     public:
         static void *g_chnxt_dlhandle;

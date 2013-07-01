@@ -1,5 +1,5 @@
 /* File name: setSpeedRatios.ch
- * set speed ratios for joints of NXT. */
+ * set speed ratios for motors of NXT. */
 
 #include <nxt.h>
 ChNXT nxt;
@@ -8,8 +8,8 @@ ChNXT nxt;
 nxt.connect();
 
 /* set speed ratios */
-nxt.setJointSpeedRatios(0, 0.4, 0.4);
-nxt.setJointSpeedRatio(NXT_JOINTA, 0.5);
+nxt.setMotorSpeedRatios(0, 0.4, 0.4);
+nxt.setMotorSpeedRatio(NXT_MOTORA, 0.5);
 
-/* make NXT joints move */
+/* make NXT motors move */
 nxt.move(360, 360, 360);

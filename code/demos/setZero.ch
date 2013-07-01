@@ -1,5 +1,5 @@
 /* File name: setZero.ch
- * presents how to set zero positions for NXT joints. */
+ * presents how to set zero positions for NXT motors. */
 
 #include <nxt.h>
 
@@ -9,7 +9,7 @@ ChNXT nxt;
 nxt.connect();
 
 /* Set new zero positions */
-nxt.setJointZero(NXT_JOINTA);
+nxt.setMotorZero(NXT_MOTORA);
 
 /* Move to zero */
 nxt.moveToZero();

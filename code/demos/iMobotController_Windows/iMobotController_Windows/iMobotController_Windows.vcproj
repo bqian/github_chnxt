@@ -375,10 +375,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\gait.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\iMobotController_Windows.cpp"
 				>
 			</File>
@@ -395,19 +391,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\mobot.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\nxt.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\RecordMobot.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\robotManager.cpp"
 				>
 			</File>
 			<File
@@ -465,10 +449,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\gait.h"
-				>
-			</File>
-			<File
 				RelativePath=".\iMobotController_Windows.h"
 				>
 			</File>
@@ -485,23 +465,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\mobot.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\nxt.h"
 				>
 			</File>
 			<File
-				RelativePath=".\RecordMobot.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\robotManager.h"
 				>
 			</File>
 			<File

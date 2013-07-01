@@ -14,7 +14,7 @@ if (nxt.connect()) {
 }
 
 /* Set Speed Ratio */
-nxt.setJointSpeedRatios(0, 0.25, 0.25);
+nxt.setMotorSpeedRatios(0, 0.25, 0.25);
 
 /* Turn the motors on */
 nxt.vehicleRollForward(360);

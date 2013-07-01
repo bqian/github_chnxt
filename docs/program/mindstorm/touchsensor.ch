@@ -24,12 +24,12 @@ if (status == 0) {
     exit(0);
 }
 
-/* set joint speed ratios */
-nxt.setJointSpeedRatios(0, 0.25, 0.25);
+/* set motor speed ratios */
+nxt.setMotorSpeedRatios(0, 0.25, 0.25);
 
 /* Move Robot Forward */
-nxt.moveJointContinuousNB(NXT_JOINT2, NXT_FORWARD);
-nxt.moveJointContinuousNB(NXT_JOINT3, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORB, NXT_FORWARD);
+nxt.moveMotorContinuousNB(NXT_MOTORC, NXT_FORWARD);
 
 /* Commands: */
 while (1) {
@@ -38,8 +38,8 @@ while (1) {
     /* If touch sensor is triggered */
     if (touchValue == 1) {
         /* Move backward */
-        nxt.moveJointContinuousNB(ROBOT_JOINT2, NXT_BACKWARD);
-        nxt.moveJointContinuousNB(ROBOT_JOINT3, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(ROBOT_MOTORB, NXT_BACKWARD);
+        nxt.moveMotorContinuousNB(ROBOT_MOTORC, NXT_BACKWARD);
         sleep(5);
         /* quit the while loop */
         break;
@@ -47,4 +47,4 @@ while (1) {
 }
 
 /* Stop the motors */
-nxt.stopTwoJoints(ROBOT_JOINT2, ROBOT_JOINT3);
+nxt.stopTwoMotors(ROBOT_MOTORB, ROBOT_MOTORC);
